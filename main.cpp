@@ -1,8 +1,8 @@
 #include <iostream>
-#include <string>
-#include "./Character.h"
+#include "./Characters.h"
 #include "./InTown.h"
 #include "./OutTown.h"
+#include "./Random.h"
 
 using namespace std;
 
@@ -71,14 +71,15 @@ int main(){
          << "Why and How we fell from Kings to Outcasts!\", " << name << " declared."                                               
          << endl;
 
-    /*
-    player.FullHeal();
+    
+    player.Fullheal();
+    player.gold = 10;
     while(true)
     {
         InTown(player);
         OutTown(player);
     }
-    */
+    
 
 
     return 0;
