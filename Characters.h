@@ -1,5 +1,7 @@
 #pragma once
+#include <iostream>
 #include <string>
+#include "./Skills.h"
 
 using namespace std;
 struct Character
@@ -41,6 +43,15 @@ struct Character
 
     int gold = 0;
 
+    bool hasSword;
+    bool hasArmor;
+    bool hasShield;
+    bool hasStaff;
+    bool hasNecklace;
+    bool hasBow;
+
+    Skill skills[3];
+
     void SetName(string playerName)
     {
         name = playerName;
@@ -61,6 +72,7 @@ struct Character
                 chanceOfDamageReduction = 0.05;
                 damageReduction = 5;
                 chanceOfCritical = 0.05;
+
                 break;
             //Mage
             case 2:
