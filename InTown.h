@@ -2,6 +2,7 @@
 #include <iostream>
 #include "./Characters.h"
 #include "./Random.h"
+#include "./Misc.h"
 
 using namespace std;
 
@@ -66,6 +67,31 @@ void Inn(Character &player, bool isDead = false)
     }
 }
 
+void ShowStats(Character &player)
+{
+    PrintLine();
+    
+    cout << "Player Stats"
+         << "\nName : " << player.name
+         << "\nHP : " << player.currentHp << " / " << player.maxHp
+         << "\nMP : " << player.currentMana << " / " << player.maxMana
+         << "\nLevel : " << player.level
+         << "\nExp : " << player.currentExp << " / " << player.expToNextLevel
+         << "\nG : " << player.gold
+         << "\nAttack Power : " << player.attackDamageMin << " - " << player.attackDamageMax
+         << "\nDefense : " << player.defense
+         << "\nEvasion : " << player.evasion * 100 << " % "
+         << "\nDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
+         << "\nDamage Reduction : " << player.damageReduction
+         << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
+         << endl;
+
+    cout << "Player Skills" 
+         << endl;
+
+    PrintLine();
+}
+
 void InTown(Character &player)
 {
     int opt;
@@ -81,7 +107,13 @@ void InTown(Character &player)
                 Inn(player);
                 break;
             case 2:
-                // MissionBoard(player);
+                //MissionBoard(player);
+                break;
+            case 3:
+                //ItemShop(player);
+                break;
+            case 4:
+                ShowStats(player);
                 break;
         }
     }
