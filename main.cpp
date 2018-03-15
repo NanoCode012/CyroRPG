@@ -3,14 +3,9 @@
 #include "./InTown.h"
 #include "./OutTown.h"
 #include "./Random.h"
+#include "./Misc.h"
 
 using namespace std;
-
-void PrintLine(char character = '=')
-{
-    for (int i = 0; i < 100; i++) cout << character;
-    cout << endl;
-}
 
 void PrintTitle()
 {
@@ -74,6 +69,7 @@ int main(){
     
     player.Fullheal();
     player.gold = 10;
+    
     while(true)
     {
         InTown(player);
