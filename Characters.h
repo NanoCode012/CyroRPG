@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 using namespace std;
@@ -159,3 +160,5 @@ struct Character
         currentMana = maxMana;
     }
 };
+
+#pragma once
