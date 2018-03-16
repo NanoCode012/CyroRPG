@@ -1,9 +1,9 @@
 #include <iostream>
-#include "./Characters.h"
-#include "./InTown.h"
-#include "./OutTown.h"
-#include "./Random.h"
-#include "./Misc.h"
+#include "./Characters.cpp"
+#include "./InTown.cpp"
+#include "./OutTown.cpp"
+#include "./Random.cpp"
+#include "./Misc.cpp"
 
 using namespace std;
 
@@ -69,7 +69,7 @@ int main(){
     
     player.Fullheal();
     player.gold = 10;
-    
+
     while(true)
     {
         InTown(player);

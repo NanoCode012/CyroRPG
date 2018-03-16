@@ -1,8 +1,4 @@
-#pragma once
-#include <iostream>
-#include "./Characters.h"
-#include "./Random.h"
-#include "./Misc.h"
+#include "./InTown.h"
 
 using namespace std;
 
@@ -18,7 +14,7 @@ void OptionsInTown()
          << "5. Leave village"               << endl;
 }
 
-void Inn(Character &player, bool isDead = false)
+void Inn(Character &player, bool isDead)
 {
     if (!isDead)
     {

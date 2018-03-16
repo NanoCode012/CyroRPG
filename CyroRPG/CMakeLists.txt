@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.0)
+project("CyroRPG")
+set(HEADER Characters.h InTown.h Misc.h OutTown.h Skills.h Random.h)
+set(SOURCEFILE Characters.cpp InTown.cpp Misc.cpp OutTown.cpp Skills.cpp Random.cpp)
+set(SOURCE main.cpp ${HEADER} ${SOURCEFILE})
+set (CMAKE_CXX_STANDARD 11)
+add_executable(${PROJECT_NAME} ${SOURCE})
