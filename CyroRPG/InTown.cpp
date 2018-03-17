@@ -11,7 +11,8 @@ void OptionsInTown()
          << "2. Check Misionboard"           << endl
          << "3. Go to Item shop"             << endl
          << "4. Look at stats and inventory" << endl
-         << "5. Leave village"               << endl;
+         << "5. Leave village"               << endl
+         << "6. Quit"                        << endl;
 }
 
 void Inn(Character &player, bool isDead)
@@ -82,8 +83,11 @@ void ShowStats(Character &player)
          << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
          << endl;
 
-    cout << "Player Skills" 
-         << endl;
+    cout << "Player Skills" << endl;
+    for (int i = 0; i < player.amountOfSkills; i++)
+    {
+        cout << player.skills[i].name << "(" << player.skills[i].level << ")" << endl;
+    }
 
     PrintLine();
 }
@@ -97,6 +101,7 @@ void InTown(Character &player)
         OptionsInTown();
         cin >> opt;
         if (opt == 5) break;
+        if (opt == 6) CleanExit();
         switch(opt)
         {
             case 1:

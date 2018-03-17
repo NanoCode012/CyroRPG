@@ -1,9 +1,8 @@
 #include <iostream>
-#include "./Characters.cpp"
-#include "./InTown.cpp"
-#include "./OutTown.cpp"
-#include "./Random.cpp"
-#include "./Misc.cpp"
+#include "./Characters.h"
+#include "./InTown.h"
+#include "./OutTown.h"
+#include "./Misc.h"
 
 using namespace std;
 

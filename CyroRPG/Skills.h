@@ -1,11 +1,15 @@
 #pragma once
-#include "./Characters.h"
+#include <string>
 #include "./Random.h"
+using namespace std;
+
 struct Skill
 {
+    int index;
+    string name;
+
     bool isActive;
     int level = 1;
-    int index;
     
     int manaCost;
 
@@ -19,8 +23,4 @@ struct Skill
     float evasion;
     float chanceOfDamageReduction;
     float chanceOfCritical;
-
-    void Set(Character &player);
-
-    void Use(Character &player);
 };

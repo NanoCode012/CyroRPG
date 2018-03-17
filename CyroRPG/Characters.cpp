@@ -2,11 +2,11 @@
 
 using namespace std;
 
-void SetName(string playerName)
+void Character::SetName(string playerName)
 {
     name = playerName;
 }
-void SetClass(int index)
+void Character::SetClass(int index)
 {
     role = index;
     switch(role)
@@ -23,6 +23,9 @@ void SetClass(int index)
             damageReduction = 5;
             chanceOfCritical = 0.05;
 
+            Character::SetSkill(0);
+            Character::SetSkill(1);
+            Character::SetSkill(2);
             break;
         //Mage
         case 2:
@@ -51,7 +54,7 @@ void SetClass(int index)
     }
 }
 
-string GetClassName()
+string Character::GetClassName()
 {
     switch(role)
     {
@@ -65,7 +68,81 @@ string GetClassName()
     return "null";
 }
 
-void IncreaseStats()
+void Character::SetSkill(int index)
+{
+    switch(index)
+    {
+        //Guard skill
+        case 0:
+            skills[amountOfSkills].name = "Guard";
+            skills[amountOfSkills].isActive = false;
+            skills[amountOfSkills].manaCost = 0;
+            switch(skills[amountOfSkills].level)
+            {
+                case 1:
+                    skills[amountOfSkills].defense = 0.1;
+                    break;
+                case 2:
+                    skills[amountOfSkills].defense = 0.15;
+                    break;
+                case 3:
+                    skills[amountOfSkills].defense = 0.25;
+                    break;
+            }
+            tempDefense = defense * (1 + defense);
+
+            skills[amountOfSkills].index = index;
+            amountOfSkills++;
+            break;
+        //Sword Dance
+        case 1:
+            skills[amountOfSkills].name = "Sword Dance";
+            skills[amountOfSkills].isActive = true;
+            switch(skills[amountOfSkills].level)
+            {
+                case 1:
+                    skills[amountOfSkills].manaCost = 5;
+                    break;
+                case 2:
+                    skills[amountOfSkills].manaCost = 8;
+                    break;
+                case 3:
+                    skills[amountOfSkills].manaCost = 12;
+                    break;
+            }
+
+            skills[amountOfSkills].index = index;
+            amountOfSkills++;
+            break;
+        //Shock Stun
+        case 2:
+            skills[amountOfSkills].name = "Shock Stun";
+            skills[amountOfSkills].isActive = true;
+            switch(level)
+            {
+                case 1:
+                    skills[amountOfSkills].manaCost = 5;
+                    break;
+                case 2:
+                    skills[amountOfSkills].manaCost = 8;
+                    break;
+                case 3:
+                    skills[amountOfSkills].manaCost = 12;
+                    break;
+            }
+
+            skills[amountOfSkills].index = index;
+            amountOfSkills++;
+            break;
+    }
+}
+
+void Character::UseSkill(int index)
+{
+
+}
+
+void Character::IncreaseStats()
 {
     switch(role)
     {
@@ -90,7 +167,7 @@ void IncreaseStats()
     }
 }
 
-bool LevelUp()
+bool Character::LevelUp()
 {
     if (level >= 100) return false;
     if (expToNextLevel - currentExp <= 0.01 || currentExp >= expToNextLevel) 
@@ -111,12 +188,12 @@ bool LevelUp()
     return false;
 }
 
-float GetExpPercentage() 
+float Character::GetExpPercentage() 
 {
     return (currentExp/expToNextLevel)*100;
 }
 
-void Fullheal()
+void Character::Fullheal()
 {
     currentHp = maxHp;
     currentMana = maxMana;

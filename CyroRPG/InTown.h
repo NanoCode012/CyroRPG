@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <stdlib.h>
 #include "./Characters.h"
 #include "./Random.h"
 #include "./Misc.h"

@@ -49,12 +49,17 @@ struct Character
     bool hasNecklace;
     bool hasBow;
 
-    Skill *skills = new Skill[3];
+    int maxAmountOfSkills = 3;
+    int amountOfSkills = 0;
+    Skill *skills = new Skill[maxAmountOfSkills];
 
     void SetName(string playerName);
     void SetClass(int index);
 
     string GetClassName();
+
+    void SetSkill(int index);
+    void UseSkill(int index);
 
     void IncreaseStats();
     
