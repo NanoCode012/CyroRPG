@@ -68,7 +68,7 @@ void ShowStats(Character &player)
 {
     PrintLine();
     
-    cout << "Player Stats"
+    cout << "Player Stats\n"
          << "\nName : " << player.name
          << "\nHP : " << player.currentHp << " / " << player.maxHp
          << "\nMP : " << player.currentMana << " / " << player.maxMana
@@ -83,7 +83,7 @@ void ShowStats(Character &player)
          << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
          << endl;
 
-    cout << "Player Skills" << endl;
+    cout << "\nPlayer Skills\n" << endl;
     for (int i = 0; i < player.amountOfSkills; i++)
     {
         cout << player.skills[i].name << "(Lvl: " << player.skills[i].level << ")" << endl;
