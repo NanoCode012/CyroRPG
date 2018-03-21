@@ -86,7 +86,7 @@ void ShowStats(Character &player)
     cout << "Player Skills" << endl;
     for (int i = 0; i < player.amountOfSkills; i++)
     {
-        cout << player.skills[i].name << "(" << player.skills[i].level << ")" << endl;
+        cout << player.skills[i].name << "(Lvl: " << player.skills[i].level << ")" << endl;
     }
 
     PrintLine();
