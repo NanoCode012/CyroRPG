@@ -27,4 +27,5 @@ struct Skill
     float chanceOfDamageReduction;
     float damageReduction;
     float chanceOfCritical;
+    float criticalPercentage;
 };
