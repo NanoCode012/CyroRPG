@@ -5,7 +5,7 @@ using namespace std;
 
 struct Skill
 {
-    int index;
+    int id;
     string name;
 
     bool isActive;
@@ -17,9 +17,11 @@ struct Skill
     int damage;
     int damageOverTime;
     int amountOfTurns;
+    int stunnedTurns;
+    int damageMultiplier;
 
     //Passive
-    float defense;
+    float defenseIncreasePercentage;
     float evasion;
     float chanceOfDamageReduction;
     float chanceOfCritical;
