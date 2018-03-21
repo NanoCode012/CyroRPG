@@ -58,6 +58,7 @@ struct Character
 
     string GetClassName();
 
+    void SetTempStatsEqualToNonTemp();
     void SetSkill(int index);
     void UseSkill(int index);
 
