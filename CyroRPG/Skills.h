@@ -25,5 +25,6 @@ struct Skill
     float defenseIncreasePercentage;
     float evasion;
     float chanceOfDamageReduction;
+    float damageReduction;
     float chanceOfCritical;
 };
