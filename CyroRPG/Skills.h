@@ -17,15 +17,27 @@ struct Skill
     int damage;
     int damageOverTime;
     int amountOfTurns;
+
+    float chanceOfStun;
     int stunnedTurns;
+
     int damageMultiplier;
-    float damageReductionPercentage;
+
+    float enemyDamageReductionPercentage;
+
+    float chanceOfDrainHP;
+    float hpDrainOfMaxPercentage;
+
+    float chanceOfFiringAgain[2];
 
     //Passive
     float defenseIncreasePercentage;
-    float evasion;
+
+    float chanceOfEvasion;
+
     float chanceOfDamageReduction;
-    float damageReduction;
-    float chanceOfCritical;
-    float criticalPercentage;
+    int damageReduction;
+
+    float chanceOfCriticalDamage;
+    float criticalDamagePercentage;
 };
