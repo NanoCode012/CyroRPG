@@ -19,6 +19,7 @@ struct Skill
     int amountOfTurns;
     int stunnedTurns;
     int damageMultiplier;
+    float damageReductionPercentage;
 
     //Passive
     float defenseIncreasePercentage;
