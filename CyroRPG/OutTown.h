@@ -1,4 +1,5 @@
 #pragma once
+#include "./Characters.h"
+#include "./Misc.h"
 
-struct Character;
 void OutTown(Character &player);
