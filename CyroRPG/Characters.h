@@ -70,4 +70,6 @@ struct Character
     float GetExpPercentage();
 
     void Fullheal();
+
+    bool IsAlive();
 };

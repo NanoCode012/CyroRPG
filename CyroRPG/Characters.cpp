@@ -367,3 +367,8 @@ void Character::Fullheal()
     currentHp = maxHp;
     currentMana = maxMana;
 }
+
+bool Character::IsAlive()
+{
+    return (currentHp > 0);
+}
