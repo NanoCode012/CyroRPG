@@ -54,6 +54,8 @@ struct Character
     int amountOfSkills = 0;
     Skill *skills = new Skill[maxAmountOfSkills];
 
+    int position;
+
     void SetName(string playerName);
     void SetClass(int index);
 
