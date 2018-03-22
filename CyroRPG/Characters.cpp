@@ -311,6 +311,16 @@ void Character::UseSkill(int index)
     }
 }
 
+float Character::NormalAttack()
+{
+    return (GetRandomNumber(tempAttackDamageMin, tempAttackDamageMax));
+}
+
+float Character::CriticalAttack()
+{
+    return (NormalAttack() * (1 + chanceOfCritical));
+}
+
 void Character::IncreaseStats()
 {
     switch(role)

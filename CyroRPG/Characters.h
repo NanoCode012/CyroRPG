@@ -65,6 +65,9 @@ struct Character
     void SetSkill(int index);
     void UseSkill(int index);
 
+    float NormalAttack();
+    float CriticalAttack();
+
     void IncreaseStats();
     
     bool LevelUp();
