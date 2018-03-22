@@ -4,6 +4,7 @@ using namespace std;
 
 void OptionsInTown()
 {
+    PrintLine();
     cout << "I looked around ... "           << endl;
     cout << "What would you like to do?"     << endl
          << "Opt : "                         << endl
@@ -17,6 +18,7 @@ void OptionsInTown()
 
 void Inn(Character &player, bool isDead)
 {
+    PrintLine();
     if (!isDead)
     {
         char opt;
@@ -75,6 +77,7 @@ void ShowStats(Character &player)
          << "\nLevel : " << player.level
          << "\nExp : " << player.currentExp << " / " << player.expToNextLevel
          << "\nG : " << player.gold
+         << "\nClass : " << player.GetClassName()
          << "\nAttack Power : " << player.attackDamageMin << " - " << player.attackDamageMax
          << "\nDefense : " << player.defense
          << "\nEvasion : " << player.evasion * 100 << " % "

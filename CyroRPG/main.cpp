@@ -32,6 +32,7 @@ int main(){
     cout << "\"Can I have your name, child?\", said a man in religious atire." << endl
          << "Name: ";
     cin  >> name;
+    PrintLine();
 
     cout << "\"Hear me Young " << name << "! "
          << "For you are not young anymore! You are now qualified to be one of us, a Cyrion!\", the man announced.\n" << endl
@@ -52,6 +53,9 @@ int main(){
     Character player;
     player.SetName(name);
     player.SetClass(opt);
+    player.Fullheal();
+    player.gold = 10;
+    PrintLine();
 
     cout << "\"Very well! I, Helios the Sage, proclaim you as a " << player.GetClassName() << ". May you fulfill your purpose "
          << "well and serve our people.\", chanted Helios. \n"
@@ -63,11 +67,7 @@ int main(){
 
     cout << "\"Calm down. Isn't this what I'm fighting for? I will resurrect my clan and find out why. "
          << "Why and How we fell from Kings to Outcasts!\", " << name << " declared."                                               
-         << endl;
-
-    
-    player.Fullheal();
-    player.gold = 10;
+         << endl;    
 
     while(true)
     {
@@ -75,7 +75,5 @@ int main(){
         OutTown(player);
     }
     
-
-
     return 0;
 }
