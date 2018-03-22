@@ -5,7 +5,7 @@ using namespace std;
 void OptionsInTown()
 {
     PrintLine();
-    cout << "I looked around ... "           << endl;
+    cout << "You looked around, and you find some things you can do .." << endl;
     cout << "What would you like to do?"     << endl
          << "Opt : "                         << endl
          << "1. Visit Inn"                   << endl
