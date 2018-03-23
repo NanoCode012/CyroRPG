@@ -62,6 +62,7 @@ void Inn(Character &player, bool isDead)
                  << "G\", sneakily pointed the Owner."
                  << endl;
         }
+        player.Fullheal();
         player.gold -= cost;
     }
 }
@@ -69,7 +70,7 @@ void Inn(Character &player, bool isDead)
 void InTown(Character &player)
 {
     int opt;
-    if (player.currentHp == 0) Inn(player, true);
+    if (!player.IsAlive()) Inn(player, true);
     while(true)
     {
         OptionsInTown();
