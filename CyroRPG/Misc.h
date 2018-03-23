@@ -6,7 +6,7 @@
 
 void PrintLine(char character = '=');
 
-void CleanExit();
+void CleanExit(string message = "Quit Game");
 void CleanUp();
 
 void ShowPlayerStats(Character &player);

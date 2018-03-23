@@ -7,8 +7,9 @@ void PrintLine(char character)
     cout << endl;
 }
 
-void CleanExit()
+void CleanExit(string message)
 {
+    cout << "Exiting.. Reason : " << message << endl;
     atexit(CleanUp);
     exit(0);
 }
@@ -32,7 +33,7 @@ void ShowPlayerStats(Character &player)
          << "\nClass : " << player.GetClassName()
          << "\nAttack Power : " << player.attackDamageMin << " - " << player.attackDamageMax
          << "\nDefense : " << player.defense
-         << "\nEvasion : " << player.evasion * 100 << " % "
+         << "\nEvasion : " << player.chanceOfEvasion * 100 << " % "
          << "\nDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
          << "\nDamage Reduction : " << player.damageReduction
          << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
