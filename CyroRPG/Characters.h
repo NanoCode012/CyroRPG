@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include "./Skills.h"
+#include "./Monsters.h"
+
 using namespace std;
 
 struct Character
@@ -23,12 +25,12 @@ struct Character
     float tempAttackDamageMax;
     float tempDefense;
     
-    float evasion;
+    float chanceOfEvasion;
     float chanceOfDamageReduction;
     float damageReduction;
     float chanceOfCritical;
 
-    float tempEvasion;
+    float tempChanceOfEvasion;
     float tempChanceOfDamageReduction;
     float tempDamageReduction;
     float tempChanceOfCritical;
@@ -63,7 +65,7 @@ struct Character
 
     void SetTempStatsEqualToNonTemp();
     void SetSkill(int index);
-    void UseSkill(int index);
+    void UseSkill(int index, Monster &monster);
 
     float NormalAttack();
     float CriticalAttack();

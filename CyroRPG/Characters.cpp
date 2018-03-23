@@ -20,7 +20,7 @@ void Character::SetClass(int index)
             attackDamageMax = 25;
 
             defense = 10;
-            evasion = 0.01;
+            chanceOfEvasion = 0.01;
 
             chanceOfDamageReduction = 0.05;
             damageReduction = 5;
@@ -36,7 +36,7 @@ void Character::SetClass(int index)
             attackDamageMax = 10;
 
             defense = 2;
-            evasion = 0.01;
+            chanceOfEvasion = 0.01;
 
             chanceOfDamageReduction = 0;
             damageReduction = 5;
@@ -52,7 +52,7 @@ void Character::SetClass(int index)
             attackDamageMax = 40;
 
             defense = 2;
-            evasion = 0.1;
+            chanceOfEvasion = 0.1;
 
             chanceOfDamageReduction = 0;
             damageReduction = 5;
@@ -90,7 +90,7 @@ void Character::SetTempStatsEqualToNonTemp()
     tempAttackDamageMax = attackDamageMax;
     tempDefense = defense;
 
-    tempEvasion = evasion;
+    tempChanceOfEvasion = chanceOfEvasion;
     tempChanceOfDamageReduction = chanceOfDamageReduction;
     tempDamageReduction = damageReduction;
     tempChanceOfCritical = chanceOfCritical;
@@ -293,7 +293,7 @@ void Character::SetSkill(int index)
     amountOfSkills++;
 }
 
-void Character::UseSkill(int index)
+void Character::UseSkill(int index, Monster &monster)
 {
     switch(skills[index].id)
     {
