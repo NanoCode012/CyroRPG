@@ -48,7 +48,7 @@ int main(){
          << "3. Archer"             << endl
          << "Opt : ";
     cin >> opt;
-    if (opt < 1 || opt > 3) exit(1);
+    if (opt < 1 || opt > 3) CleanExit("Invalid Option");
 
     Character player;
     player.SetName(name);
