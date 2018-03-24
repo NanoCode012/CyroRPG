@@ -54,6 +54,7 @@ bool CheckIfMeetEnemy(Character &player)
 
 void SetPlayerStats(Character &player, Monster &monster)
 {
+    player.turn = true;
     player.SetTempStatsEqualToNonTemp();
     for (int i = 0; i < player.amountOfSkills; i++)
     {
@@ -199,9 +200,9 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
         case 2:
             ShowActiveSkills(player);
             cin >> opt;
-            if (1 <= opt && opt <= player.amountOfSkills && player.skills[opt].isActive) 
+            if (1 <= opt && opt <= player.amountOfSkills && player.skills[opt - 1].isActive) 
             {
-                player.UseSkill(opt, monster);
+                player.UseSkill(opt - 1, monster);
             }
             else cout << "Invalid Option. You lost a round" << endl;
             break;
@@ -215,59 +216,68 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
 {
     int rand = GetRandomNumber(100);
     float damage;
-    //Type of attack
-    if (rand >= 100 - (monster.tempChanceOfSpecialAttack * 100)) 
+    if (monster.stunnedTurns > 0) 
     {
-        cout << "Enemy used a Special Attack" << endl;
-        damage = monster.SpecialAttack();
+        monster.stunnedTurns--;
+        cout << "Enemy is stunned this turn" << endl;
     }
-    else if (rand >= 100 - (monster.tempChanceOfSpecialAttack*100) - (monster.tempChanceOfCritical*100)) 
+    else
     {
-        cout << "Enemy did a Critical Attack" << endl;
-        damage = monster.CriticalAttack();
-    }
-    else 
-    {
-        cout << "Enemy did a Normal Attack" << endl;
-        damage = monster.NormalAttack();
-    }
-
-    //Half of defense is how much damage is removed
-    if ((player.tempDefense / 2) >= damage)
-    {
-        cout << "Your defense negated the enemy's attack" << endl;
-    }
-    else 
-    {
-        damage -= player.tempDefense / 2;
-        
-        //Player evasion/damage reduct
-        rand = GetRandomNumber(100);
-        if (rand > (player.tempChanceOfEvasion * 100))
+        //Type of attack
+        if (rand >= 100 - (monster.tempChanceOfSpecialAttack * 100)) 
         {
+            cout << "Enemy used a Special Attack" << endl;
+            damage = monster.SpecialAttack();
+        }
+        else if (rand >= 100 - (monster.tempChanceOfSpecialAttack*100) - (monster.tempChanceOfCritical*100)) 
+        {
+            cout << "Enemy did a Critical Attack" << endl;
+            damage = monster.CriticalAttack();
+        }
+        else 
+        {
+            cout << "Enemy did a Normal Attack" << endl;
+            damage = monster.NormalAttack();
+        }
+
+        //Half of defense is how much damage is removed
+        if ((player.tempDefense / 2) >= damage)
+        {
+            cout << "Your defense negated the enemy's attack" << endl;
+        }
+        else 
+        {
+            damage -= player.tempDefense / 2;
+            
+            //Player evasion/damage reduct
             rand = GetRandomNumber(100);
-            if (rand > (player.tempChanceOfDamageReduction * 100))
+            if (rand > (player.tempChanceOfEvasion * 100))
             {
-                cout << "You take " << damage << " damage" << endl;
-                player.currentHp -= damage;
-            }
-            else
-            {
-                if (damage > player.tempDamageReduction)
+                rand = GetRandomNumber(100);
+                if (rand > (player.tempChanceOfDamageReduction * 100))
                 {
-                    cout << "You took reduced damage" << endl;
-                    player.currentHp -= damage - player.tempDamageReduction;
+                    cout << "You took " << damage << " damage" << endl;
+                    player.currentHp -= damage;
                 }
                 else
                 {
-                    cout << "You negated the enemy's attack with your damage reduction" << endl;
+                    if (damage > player.tempDamageReduction)
+                    {
+                        cout << "You took reduced damage " << endl;
+                        player.currentHp -= damage - player.tempDamageReduction;
+                        cout << "You took " << damage - player.tempDamageReduction << " damage" << endl;
+                    }
+                    else
+                    {
+                        cout << "You negated the enemy's attack with your damage reduction" << endl;
+                    }
                 }
-            }
 
-        }
-        else
-        {
-            cout << "You evaded the enemy's attack" << endl;
+            }
+            else
+            {
+                cout << "You evaded the enemy's attack" << endl;
+            }
         }
     }
     player.turn = true;
