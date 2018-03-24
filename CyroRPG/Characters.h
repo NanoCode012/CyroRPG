@@ -2,6 +2,7 @@
 #include <string>
 #include "./Skills.h"
 #include "./Monsters.h"
+#include "./Misc.h"
 
 using namespace std;
 
@@ -65,7 +66,7 @@ struct Character
 
     void SetTempStatsEqualToNonTemp();
     void SetSkill(int index);
-    void UseSkill(int index, Monster &monster);
+    string UseSkill(int index, Monster &monster);
 
     float NormalAttack();
     float CriticalAttack();

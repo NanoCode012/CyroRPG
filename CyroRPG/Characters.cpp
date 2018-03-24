@@ -293,22 +293,26 @@ void Character::SetSkill(int index)
     amountOfSkills++;
 }
 
-void Character::UseSkill(int index, Monster &monster)
+string Character::UseSkill(int index, Monster &monster)
 {
+    int rand = GetRandomNumber(100);
+    string output;
     switch(skills[index].id)
     {
         //Guard Skill
         case 1:
             tempDefense = defense * (1 + skills[index].defenseIncreasePercentage);
+            output = "Your defense increased by " + ConvertFromIntToString(skills[index].defenseIncreasePercentage) + " % ";
             break;
-        //Sword Dance
+        //Sword Barrage
         case 2:
-            //tempAttack *= skills[index].damageMultiplier;
-            //monster.hp -= tempAttack * damageMultiplier;
+            monster.currentHp -= GetRandomNumber(tempAttackDamageMin, tempAttackDamageMax) * skills[index].damageMultiplier;
+            currentMana -= skills[index].manaCost;
             break;
 
 
     }
+    return output;
 }
 
 float Character::NormalAttack()
