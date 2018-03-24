@@ -21,14 +21,35 @@ void CleanUp(void)
 
 string ConvertFromIntToString(int a)
 {
-    char result[10];
-    snprintf(result, 10, "%d", a);
+    string temp = "";
+    while(a > 0)
+    {
+        temp += (char)((a % 10) + '0');
+        a /= 10;
+    }
+
+    string result = "";
+    for (int i = temp.length() - 1; i >= 0; i--)
+    {
+        result += temp[i];
+    }
     return result;
 }
 
-string ConvertFromFloatToString(float a)
+string ConvertFromPercentageToString(float a, int decimalPlaces)
 {
-    char result[10];
-    snprintf(result, 10, "%f", a);
+    string temp;
+    for (int i = 0; i < decimalPlaces; i++) a *= 10;
+    for(int i = 0; i < decimalPlaces; i++)
+    {
+        temp += (char)((fmod(a, 10)) + '0');
+        a /= 10;
+    }
+
+    string result = "";
+    for (int i = temp.length() - 1; i >= 0; i--)
+    {
+        result += temp[i];
+    }
     return result;
 }
