@@ -59,7 +59,7 @@ void ShowEnemyStats(Monster &monster)
          << "\nLevel : " << monster.level
          << "\nAttack Power : " << monster.attackDamageMin << " - " << monster.attackDamageMax
          << "\nDefense : " << monster.defense
-         << "\nEvasion : " << monster.evasion * 100 << " % "
+         << "\nEvasion : " << monster.chanceOfEvasion * 100 << " % "
          << "\nDamage Reduction Chance : " << monster.chanceOfDamageReduction * 100 << " % "
          << "\nDamage Reduction : " << monster.damageReduction
          << "\nCritical Chance : " << monster.chanceOfCritical * 100 << " % "
