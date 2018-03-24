@@ -84,7 +84,7 @@ void ShowPlayerStatsFull(Character &player)
          << "\nEvasion : " << player.chanceOfEvasion * 100 << " % "
          << "\nDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
          << "\nDamage Reduction : " << player.damageReduction
-         << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
+         << "\nCritical Chance : " << player.chanceOfCriticalDamage * 100 << " % "
          << endl;
 
     cout << "\nPlayer Skills\n" << endl;

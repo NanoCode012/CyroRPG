@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include "./Skills.h"
 #include "./Monsters.h"
 #include "./Misc.h"
@@ -29,12 +30,14 @@ struct Character
     float chanceOfEvasion;
     float chanceOfDamageReduction;
     float damageReduction;
-    float chanceOfCritical;
+    float chanceOfCriticalDamage;
+    float criticalDamagePercentage = 0.25;
 
     float tempChanceOfEvasion;
     float tempChanceOfDamageReduction;
     float tempDamageReduction;
-    float tempChanceOfCritical;
+    float tempChanceOfCriticalDamage;
+    float tempCriticalDamagePercentage;
 
     int level = 1;
     float currentExp = 0;
@@ -66,7 +69,7 @@ struct Character
 
     void SetTempStatsEqualToNonTemp();
     void SetSkill(int index);
-    string UseSkill(int index, Monster &monster);
+    void UseSkill(int index, Monster &monster);
 
     float NormalAttack();
     float CriticalAttack();

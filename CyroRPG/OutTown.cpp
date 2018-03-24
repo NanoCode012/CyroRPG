@@ -59,7 +59,7 @@ void SetPlayerStats(Character &player, Monster &monster)
     {
         if (!player.skills[i].isActive) 
         {
-            player.UseSkill(i, monster);
+            cout << player.UseSkill(i, monster) << endl;
         }
     }
 }
@@ -87,7 +87,7 @@ void ShowPlayerStats(Character &player)
          << "\nEvasion : " << player.chanceOfEvasion * 100 << " % "
          << "\nDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
          << "\nDamage Reduction : " << player.damageReduction
-         << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
+         << "\nCritical Chance : " << player.chanceOfCriticalDamage * 100 << " % "
          << endl;
 
     cout << "\nPlayer Skills\n" << endl;
@@ -147,14 +147,14 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
     switch(opt)
     {
         case 1:
-            if (rand >= 100 - player.tempChanceOfCritical * 100)
+            if (rand >= 100 - player.tempChanceOfCriticalDamage * 100)
             {
-                cout << "You did Critical Attack" << endl;
+                cout << "You did a Critical Attack" << endl;
                 damage = player.CriticalAttack();
             }
             else
             {
-                cout << "You did Normal Attack" << endl;
+                cout << "You did a Normal Attack" << endl;
                 damage = player.NormalAttack();
             }
 
@@ -186,13 +186,13 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
                         }
                         else
                         {
-                            cout << "Enemy negated the your attack with its damage reduction" << endl;
+                            cout << "Enemy negated your attack with its damage reduction" << endl;
                         }
                     }
                 }
                 else
                 {
-                    cout << "You evaded the enemy's attack" << endl;
+                    cout << "Enemy evaded your attack" << endl;
                 }
             }
             break;
@@ -217,17 +217,17 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
     //Type of attack
     if (rand >= 100 - (monster.tempChanceOfSpecialAttack * 100)) 
     {
-        cout << "Enemy used Special Attack" << endl;
+        cout << "Enemy used a Special Attack" << endl;
         damage = monster.SpecialAttack();
     }
     else if (rand >= 100 - (monster.tempChanceOfSpecialAttack*100) - (monster.tempChanceOfCritical*100)) 
     {
-        cout << "Enemy does Critical Attack" << endl;
+        cout << "Enemy did a Critical Attack" << endl;
         damage = monster.CriticalAttack();
     }
     else 
     {
-        cout << "Enemy does Normal Attack" << endl;
+        cout << "Enemy did a Normal Attack" << endl;
         damage = monster.NormalAttack();
     }
 
