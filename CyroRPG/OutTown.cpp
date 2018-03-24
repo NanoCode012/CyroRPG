@@ -59,7 +59,7 @@ void SetPlayerStats(Character &player, Monster &monster)
     {
         if (!player.skills[i].isActive) 
         {
-            cout << player.UseSkill(i, monster) << endl;
+            player.UseSkill(i, monster);
         }
     }
 }
@@ -201,13 +201,14 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
             cin >> opt;
             if (1 <= opt && opt <= player.amountOfSkills && player.skills[opt].isActive) 
             {
-                cout << player.UseSkill(opt, monster) << endl;
+                player.UseSkill(opt, monster);
             }
             else cout << "Invalid Option. You lost a round" << endl;
             break;
         default:
             cout << "Invalid Option. You lost a round" << endl;
     }
+    player.turn = false;
 }
 
 void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
@@ -269,7 +270,7 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
             cout << "You evaded the enemy's attack" << endl;
         }
     }
-
+    player.turn = true;
 }
 
 void OutTown(Character &player)
@@ -306,15 +307,21 @@ void OutTown(Character &player)
             //Fighting
             do
             {
-                ShowBattleOptions();
-                cin >> opt;
-                CalculatePlayerAttack(player, monster, opt);
-                ShowEnemyStats(monster);
-                if (!monster.IsAlive()) break;
+                if (player.turn)
+                {
+                    ShowBattleOptions();
+                    cin >> opt;
+                    CalculatePlayerAttack(player, monster, opt);
+                    ShowEnemyStats(monster);
+                    if (!monster.IsAlive()) break;
+                }
+                else
+                {
+                    cout << "Monster is attacking  .." << endl;
+                    CalculateMonsterAttack(monster, player, opt);
+                    ShowPlayerStats(player);
+                }
 
-                cout << "Monster is attacking  .." << endl;
-                CalculateMonsterAttack(monster, player, opt);
-                ShowPlayerStats(player);
             }while(monster.IsAlive() && player.IsAlive());
             if (!monster.IsAlive()) 
             {
