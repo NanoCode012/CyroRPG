@@ -165,19 +165,19 @@ void Character::SetSkill(int index)
                 case 1:
                     skills[amountOfSkills].damage = 150;
                     skills[amountOfSkills].damageOverTime = 25;
-                    skills[amountOfSkills].amountOfTurns = 1;
+                    skills[amountOfSkills].amountOfTurnsDOT = 1;
                     skills[amountOfSkills].manaCost = 10;
                     break;
                 case 2:
                     skills[amountOfSkills].damage = 250;
                     skills[amountOfSkills].damageOverTime = 25;
-                    skills[amountOfSkills].amountOfTurns = 2;
+                    skills[amountOfSkills].amountOfTurnsDOT = 2;
                     skills[amountOfSkills].manaCost = 20;
                     break;
                 case 3:
                     skills[amountOfSkills].damage = 350;
                     skills[amountOfSkills].damageOverTime = 35;
-                    skills[amountOfSkills].amountOfTurns = 3;
+                    skills[amountOfSkills].amountOfTurnsDOT = 3;
                     skills[amountOfSkills].manaCost = 30;
                     break;
             }

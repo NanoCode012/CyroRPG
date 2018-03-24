@@ -16,7 +16,7 @@ struct Skill
     //Active
     int damage;
     int damageOverTime;
-    int amountOfTurns;
+    int amountOfTurnsDOT;
 
     float chanceOfStun;
     int stunnedTurns;
