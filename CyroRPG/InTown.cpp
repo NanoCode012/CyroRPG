@@ -67,6 +67,36 @@ void Inn(Character &player, bool isDead)
     }
 }
 
+void ShowPlayerStatsFull(Character &player)
+{
+    PrintLine();
+    
+    cout << "Player Stats\n"
+         << "\nName : " << player.name
+         << "\nHP : " << player.currentHp << " / " << player.maxHp
+         << "\nMP : " << player.currentMana << " / " << player.maxMana
+         << "\nLevel : " << player.level
+         << "\nExp : " << player.currentExp << " / " << player.expToNextLevel
+         << "\nG : " << player.gold
+         << "\nClass : " << player.GetClassName()
+         << "\nAttack Power : " << player.attackDamageMin << " - " << player.attackDamageMax
+         << "\nDefense : " << player.defense
+         << "\nEvasion : " << player.chanceOfEvasion * 100 << " % "
+         << "\nDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
+         << "\nDamage Reduction : " << player.damageReduction
+         << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
+         << endl;
+
+    cout << "\nPlayer Skills\n" << endl;
+    for (int i = 0; i < player.amountOfSkills; i++)
+    {
+        cout << player.skills[i].name << "(Lvl: " << player.skills[i].level << ")" << endl;
+    }
+
+    PrintLine();
+}
+
+
 void InTown(Character &player)
 {
     int opt;
@@ -89,7 +119,7 @@ void InTown(Character &player)
                 //ItemShop(player);
                 break;
             case 4:
-                ShowPlayerStats(player);
+                ShowPlayerStatsFull(player);
                 break;
             default:
                 cout << "Invalid Option" << endl;

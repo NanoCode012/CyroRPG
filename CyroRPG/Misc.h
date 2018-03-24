@@ -1,13 +1,12 @@
 #pragma once
 #include <iostream>
 #include <stdlib.h>
-#include "./Characters.h"
-#include "./Monsters.h"
+#include <string>
 
 void PrintLine(char character = '=');
 
-void CleanExit(string message = "Quit Game");
+void CleanExit(std::string message = "Quit Game");
 void CleanUp();
 
-void ShowPlayerStats(Character &player);
-void ShowEnemyStats(Monster &monster);
+std::string ConvertFromIntToString(int a);
+std::string ConvertFromFloatToString(float a);

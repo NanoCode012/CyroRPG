@@ -7,4 +7,8 @@
 
 void OptionsInTown();
 void Inn(Character &player, bool isDead = false);
+
+void ShowPlayerStatsFull(Character &player);
+
 void InTown(Character &player);
+

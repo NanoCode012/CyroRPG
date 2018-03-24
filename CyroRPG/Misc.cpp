@@ -19,49 +19,16 @@ void CleanUp(void)
     
 }
 
-void ShowPlayerStats(Character &player)
+string ConvertFromIntToString(int a)
 {
-    PrintLine();
-    
-    cout << "Player Stats\n"
-         << "\nName : " << player.name
-         << "\nHP : " << player.currentHp << " / " << player.maxHp
-         << "\nMP : " << player.currentMana << " / " << player.maxMana
-         << "\nLevel : " << player.level
-         << "\nExp : " << player.currentExp << " / " << player.expToNextLevel
-         << "\nG : " << player.gold
-         << "\nClass : " << player.GetClassName()
-         << "\nAttack Power : " << player.attackDamageMin << " - " << player.attackDamageMax
-         << "\nDefense : " << player.defense
-         << "\nEvasion : " << player.chanceOfEvasion * 100 << " % "
-         << "\nDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
-         << "\nDamage Reduction : " << player.damageReduction
-         << "\nCritical Chance : " << player.chanceOfCritical * 100 << " % "
-         << endl;
-
-    cout << "\nPlayer Skills\n" << endl;
-    for (int i = 0; i < player.amountOfSkills; i++)
-    {
-        cout << player.skills[i].name << "(Lvl: " << player.skills[i].level << ")" << endl;
-    }
-
-    PrintLine();
+    char result[10];
+    snprintf(result, 10, "%d", a);
+    return result;
 }
 
-void ShowEnemyStats(Monster &monster)
+string ConvertFromFloatToString(float a)
 {
-    PrintLine();
-    
-    cout << "Monster Stats\n"
-         << "\nName : " << monster.name
-         << "\nHP : " << monster.currentHp << " / " << monster.maxHp
-         << "\nMP : " << monster.currentMana << " / " << monster.maxMana
-         << "\nLevel : " << monster.level
-         << "\nAttack Power : " << monster.attackDamageMin << " - " << monster.attackDamageMax
-         << "\nDefense : " << monster.defense
-         << "\nEvasion : " << monster.chanceOfEvasion * 100 << " % "
-         << "\nDamage Reduction Chance : " << monster.chanceOfDamageReduction * 100 << " % "
-         << "\nDamage Reduction : " << monster.damageReduction
-         << "\nCritical Chance : " << monster.chanceOfCritical * 100 << " % "
-         << endl;
+    char result[10];
+    snprintf(result, 10, "%f", a);
+    return result;
 }
