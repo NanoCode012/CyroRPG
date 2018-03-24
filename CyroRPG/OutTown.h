@@ -15,7 +15,12 @@ void SetPlayerStats(Character &player, Monster &monster);
 
 void SetEnemyStats(Monster &monster, Character &player);
 
+void ShowPlayerStats(Character &player);
+void ShowEnemyStats(Monster &monster);
+
 void ShowBattleOptions();
+
+void ShowActiveSkills(Character &player);
 
 void CalculatePlayerAttack(Character &player, Monster &monster, int opt);
 
