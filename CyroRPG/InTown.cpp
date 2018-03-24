@@ -91,6 +91,9 @@ void InTown(Character &player)
             case 4:
                 ShowPlayerStats(player);
                 break;
+            default:
+                cout << "Invalid Option" << endl;
+                break;
         }
     }
 }
