@@ -22,13 +22,13 @@ struct Monster
     float tempAttackDamageMax;
     float tempDefense;
     
-    float evasion;
+    float chanceOfEvasion;
     float chanceOfDamageReduction;
     float damageReduction;
     float chanceOfCritical;
     float chanceOfSpecialAttack;
 
-    float tempEvasion;
+    float tempChanceOfEvasion;
     float tempChanceOfDamageReduction;
     float tempDamageReduction;
     float tempChanceOfCritical;

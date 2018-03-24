@@ -19,7 +19,7 @@ void Monster::SetType(int index, int playerPosition)
             attackDamageMax = 15;
 
             defense = 15;
-            evasion = 0;
+            chanceOfEvasion = 0;
 
             chanceOfDamageReduction = 0.05;
             damageReduction = 5;
@@ -35,7 +35,7 @@ void Monster::SetType(int index, int playerPosition)
             attackDamageMax = 15 + tempPlayerPosition * 1;
 
             defense = 15 + tempPlayerPosition * 1;
-            evasion = 0;
+            chanceOfEvasion = 0;
 
             chanceOfDamageReduction = 0;
             damageReduction = 0;
@@ -49,7 +49,7 @@ void Monster::SetType(int index, int playerPosition)
             attackDamageMax = 25 + tempPlayerPosition * 2;
 
             defense = 25 + tempPlayerPosition * 2;
-            evasion = 0.01 + tempPlayerPosition * 0.01;
+            chanceOfEvasion = 0.01 + tempPlayerPosition * 0.01;
 
             chanceOfDamageReduction = 0.05 + tempPlayerPosition * 0.05;
             damageReduction = 5 + tempPlayerPosition * 5;
@@ -63,7 +63,7 @@ void Monster::SetType(int index, int playerPosition)
             attackDamageMax = 40 + tempPlayerPosition * 3;
 
             defense = 40 + tempPlayerPosition * 3;
-            evasion = 0.05 + tempPlayerPosition * 0.05;
+            chanceOfEvasion = 0.05 + tempPlayerPosition * 0.05;
 
             chanceOfDamageReduction = 0.1 + tempPlayerPosition * 0.1;
             damageReduction = 10 + tempPlayerPosition * 10;
@@ -82,7 +82,7 @@ void Monster::SetTempStatsEqualToNonTemp()
     tempAttackDamageMax = attackDamageMax;
     tempDefense = defense;
 
-    tempEvasion = evasion;
+    tempChanceOfEvasion = chanceOfEvasion;
     tempChanceOfDamageReduction = chanceOfDamageReduction;
     tempDamageReduction = damageReduction;
     tempChanceOfCritical = chanceOfCritical;
