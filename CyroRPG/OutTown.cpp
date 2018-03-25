@@ -186,7 +186,7 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
         monster.amountOfTurnsDOT--;
         monster.DamageCalculation(monster.damagedOverTime);
     }
-    if (monster.IsAlive)
+    if (monster.IsAlive())
     {
         if (monster.stunnedTurns > 0) 
         {
@@ -210,6 +210,12 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
             {
                 cout << "Enemy did a Normal Attack" << endl;
                 damage = monster.NormalAttack();
+            }
+
+            if (monster.amountOfTurnsDamageReductionPercentage > 0)
+            {
+                monster.amountOfTurnsDamageReductionPercentage--;
+                damage *= 1 - monster.damageReductionPercentage;
             }
 
             player.DamageCalculation(damage);
