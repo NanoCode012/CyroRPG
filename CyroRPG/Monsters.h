@@ -38,6 +38,9 @@ struct Monster
     float damagedOverTime = 0;
     int amountOfTurnsDOT = 0;
 
+    float damageReductionPercentage = 0;
+    int amountOfTurnsDamageReductionPercentage = 0;
+
     int stunnedTurns = 0;
 
     int level = 1;

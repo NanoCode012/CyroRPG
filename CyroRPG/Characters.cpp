@@ -190,17 +190,17 @@ void Character::SetSkill(int index)
             {
                 case 1:
                     skills[amountOfSkills].damage = 100;
-                    skills[amountOfSkills].enemyDamageReductionPercentage = 0.2;
+                    skills[amountOfSkills].damageReductionPercentage = 0.2;
                     skills[amountOfSkills].manaCost = 7;
                     break;
                 case 2:
                     skills[amountOfSkills].damage = 150;
-                    skills[amountOfSkills].enemyDamageReductionPercentage = 0.3;
+                    skills[amountOfSkills].damageReductionPercentage = 0.3;
                     skills[amountOfSkills].manaCost = 9;
                     break;
                 case 3:
                     skills[amountOfSkills].damage = 200;
-                    skills[amountOfSkills].enemyDamageReductionPercentage = 0.65;
+                    skills[amountOfSkills].damageReductionPercentage = 0.65;
                     skills[amountOfSkills].manaCost = 12;
                     break;
             }
@@ -329,16 +329,65 @@ void Character::UseSkill(int index, Monster &monster)
             cout << "Shock" << endl;
             if (rand > tempChanceOfCriticalDamage)
             {
-                damage = NormalAttack();
-                cout << "You did a Normal Attack " << endl;
+                damage = skills[index].damage;
+                cout << "You did a Normal Attack" << endl;
             }
             else 
             {
-                damage = CriticalAttack();
-                cout << "You did a Critical Attack " << endl;
+                damage = skills[index].damage * (1 + criticalDamagePercentage);
+                cout << "You did a Critical Attack" << endl;
             }
 
-            monster.DamageCalculation(damage);
+            //Stun does not stack, only refreshes previous stack
+            if (monster.DamageCalculation(damage))
+            {
+                cout << "Enemy has been stunned for " << skills[index].stunnedTurns << " turns" << endl;
+                monster.stunnedTurns = skills[index].stunnedTurns;
+            }
+            break;
+        //Hell Fire
+        case 4:
+            cout << "Hell Fire" << endl;
+            if (rand > tempChanceOfCriticalDamage)
+            {
+                damage = skills[index].damage;
+                cout << "You did a Normal Attack" << endl;
+            }
+            else 
+            {
+                damage = skills[index].damage * (1 + criticalDamagePercentage);
+                cout << "You did a Critical Attack" << endl;
+            }
+
+            if (monster.DamageCalculation(damage))
+            {
+                monster.damagedOverTime = skills[index].damageOverTime;
+                monster.amountOfTurnsDOT = skills[index].amountOfTurnsDOT;
+            }
+            break;
+        //Frostbite
+        case 5:
+            cout << "Frostbite" << endl;
+            if (rand > tempChanceOfCriticalDamage)
+            {
+                damage = skills[index].damage;
+                cout << "You did a Normal Attack" << endl;
+            }
+            else 
+            {
+                damage = skills[index].damage * (1 + criticalDamagePercentage);
+                cout << "You did a Critical Attack" << endl;
+            }
+
+            if (monster.DamageCalculation(damage))
+            {
+                monster.damageReductionPercentage = skills[index].damageReductionPercentage;
+                monster.amountOfTurnsDamageReductionPercentage = 1;
+            }
+            break;
+        //
+        case 6:
+            
             break;
     }
     currentMana -= skills[index].manaCost;

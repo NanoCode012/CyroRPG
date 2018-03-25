@@ -23,7 +23,8 @@ struct Skill
 
     int damageMultiplier = 0;
 
-    float enemyDamageReductionPercentage = 0;
+    float damageReductionPercentage = 0;
+    int amountOfTurnsDamageReductionPercentage = 0;
 
     float chanceOfDrainHP = 0;
     float hpDrainOfMaxPercentage = 0;
