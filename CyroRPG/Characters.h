@@ -62,6 +62,8 @@ struct Character
 
     int position;
 
+    bool killedBoss[3];
+
     void SetName(string playerName);
     void SetClass(int index);
 
