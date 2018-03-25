@@ -8,36 +8,36 @@ struct Skill
     int id;
     string name;
 
-    bool isActive;
+    bool isActive = false;
     int level = 1;
     
-    int manaCost;
+    int manaCost = 0;
 
     //Active
-    int damage;
-    int damageOverTime;
-    int amountOfTurnsDOT;
+    int damage = 0;
+    int damageOverTime = 0;
+    int amountOfTurnsDOT = 0;
 
-    float chanceOfStun;
-    int stunnedTurns;
+    float chanceOfStun = 0;
+    int stunnedTurns = 0;
 
-    int damageMultiplier;
+    int damageMultiplier = 0;
 
-    float enemyDamageReductionPercentage;
+    float enemyDamageReductionPercentage = 0;
 
-    float chanceOfDrainHP;
-    float hpDrainOfMaxPercentage;
+    float chanceOfDrainHP = 0;
+    float hpDrainOfMaxPercentage = 0;
 
     float chanceOfFiringAgain[2];
 
     //Passive
-    float defenseIncreasePercentage;
+    float defenseIncreasePercentage = 0;
 
-    float chanceOfEvasion;
+    float chanceOfEvasion = 0;
 
-    float chanceOfDamageReduction;
-    int damageReduction;
+    float chanceOfDamageReduction = 0;
+    int damageReduction = 0;
 
-    float chanceOfCriticalDamage;
-    float criticalDamagePercentage;
+    float chanceOfCriticalDamage = 0;
+    float criticalDamagePercentage = 0;
 };
