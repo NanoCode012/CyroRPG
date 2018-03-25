@@ -47,7 +47,11 @@ bool CheckIfMeetEnemy(Character &player)
     int num = GetRandomNumber(100);
     if (player.position != 0 && player.position % 5 == 0)
     {
-        return true;
+        if (!player.killedBoss[(player.position/5) - 1])
+        {
+            return true;
+        }
+        else return (num <= 10);
     }
     return (num <= 35 + player.position * 4);
 }
@@ -68,7 +72,14 @@ void SetPlayerStats(Character &player, Monster &monster)
 
 void SetEnemyStats(Monster &monster, Character &player)
 {
-    monster.SetType((player.position / 5) + 1, player.position);
+    if (player.position != 0 && player.position % 5 == 0)
+    {
+        monster.SetType(0, player.position);
+    }
+    else
+    {
+        monster.SetType((player.position / 5) + 1, player.position);
+    }
     monster.SetTempStatsEqualToNonTemp();
 }
 
@@ -84,12 +95,12 @@ void ShowPlayerStats(Character &player)
          << "\nExp : " << player.currentExp << " / " << player.expToNextLevel
          << "\nG : " << player.gold
          << "\nClass : " << player.GetClassName()
-         << "\nAttack Power : " << player.attackDamageMin << " - " << player.attackDamageMax
-         << "\nDefense : " << player.defense
-         << "\nEvasion : " << player.chanceOfEvasion * 100 << " % "
-         << "\nDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
-         << "\nDamage Reduction : " << player.damageReduction
-         << "\nCritical Chance : " << player.chanceOfCriticalDamage * 100 << " % "
+         << "\nAttack Power : " << player.tempAttackDamageMin << " - " << player.tempAttackDamageMax
+         << "\nDefense : " << player.tempDefense
+         << "\nEvasion : " << player.tempChanceOfEvasion * 100 << " % "
+         << "\nDamage Reduction Chance : " << player.tempChanceOfDamageReduction * 100 << " % "
+         << "\nDamage Reduction : " << player.tempDamageReduction
+         << "\nCritical Chance : " << player.tempChanceOfCriticalDamage * 100 << " % "
          << endl;
 
     cout << "\nPlayer Skills\n" << endl;
@@ -110,12 +121,12 @@ void ShowEnemyStats(Monster &monster)
          << "\nHP : " << monster.currentHp << " / " << monster.maxHp
          << "\nMP : " << monster.currentMana << " / " << monster.maxMana
          << "\nLevel : " << monster.level
-         << "\nAttack Power : " << monster.attackDamageMin << " - " << monster.attackDamageMax
-         << "\nDefense : " << monster.defense
-         << "\nEvasion : " << monster.chanceOfEvasion * 100 << " % "
-         << "\nDamage Reduction Chance : " << monster.chanceOfDamageReduction * 100 << " % "
-         << "\nDamage Reduction : " << monster.damageReduction
-         << "\nCritical Chance : " << monster.chanceOfCritical * 100 << " % "
+         << "\nAttack Power : " << monster.tempAttackDamageMin << " - " << monster.tempAttackDamageMax
+         << "\nDefense : " << monster.tempDefense
+         << "\nEvasion : " << monster.tempChanceOfEvasion * 100 << " % "
+         << "\nDamage Reduction Chance : " << monster.tempChanceOfDamageReduction * 100 << " % "
+         << "\nDamage Reduction : " << monster.tempDamageReduction
+         << "\nCritical Chance : " << monster.tempChanceOfCritical * 100 << " % "
          << endl;
 }
 
@@ -257,6 +268,7 @@ void OutTown(Character &player)
                 cin >> opt;
                 CalculatePlayerAttack(player, monster, opt);
                 ShowEnemyStats(monster);
+                player.turn = true;
             }
 
             //Fighting

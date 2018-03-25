@@ -10,33 +10,63 @@ void Monster::SetType(int index, int playerPosition)
     {
         tempPlayerPosition -= 5;
     }
+
+    int randHp = GetRandomNumber(10 * index);
+    int atk = tempPlayerPosition * index;
+    int def = atk;
+
+    chanceOfCritical = 0.05 + playerPosition * 0.04;
+    chanceOfSpecialAttack = 0.05 + playerPosition * 0.01;
+    level = playerPosition;
+
+    gold = GetRandomNumber(25*index);
+    exp = GetRandomNumber(15*index);
     switch(index)
     {
         //Boss - Uses PlayerPosition for higher stats
+        //Lore - Boss of Each Zone
         case 0:
-            maxHp = 100 + playerPosition * 20;
-            maxMana = 10;
+            //Set name
+            switch(playerPosition)
+            {
+                case 5:
+                    name = "Giant Rat";
+                    break;
+                case 10:
+                    name = "Vicious Wolf";
+                    break;
+                case 15:
+                    name = "Angered Orge";
+                    break;
+            }
 
-            attackDamageMin = 10;
-            attackDamageMax = 15;
+            maxHp = 150 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 5);
+            maxMana = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 3);
 
-            defense = 15;
-            chanceOfEvasion = 0;
+            attackDamageMin = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 1);
+            attackDamageMax = 20 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 1);
 
-            chanceOfDamageReduction = 0.05;
-            damageReduction = 5;
+            if (attackDamageMin >= attackDamageMax) attackDamageMax = attackDamageMin + 5;
 
-            chanceOfCritical = 0.05;
+            defense = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 4);
+            chanceOfEvasion = 0.1 * ((playerPosition)/5 + 1) + (GetRandomNumber(playerPosition * 3)/100);
+
+            chanceOfDamageReduction = 0.2 * ((playerPosition)/5 + 1) + (GetRandomNumber(playerPosition * 4)/100);
+            damageReduction = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 6);
+
+            gold += playerPosition * 5;
+            exp += playerPosition * playerPosition;
             break;
         //Position 0-4
         case 1:
-            maxHp = 100 + tempPlayerPosition * 20;
+            name = "Rat";
+            maxHp = 100 + tempPlayerPosition * 20 + randHp;
             maxMana = 10;
 
-            attackDamageMin = 10 + tempPlayerPosition * 1;
-            attackDamageMax = 15 + tempPlayerPosition * 1;
+            attackDamageMin = 10 + atk;
+            attackDamageMax = 15 + atk;
 
-            defense = 15 + tempPlayerPosition * 1;
+            defense = 15 + def;
             chanceOfEvasion = 0;
 
             chanceOfDamageReduction = 0;
@@ -44,13 +74,14 @@ void Monster::SetType(int index, int playerPosition)
             break;
         //Position 6-9
         case 2:
-            maxHp = 200 + tempPlayerPosition * 20;
+            name = "Wolf";
+            maxHp = 200 + tempPlayerPosition * 20 + randHp;
             maxMana = 20;
 
-            attackDamageMin = 20 + tempPlayerPosition * 2;
-            attackDamageMax = 25 + tempPlayerPosition * 2;
+            attackDamageMin = 20 + atk;
+            attackDamageMax = 25 + atk;
 
-            defense = 25 + tempPlayerPosition * 2;
+            defense = 25 + def;
             chanceOfEvasion = 0.01 + tempPlayerPosition * 0.01;
 
             chanceOfDamageReduction = 0.05 + tempPlayerPosition * 0.05;
@@ -58,21 +89,21 @@ void Monster::SetType(int index, int playerPosition)
             break;
         //Position 11-14
         case 3:
-            maxHp = 300 + tempPlayerPosition * 30;
+            name = "Ogre";
+            maxHp = 300 + tempPlayerPosition * 30 + randHp;
             maxMana = 30;
 
-            attackDamageMin = 35 + tempPlayerPosition * 3;
-            attackDamageMax = 40 + tempPlayerPosition * 3;
+            attackDamageMin = 35 + atk;
+            attackDamageMax = 40 + atk;
 
-            defense = 40 + tempPlayerPosition * 3;
+            defense = 40 + def;
             chanceOfEvasion = 0.05 + tempPlayerPosition * 0.05;
 
             chanceOfDamageReduction = 0.1 + tempPlayerPosition * 0.1;
             damageReduction = 10 + tempPlayerPosition * 10;
             break;
     }
-    chanceOfCritical = 0.05 + playerPosition * 0.04;
-    chanceOfSpecialAttack = 0.05 + playerPosition * 0.01;
+    
 }
 
 void Monster::SetTempStatsEqualToNonTemp()

@@ -44,6 +44,7 @@ struct Monster
     int stunnedTurns = 0;
 
     int level = 1;
+    int exp = 0;
 
     int gold = 0;
 
