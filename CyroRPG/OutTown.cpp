@@ -160,7 +160,7 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
                 damage = player.NormalAttack();
             }
 
-            player.DamageCalculation(damage, monster);
+            monster.DamageCalculation(damage);
             break;
         case 2:
             ShowActiveSkills(player);
@@ -205,45 +205,7 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
             damage = monster.NormalAttack();
         }
 
-        //Half of defense is how much damage is removed
-        if ((player.tempDefense / 2) >= damage)
-        {
-            cout << "Your defense negated the enemy's attack" << endl;
-        }
-        else 
-        {
-            damage -= player.tempDefense / 2;
-            
-            //Player evasion/damage reduct
-            rand = GetRandomNumber(100);
-            if (rand > (player.tempChanceOfEvasion * 100))
-            {
-                rand = GetRandomNumber(100);
-                if (rand > (player.tempChanceOfDamageReduction * 100))
-                {
-                    cout << "You took " << damage << " damage" << endl;
-                    player.currentHp -= damage;
-                }
-                else
-                {
-                    if (damage > player.tempDamageReduction)
-                    {
-                        cout << "You took reduced damage " << endl;
-                        player.currentHp -= damage - player.tempDamageReduction;
-                        cout << "You took " << damage - player.tempDamageReduction << " damage" << endl;
-                    }
-                    else
-                    {
-                        cout << "You negated the enemy's attack with your damage reduction" << endl;
-                    }
-                }
-
-            }
-            else
-            {
-                cout << "You evaded the enemy's attack" << endl;
-            }
-        }
+        player.DamageCalculation(damage);
     }
     player.turn = true;
 }

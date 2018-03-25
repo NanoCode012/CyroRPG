@@ -1,5 +1,7 @@
 #include "./Monsters.h"
 
+using namespace std;
+
 void Monster::SetType(int index, int playerPosition)
 {
     int tempPlayerPosition = playerPosition;
@@ -102,6 +104,55 @@ float Monster::CriticalAttack()
 float Monster::SpecialAttack()
 {
     return (NormalAttack() * 5);
+}
+
+bool Monster::DamageCalculation(float damage)
+{
+    bool isDamaged = false;
+    //Half of defense is how much damage is removed
+    if ((tempDefense / 2) >= damage)
+    {
+        cout << "Enemy's defense negated your attack" << endl;
+        isDamaged = false;
+    }
+    else
+    {
+        damage -= tempDefense / 2;
+            
+        //Enemy evasion/damage reduct
+        int rand = GetRandomNumber(100);
+        if (rand > (tempChanceOfEvasion * 100))
+        {
+            rand = GetRandomNumber(100);
+            if (rand > (tempChanceOfDamageReduction * 100))
+            {
+                cout << "Enemy took " << damage << " damage" << endl;
+                currentHp -= damage;
+                isDamaged = true;
+            }
+            else
+            {
+                if (damage > tempDamageReduction)
+                {
+                    cout << "Enemy took reduced damage" << endl;
+                    currentHp -= damage - tempDamageReduction;
+                    cout << "Enemy took " << damage - tempDamageReduction << " damage" << endl;
+                    isDamaged = true;
+                }
+                else
+                {
+                    cout << "Enemy negated your attack with its damage reduction" << endl;
+                    isDamaged = false;
+                }
+            }
+        }
+        else
+        {
+            cout << "Enemy evaded your attack" << endl;
+            isDamaged = false;
+        }
+    }
+    return isDamaged;
 }
 
 bool Monster::IsAlive()

@@ -297,7 +297,7 @@ void Character::SetSkill(int index)
 void Character::UseSkill(int index, Monster &monster)
 {
     int rand = GetRandomNumber(100);
-    int damage;
+    float damage;
     switch(skills[index].id)
     {
         //Guard Skill
@@ -322,8 +322,7 @@ void Character::UseSkill(int index, Monster &monster)
                 cout << "You did a Critical Attack " << skills[index].damageMultiplier << " times" << endl;
             }
 
-            DamageCalculation(damage, monster);
-            currentMana -= skills[index].manaCost;
+            monster.DamageCalculation(damage);
             break;
         //Shock
         case 3:
@@ -339,49 +338,10 @@ void Character::UseSkill(int index, Monster &monster)
                 cout << "You did a Critical Attack " << endl;
             }
 
-            //Half of defense is how much damage is removed
-            if ((monster.tempDefense / 2) >= damage)
-            {
-                cout << "Enemy's defense negated your attack" << endl;
-            }
-            else
-            {
-                damage -= monster.tempDefense / 2;
-                    
-                //Enemy evasion/damage reduct
-                rand = GetRandomNumber(100);
-                if (rand > (monster.tempChanceOfEvasion * 100))
-                {
-                    rand = GetRandomNumber(100);
-                    if (rand > (monster.tempChanceOfDamageReduction * 100))
-                    {
-                        cout << "Enemy took " << damage << " damage" << endl;
-                        monster.currentHp -= damage;
-                    }
-                    else
-                    {
-                        if (damage > monster.tempDamageReduction)
-                        {
-                            cout << "Enemy took reduced damage" << endl;
-                            monster.currentHp -= damage - monster.tempDamageReduction;
-                            cout << "Enemy took " << damage - monster.tempDamageReduction << " damage" << endl;
-                        }
-                        else
-                        {
-                            cout << "Enemy negated your attack with its damage reduction" << endl;
-                        }
-                    }
-                }
-                else
-                {
-                    cout << "Enemy evaded your attack" << endl;
-                }
-            }
-            
-            currentMana -= skills[index].manaCost;
+            monster.DamageCalculation(damage);
             break;
-
     }
+    currentMana -= skills[index].manaCost;
 }
 
 float Character::NormalAttack()
@@ -394,50 +354,46 @@ float Character::CriticalAttack()
     return (NormalAttack() * (1 + tempCriticalDamagePercentage));
 }
 
-bool DamageCalculation(int damage, Monster &monster)
+bool Character::DamageCalculation(float damage)
 {
-    bool isDamaged = true;
+    bool isDamaged = false;
     //Half of defense is how much damage is removed
-    if ((monster.tempDefense / 2) >= damage)
+    if ((tempDefense / 2) >= damage)
     {
-        cout << "Enemy's defense negated your attack" << endl;
-        isDamaged = false;
+        cout << "Your defense negated the enemy's attack" << endl;
     }
-    else
+    else 
     {
-        damage -= monster.tempDefense / 2;
-            
-        //Enemy evasion/damage reduct
+        damage -= tempDefense / 2;
+        
+        //Player evasion/damage reduct
         int rand = GetRandomNumber(100);
-        if (rand > (monster.tempChanceOfEvasion * 100))
+        if (rand > (tempChanceOfEvasion * 100))
         {
             rand = GetRandomNumber(100);
-            if (rand > (monster.tempChanceOfDamageReduction * 100))
+            if (rand > (tempChanceOfDamageReduction * 100))
             {
-                cout << "Enemy took " << damage << " damage" << endl;
-                monster.currentHp -= damage;
-                isDamaged = true;
+                cout << "You took " << damage << " damage" << endl;
+                currentHp -= damage;
             }
             else
             {
-                if (damage > monster.tempDamageReduction)
+                if (damage > tempDamageReduction)
                 {
-                    cout << "Enemy took reduced damage" << endl;
-                    monster.currentHp -= damage - monster.tempDamageReduction;
-                    cout << "Enemy took " << damage - monster.tempDamageReduction << " damage" << endl;
-                    isDamaged = true;
+                    cout << "You took reduced damage " << endl;
+                    currentHp -= damage - tempDamageReduction;
+                    cout << "You took " << damage - tempDamageReduction << " damage" << endl;
                 }
                 else
                 {
-                    cout << "Enemy negated your attack with its damage reduction" << endl;
-                    isDamaged = false;
+                    cout << "You negated the enemy's attack with your damage reduction" << endl;
                 }
             }
+
         }
         else
         {
-            cout << "Enemy evaded your attack" << endl;
-            isDamaged = false;
+            cout << "You evaded the enemy's attack" << endl;
         }
     }
     return isDamaged;

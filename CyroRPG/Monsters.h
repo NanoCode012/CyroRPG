@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include "./Random.h"
 
 struct Monster
@@ -46,6 +47,8 @@ struct Monster
     float NormalAttack();
     float CriticalAttack();
     float SpecialAttack();
+
+    bool DamageCalculation(float damage);
 
     bool IsAlive();
 };
