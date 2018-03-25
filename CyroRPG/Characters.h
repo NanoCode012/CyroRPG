@@ -44,8 +44,8 @@ struct Character
     float expToNextLevel = 5;
 
     bool turn = true;
-    int amountOfExtraActionAtStartTurn;
-    int amountOfExtraActionAtNextTurn;
+    int amountOfExtraActionAtStartTurn = 0;
+    int amountOfExtraTurns = 0;
 
     int gold = 0;
 

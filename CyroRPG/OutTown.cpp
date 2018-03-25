@@ -268,6 +268,12 @@ void OutTown(Character &player)
                     cin >> opt;
                     CalculatePlayerAttack(player, monster, opt);
                     ShowEnemyStats(monster);
+                    if (player.amountOfExtraTurns > 0)
+                    {
+                        player.amountOfExtraTurns--;
+                        player.turn = true;
+                        cout << "You have " << player.amountOfExtraTurns << " extra turn(s) left" << endl;
+                    }
                     if (!monster.IsAlive()) break;
                 }
                 else

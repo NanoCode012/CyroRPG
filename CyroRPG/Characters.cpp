@@ -243,12 +243,12 @@ void Character::SetSkill(int index)
                     skills[amountOfSkills].damageReduction = 20;
                     break;
                 case 2:
-                    skills[amountOfSkills].chanceOfEvasion = 0.1;
+                    skills[amountOfSkills].chanceOfEvasion = 0.2;
                     skills[amountOfSkills].chanceOfDamageReduction = 0.3;
                     skills[amountOfSkills].damageReduction = 30;
                     break;
                 case 3:
-                    skills[amountOfSkills].chanceOfEvasion = 0.1;
+                    skills[amountOfSkills].chanceOfEvasion = 0.3;
                     skills[amountOfSkills].chanceOfDamageReduction = 0.3;
                     skills[amountOfSkills].damageReduction = 40;
                     break;
@@ -274,8 +274,10 @@ void Character::SetSkill(int index)
             }
             break;
         case 9:
-            skills[amountOfSkills].name = "Burst Arrow";
+            skills[amountOfSkills].name = "Arrow Burst";
             skills[amountOfSkills].isActive = true;
+            skills[amountOfSkills].chanceOfFiringAgain[0] = 0;
+            skills[amountOfSkills].chanceOfFiringAgain[1] = 0;
             switch(level)
             {
                 case 1:
@@ -419,7 +421,47 @@ void Character::UseSkill(int index, Monster &monster)
                 }
             }
             break;
+        //Swift
         case 7:
+            cout << "Swift" << endl;
+            tempChanceOfEvasion = skills[index].chanceOfEvasion;
+            tempChanceOfDamageReduction = skills[index].chanceOfDamageReduction;
+            tempDamageReduction = skills[index].damageReduction;
+            break;
+        //Sharp Eye
+        case 8:
+            cout << "Sharp Eye" << endl;
+            tempChanceOfCriticalDamage = skills[index].chanceOfCriticalDamage;
+            tempCriticalDamagePercentage = skills[index].criticalDamagePercentage;
+            break;
+        //Arrow Burst
+        case 9:
+            cout << "Arrow Burst" << endl;
+            if (rand > tempChanceOfCriticalDamage)
+            {
+                damage = skills[index].damage;
+                cout << "You did a Normal Attack" << endl;
+            }
+            else 
+            {
+                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
+                cout << "You did a Critical Attack" << endl;
+            }
+
+            if (monster.DamageCalculation(damage))
+            {
+                rand = GetRandomNumber(100);
+                if (rand <= skills[index].chanceOfFiringAgain[0])
+                {
+                    amountOfExtraTurns++;
+                    rand = GetRandomNumber(100);
+                    if (rand <= skills[index].chanceOfFiringAgain[1])
+                    {
+                        amountOfExtraTurns++;
+                    }
+                    cout << "Enemy is pushed back. You get " << amountOfExtraTurns << " extra turn(s)." << endl;
+                }
+            }
             break;
     }
     currentMana -= skills[index].manaCost;
