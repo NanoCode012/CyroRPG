@@ -13,7 +13,7 @@ void PrintTitle()
 
 void PrintLegend()
 {
-    cout << "'All we know is that we need to survive ... in this cruel wretched world inhabited by monsters.' \n" << endl 
+    cout << "'All we knew was that we needed to survive ... in this cruel wretched world inhabited by monsters.' \n" << endl 
          << "We created fortresses, armies, weaponries."                                                          << endl
          << "We learnt foresting, arcane magic, war tactics."                                                     << endl
          << "We killed flocks of cursed pterodactyls, almighty dragons, warlocks of the undead. \n"               << endl
