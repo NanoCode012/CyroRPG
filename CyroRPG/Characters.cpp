@@ -208,20 +208,24 @@ void Character::SetSkill(int index)
         case 6:
             skills[amountOfSkills].name = "Thunder Strike";
             skills[amountOfSkills].isActive = true;
+            skills[amountOfSkills].stunnedTurns = 1;
             switch(level)
             {
                 case 1:
                     skills[amountOfSkills].damage = 50;
+                    skills[amountOfSkills].chanceOfStun = 0.2;
                     skills[amountOfSkills].manaCost = 5;
                     break;
                 case 2:
                     skills[amountOfSkills].damage = 100;
+                    skills[amountOfSkills].chanceOfStun = 0.35;
                     skills[amountOfSkills].chanceOfDrainHP = 0.2;
                     skills[amountOfSkills].hpDrainOfMaxPercentage = 0.2;
                     skills[amountOfSkills].manaCost = 8;
                     break;
                 case 3:
                     skills[amountOfSkills].damage = 150;
+                    skills[amountOfSkills].chanceOfStun = 0.5;
                     skills[amountOfSkills].chanceOfDrainHP = 0.5;
                     skills[amountOfSkills].hpDrainOfMaxPercentage = 0.35;
                     skills[amountOfSkills].manaCost = 15;
@@ -334,7 +338,7 @@ void Character::UseSkill(int index, Monster &monster)
             }
             else 
             {
-                damage = skills[index].damage * (1 + criticalDamagePercentage);
+                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
                 cout << "You did a Critical Attack" << endl;
             }
 
@@ -355,7 +359,7 @@ void Character::UseSkill(int index, Monster &monster)
             }
             else 
             {
-                damage = skills[index].damage * (1 + criticalDamagePercentage);
+                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
                 cout << "You did a Critical Attack" << endl;
             }
 
@@ -375,7 +379,7 @@ void Character::UseSkill(int index, Monster &monster)
             }
             else 
             {
-                damage = skills[index].damage * (1 + criticalDamagePercentage);
+                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
                 cout << "You did a Critical Attack" << endl;
             }
 
@@ -385,9 +389,37 @@ void Character::UseSkill(int index, Monster &monster)
                 monster.amountOfTurnsDamageReductionPercentage = 1;
             }
             break;
-        //
+        //Thunder Strike
         case 6:
-            
+            cout << "Thunder Strike" << endl;
+            if (rand > tempChanceOfCriticalDamage)
+            {
+                damage = skills[index].damage;
+                cout << "You did a Normal Attack" << endl;
+            }
+            else 
+            {
+                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
+                cout << "You did a Critical Attack" << endl;
+            }
+
+            if (monster.DamageCalculation(damage))
+            {
+                rand = GetRandomNumber(100);
+                if (rand <= skills[index].chanceOfStun)
+                {
+                    monster.stunnedTurns = skills[index].stunnedTurns;
+                }
+                rand = GetRandomNumber(100);
+                if (rand <= skills[index].chanceOfDrainHP)
+                {
+                    //Player take half of hp drained
+                    currentHp += monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage);
+                    monster.currentHp -= monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage);
+                }
+            }
+            break;
+        case 7:
             break;
     }
     currentMana -= skills[index].manaCost;
