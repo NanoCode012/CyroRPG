@@ -424,15 +424,27 @@ void Character::UseSkill(int index, Monster &monster)
         //Swift
         case 7:
             cout << "Swift" << endl;
-            tempChanceOfEvasion = skills[index].chanceOfEvasion;
-            tempChanceOfDamageReduction = skills[index].chanceOfDamageReduction;
-            tempDamageReduction = skills[index].damageReduction;
+            tempChanceOfEvasion += skills[index].chanceOfEvasion;
+            tempChanceOfDamageReduction += skills[index].chanceOfDamageReduction;
+            tempDamageReduction += skills[index].damageReduction;
+            cout << "Your evasion chance increased by " << skills[index].chanceOfEvasion << endl;
+            if (skills[index].chanceOfDamageReduction > 0)
+            {
+                cout << "Your damage reduction chance increased by " 
+                     << skills[index].chanceOfDamageReduction 
+                     << " against " 
+                     << skills[index].damageReduction
+                     << " damage"
+                     << endl; 
+            }
             break;
         //Sharp Eye
         case 8:
             cout << "Sharp Eye" << endl;
-            tempChanceOfCriticalDamage = skills[index].chanceOfCriticalDamage;
-            tempCriticalDamagePercentage = skills[index].criticalDamagePercentage;
+            tempChanceOfCriticalDamage += skills[index].chanceOfCriticalDamage;
+            tempCriticalDamagePercentage += skills[index].criticalDamagePercentage;
+            cout << "Your critical chance increased by " << skills[index].chanceOfCriticalDamage << endl;
+            cout << "Your critical damage is " << 1 + tempChanceOfCriticalDamage << "x of your normal attack" << endl;
             break;
         //Arrow Burst
         case 9:
@@ -553,7 +565,7 @@ bool Character::LevelUp()
     if (expToNextLevel - currentExp <= 0.01 || currentExp >= expToNextLevel) 
     {
         level++;
-        currentExp = 0;
+        currentExp -= expToNextLevel;
         for (int i = 1; i < 25; i++)
         {
             if (i*5 > level) 
