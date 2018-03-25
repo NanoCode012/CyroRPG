@@ -58,6 +58,7 @@ void SetPlayerStats(Character &player, Monster &monster)
     player.SetTempStatsEqualToNonTemp();
     for (int i = 0; i < player.amountOfSkills; i++)
     {
+        //Use passive stats
         if (!player.skills[i].isActive) 
         {
             player.UseSkill(i, monster);
@@ -159,43 +160,7 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
                 damage = player.NormalAttack();
             }
 
-            if ((monster.tempDefense / 2) >= damage)
-            {
-                cout << "Enemy's defense negated your attack" << endl;
-            }
-            else 
-            {
-                damage -= monster.tempDefense / 2;
-                
-                //Enemy evasion/damage reduct
-                rand = GetRandomNumber(100);
-                if (rand > (monster.tempChanceOfEvasion * 100))
-                {
-                    rand = GetRandomNumber(100);
-                    if (rand > (monster.tempChanceOfDamageReduction * 100))
-                    {
-                        cout << "Enemy took " << damage << " damage" << endl;
-                        monster.currentHp -= damage;
-                    }
-                    else
-                    {
-                        if (damage > monster.tempDamageReduction)
-                        {
-                            cout << "Enemy took reduced damage" << endl;
-                            monster.currentHp -= damage - monster.tempDamageReduction;
-                            cout << "Enemy took " << damage - monster.tempDamageReduction << " damage" << endl;
-                        }
-                        else
-                        {
-                            cout << "Enemy negated your attack with its damage reduction" << endl;
-                        }
-                    }
-                }
-                else
-                {
-                    cout << "Enemy evaded your attack" << endl;
-                }
-            }
+            player.DamageCalculation(damage, monster);
             break;
         case 2:
             ShowActiveSkills(player);

@@ -74,6 +74,8 @@ struct Character
     float NormalAttack();
     float CriticalAttack();
 
+    bool DamageCalculation(int damage, Monster &monster);
+
     void IncreaseStats();
     
     bool LevelUp();
