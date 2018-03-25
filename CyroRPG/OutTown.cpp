@@ -184,7 +184,7 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
     if (monster.amountOfTurnsDOT > 0)
     {
         monster.amountOfTurnsDOT--;
-        monster.currentHp -= monster.damagedOverTime;
+        monster.DamageCalculation(monster.damagedOverTime);
     }
     if (monster.IsAlive)
     {
