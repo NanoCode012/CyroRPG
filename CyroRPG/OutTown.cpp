@@ -181,31 +181,43 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
 {
     int rand = GetRandomNumber(100);
     float damage;
-    if (monster.stunnedTurns > 0) 
+    if (monster.amountOfTurnsDOT > 0)
     {
-        monster.stunnedTurns--;
-        cout << "Enemy is stunned this turn" << endl;
+        monster.amountOfTurnsDOT--;
+        monster.currentHp -= monster.damagedOverTime;
+    }
+    if (monster.IsAlive)
+    {
+        if (monster.stunnedTurns > 0) 
+        {
+            monster.stunnedTurns--;
+            cout << "Enemy is stunned this turn" << endl;
+        }
+        else
+        {
+            //Type of attack
+            if (rand >= 100 - (monster.tempChanceOfSpecialAttack * 100)) 
+            {
+                cout << "Enemy used a Special Attack" << endl;
+                damage = monster.SpecialAttack();
+            }
+            else if (rand >= 100 - (monster.tempChanceOfSpecialAttack*100) - (monster.tempChanceOfCritical*100)) 
+            {
+                cout << "Enemy did a Critical Attack" << endl;
+                damage = monster.CriticalAttack();
+            }
+            else 
+            {
+                cout << "Enemy did a Normal Attack" << endl;
+                damage = monster.NormalAttack();
+            }
+
+            player.DamageCalculation(damage);
+        }
     }
     else
     {
-        //Type of attack
-        if (rand >= 100 - (monster.tempChanceOfSpecialAttack * 100)) 
-        {
-            cout << "Enemy used a Special Attack" << endl;
-            damage = monster.SpecialAttack();
-        }
-        else if (rand >= 100 - (monster.tempChanceOfSpecialAttack*100) - (monster.tempChanceOfCritical*100)) 
-        {
-            cout << "Enemy did a Critical Attack" << endl;
-            damage = monster.CriticalAttack();
-        }
-        else 
-        {
-            cout << "Enemy did a Normal Attack" << endl;
-            damage = monster.NormalAttack();
-        }
-
-        player.DamageCalculation(damage);
+        cout << "Enemy died due to status effect" << endl;
     }
     player.turn = true;
 }

@@ -35,6 +35,9 @@ struct Monster
     float tempChanceOfCritical;
     float tempChanceOfSpecialAttack;
 
+    float damagedOverTime = 0;
+    int amountOfTurnsDOT = 0;
+
     int stunnedTurns = 0;
 
     int level = 1;
