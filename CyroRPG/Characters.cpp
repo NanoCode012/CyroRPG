@@ -414,7 +414,7 @@ void Character::UseSkill(int index, Monster &monster)
                 if (rand <= skills[index].chanceOfDrainHP)
                 {
                     //Player take half of hp drained
-                    currentHp += monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage);
+                    currentHp += (monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage))/2;
                     monster.currentHp -= monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage);
                 }
             }
