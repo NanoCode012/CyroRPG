@@ -19,8 +19,8 @@ void Monster::SetType(int index, int playerPosition)
     chanceOfSpecialAttack = 0.05 + playerPosition * 0.01;
     level = playerPosition;
 
-    gold = GetRandomNumber(25*index);
-    exp = GetRandomNumber(15*index);
+    gold = GetRandomNumber(20*index + playerPosition * 3);
+    exp = GetRandomNumber(15*index + playerPosition * 3);
     switch(index)
     {
         //Boss - Uses PlayerPosition for higher stats
@@ -40,19 +40,19 @@ void Monster::SetType(int index, int playerPosition)
                     break;
             }
 
-            maxHp = 150 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 5);
-            maxMana = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 3);
+            maxHp = 150 * ((playerPosition)/5) + GetRandomNumber(playerPosition * 5);
+            maxMana = 15 * ((playerPosition)/5) + GetRandomNumber(playerPosition * 3);
 
-            attackDamageMin = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 1);
-            attackDamageMax = 20 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 1);
+            attackDamageMin = 15 * ((playerPosition)/5) + GetRandomNumber(playerPosition * 1);
+            attackDamageMax = 20 * ((playerPosition)/5) + GetRandomNumber(playerPosition * 1);
 
             if (attackDamageMin >= attackDamageMax) attackDamageMax = attackDamageMin + 5;
 
-            defense = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 4);
-            chanceOfEvasion = 0.1 * ((playerPosition)/5 + 1) + (GetRandomNumber(playerPosition * 3)/100);
+            defense = 15 * ((playerPosition)/5) + GetRandomNumber(playerPosition * 4);
+            chanceOfEvasion = 0.1 * ((playerPosition)/5) + (GetRandomNumber(playerPosition * 3)/100);
 
-            chanceOfDamageReduction = 0.2 * ((playerPosition)/5 + 1) + (GetRandomNumber(playerPosition * 4)/100);
-            damageReduction = 15 * ((playerPosition)/5 + 1) + GetRandomNumber(playerPosition * 6);
+            chanceOfDamageReduction = 0.2 * ((playerPosition)/5) + (GetRandomNumber(playerPosition * 4)/100);
+            damageReduction = 15 * ((playerPosition)/5) + GetRandomNumber(playerPosition * 6);
 
             gold += playerPosition * 5;
             exp += playerPosition * playerPosition;
