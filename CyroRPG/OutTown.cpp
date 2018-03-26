@@ -47,7 +47,7 @@ bool CheckIfMeetEnemy(Character &player)
     int num = GetRandomNumber(100);
     if (player.position != 0 && player.position % 5 == 0)
     {
-        if (!player.killedBoss[(player.position/5) - 1])
+        if (!player.killedBoss[(player.position/5)])
         {
             return true;
         }
@@ -298,9 +298,17 @@ void OutTown(Character &player)
             }while(monster.IsAlive() && player.IsAlive());
             if (!monster.IsAlive()) 
             {
+                if (player.position != 0 && player.position % 5 == 0) player.killedBoss[player.position/5] = true;
                 cout << "You killed the monster!"           << endl
-                     << "You get " << monster.gold << " G." << endl;
+                     << "You get " << monster.gold << " G." << endl
+                     << "You get " << monster.exp  << " exp." << endl;
                 player.gold += monster.gold;
+                player.currentExp += monster.exp;
+                while (player.LevelUp()) 
+                {
+                    cout << "You leveled up!"       << endl;
+                    cout << "You are now level "    << player.level << "." << endl;
+                }
             }else cout << "You have been defeated!"         << endl;
         }
     }while(player.IsAlive());
