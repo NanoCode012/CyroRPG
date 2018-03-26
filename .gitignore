@@ -54,3 +54,4 @@ dkms.conf
 .DS_Store
 **/build
 **/.vscode
+CyroRPG/Data.txt
