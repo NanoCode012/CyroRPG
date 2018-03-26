@@ -304,179 +304,191 @@ void Character::UseSkill(int index, Monster &monster)
 {
     int rand = GetRandomNumber(100);
     float damage;
-    switch(skills[index].id)
+    if (currentMana < skills[index].manaCost)
     {
-        //Guard Skill
-        case 1:
-            tempDefense = defense * (1 + skills[index].defenseIncreasePercentage);
-            cout << "Your defense increased by "
-                 << ConvertFromPercentageToString(skills[index].defenseIncreasePercentage, 2)
-                 << " % "
-                 << endl;
-            break;
-        //Sword Barrage
-        case 2:
-            cout << "Sword Barrage" << endl;
-            if (rand > tempChanceOfCriticalDamage)
-            {
-                damage = NormalAttack() * skills[index].damageMultiplier;
-                cout << "You did a Normal Attack " << skills[index].damageMultiplier << " times" << endl;
-            }
-            else 
-            {
-                damage = CriticalAttack() * skills[index].damageMultiplier;
-                cout << "You did a Critical Attack " << skills[index].damageMultiplier << " times" << endl;
-            }
-
-            monster.DamageCalculation(damage);
-            break;
-        //Shock
-        case 3:
-            cout << "Shock" << endl;
-            if (rand > tempChanceOfCriticalDamage)
-            {
-                damage = skills[index].damage;
-                cout << "You did a Normal Attack" << endl;
-            }
-            else 
-            {
-                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
-                cout << "You did a Critical Attack" << endl;
-            }
-
-            //Stun does not stack, only refreshes previous stack
-            if (monster.DamageCalculation(damage))
-            {
-                cout << "Enemy has been stunned for " << skills[index].stunnedTurns << " turns" << endl;
-                monster.stunnedTurns = skills[index].stunnedTurns;
-            }
-            break;
-        //Hell Fire
-        case 4:
-            cout << "Hell Fire" << endl;
-            if (rand > tempChanceOfCriticalDamage)
-            {
-                damage = skills[index].damage;
-                cout << "You did a Normal Attack" << endl;
-            }
-            else 
-            {
-                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
-                cout << "You did a Critical Attack" << endl;
-            }
-
-            if (monster.DamageCalculation(damage))
-            {
-                monster.damagedOverTime = skills[index].damageOverTime;
-                monster.amountOfTurnsDOT = skills[index].amountOfTurnsDOT;
-            }
-            break;
-        //Frostbite
-        case 5:
-            cout << "Frostbite" << endl;
-            if (rand > tempChanceOfCriticalDamage)
-            {
-                damage = skills[index].damage;
-                cout << "You did a Normal Attack" << endl;
-            }
-            else 
-            {
-                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
-                cout << "You did a Critical Attack" << endl;
-            }
-
-            if (monster.DamageCalculation(damage))
-            {
-                monster.damageReductionPercentage = skills[index].damageReductionPercentage;
-                monster.amountOfTurnsDamageReductionPercentage = 1;
-            }
-            break;
-        //Thunder Strike
-        case 6:
-            cout << "Thunder Strike" << endl;
-            if (rand > tempChanceOfCriticalDamage)
-            {
-                damage = skills[index].damage;
-                cout << "You did a Normal Attack" << endl;
-            }
-            else 
-            {
-                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
-                cout << "You did a Critical Attack" << endl;
-            }
-
-            if (monster.DamageCalculation(damage))
-            {
-                rand = GetRandomNumber(100);
-                if (rand <= skills[index].chanceOfStun)
+        cout << "You do not have enough mana. You lost a turn." << endl;
+    }
+    else
+    {
+        currentMana -= skills[index].manaCost;
+        switch(skills[index].id)
+        {
+            //Guard Skill
+            case 1:
+                tempDefense = defense * (1 + skills[index].defenseIncreasePercentage);
+                cout << "Your defense increased by "
+                    << ConvertFromPercentageToString(skills[index].defenseIncreasePercentage, 2)
+                    << " % "
+                    << endl;
+                break;
+            //Sword Barrage
+            case 2:
+                cout << "Sword Barrage" << endl;
+                if (rand > tempChanceOfCriticalDamage)
                 {
+                    damage = NormalAttack() * skills[index].damageMultiplier;
+                    cout << "You did a Normal Attack " << skills[index].damageMultiplier << " times" << endl;
+                }
+                else 
+                {
+                    damage = CriticalAttack() * skills[index].damageMultiplier;
+                    cout << "You did a Critical Attack " << skills[index].damageMultiplier << " times" << endl;
+                }
+
+                monster.DamageCalculation(damage);
+                break;
+            //Shock
+            case 3:
+                cout << "Shock" << endl;
+                if (rand > tempChanceOfCriticalDamage)
+                {
+                    damage = skills[index].damage;
+                    cout << "You did a Normal Attack" << endl;
+                }
+                else 
+                {
+                    damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
+                    cout << "You did a Critical Attack" << endl;
+                }
+
+                //Stun does not stack, only refreshes previous stack
+                if (monster.DamageCalculation(damage))
+                {
+                    cout << "Enemy has been stunned for " << skills[index].stunnedTurns << " turns" << endl;
                     monster.stunnedTurns = skills[index].stunnedTurns;
                 }
-                rand = GetRandomNumber(100);
-                if (rand <= skills[index].chanceOfDrainHP)
+                break;
+            //Hell Fire
+            case 4:
+                cout << "Hell Fire" << endl;
+                if (rand > tempChanceOfCriticalDamage)
                 {
-                    //Player take half of hp drained
-                    currentHp += (monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage))/2;
-                    monster.currentHp -= monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage);
+                    damage = skills[index].damage;
+                    cout << "You did a Normal Attack" << endl;
                 }
-            }
-            break;
-        //Swift
-        case 7:
-            cout << "Swift" << endl;
-            tempChanceOfEvasion += skills[index].chanceOfEvasion;
-            tempChanceOfDamageReduction += skills[index].chanceOfDamageReduction;
-            tempDamageReduction += skills[index].damageReduction;
-            cout << "Your evasion chance increased by " << skills[index].chanceOfEvasion << endl;
-            if (skills[index].chanceOfDamageReduction > 0)
-            {
-                cout << "Your damage reduction chance increased by " 
-                     << skills[index].chanceOfDamageReduction 
-                     << " against " 
-                     << skills[index].damageReduction
-                     << " damage"
-                     << endl; 
-            }
-            break;
-        //Sharp Eye
-        case 8:
-            cout << "Sharp Eye" << endl;
-            tempChanceOfCriticalDamage += skills[index].chanceOfCriticalDamage;
-            tempCriticalDamagePercentage += skills[index].criticalDamagePercentage;
-            cout << "Your critical chance increased by " << skills[index].chanceOfCriticalDamage << endl;
-            cout << "Your critical damage is " << 1 + tempChanceOfCriticalDamage << "x of your normal attack" << endl;
-            break;
-        //Arrow Burst
-        case 9:
-            cout << "Arrow Burst" << endl;
-            if (rand > tempChanceOfCriticalDamage)
-            {
-                damage = skills[index].damage;
-                cout << "You did a Normal Attack" << endl;
-            }
-            else 
-            {
-                damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
-                cout << "You did a Critical Attack" << endl;
-            }
-
-            if (monster.DamageCalculation(damage))
-            {
-                rand = GetRandomNumber(100);
-                if (rand <= skills[index].chanceOfFiringAgain[0])
+                else 
                 {
-                    amountOfExtraTurns++;
+                    damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
+                    cout << "You did a Critical Attack" << endl;
+                }
+
+                if (monster.DamageCalculation(damage))
+                {
+                    monster.damagedOverTime = skills[index].damageOverTime;
+                    monster.amountOfTurnsDOT = skills[index].amountOfTurnsDOT;
+                }
+                break;
+            //Frostbite
+            case 5:
+                cout << "Frostbite" << endl;
+                if (rand > tempChanceOfCriticalDamage)
+                {
+                    damage = skills[index].damage;
+                    cout << "You did a Normal Attack" << endl;
+                }
+                else 
+                {
+                    damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
+                    cout << "You did a Critical Attack" << endl;
+                }
+
+                if (monster.DamageCalculation(damage))
+                {
+                    monster.damageReductionPercentage += skills[index].damageReductionPercentage;
+                    monster.amountOfTurnsDamageReductionPercentage = 1;
+                    cout << "Enemy's next damage will be reduced by " 
+                        << ConvertFromPercentageToString(monster.damageReductionPercentage, 2) << "%" 
+                        << endl;
+                }
+                break;
+            //Thunder Strike
+            case 6:
+                cout << "Thunder Strike" << endl;
+                if (rand > tempChanceOfCriticalDamage)
+                {
+                    damage = skills[index].damage;
+                    cout << "You did a Normal Attack" << endl;
+                }
+                else 
+                {
+                    damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
+                    cout << "You did a Critical Attack" << endl;
+                }
+
+                if (monster.DamageCalculation(damage))
+                {
                     rand = GetRandomNumber(100);
-                    if (rand <= skills[index].chanceOfFiringAgain[1])
+                    if (rand <= skills[index].chanceOfStun)
+                    {
+                        cout << "You stunned the enemy for " << monster.stunnedTurns << " turn(s)" << endl;
+                        monster.stunnedTurns = skills[index].stunnedTurns;
+                    }
+                    rand = GetRandomNumber(100);
+                    if (rand <= skills[index].chanceOfDrainHP)
+                    {
+                        //Player take half of hp drained
+                        currentHp += (monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage))/2;
+                        monster.currentHp -= monster.maxHp * (1 + skills[index].hpDrainOfMaxPercentage);
+                    }
+                }
+                break;
+            //Swift
+            case 7:
+                cout << "Swift" << endl;
+                tempChanceOfEvasion += skills[index].chanceOfEvasion;
+                tempChanceOfDamageReduction += skills[index].chanceOfDamageReduction;
+                tempDamageReduction += skills[index].damageReduction;
+                cout << "Your evasion chance increased by " << skills[index].chanceOfEvasion << endl;
+                if (skills[index].chanceOfDamageReduction > 0)
+                {
+                    cout << "Your damage reduction chance increased by " 
+                        << skills[index].chanceOfDamageReduction 
+                        << " against " 
+                        << skills[index].damageReduction
+                        << " damage"
+                        << endl; 
+                }
+                break;
+            //Sharp Eye
+            case 8:
+                cout << "Sharp Eye" << endl;
+                tempChanceOfCriticalDamage += skills[index].chanceOfCriticalDamage;
+                tempCriticalDamagePercentage += skills[index].criticalDamagePercentage;
+                cout << "Your critical chance increased by " << skills[index].chanceOfCriticalDamage << endl;
+                cout << "Your critical damage is " << 1 + tempChanceOfCriticalDamage << "x of your normal attack" << endl;
+                break;
+            //Arrow Burst
+            case 9:
+                cout << "Arrow Burst" << endl;
+                if (rand > tempChanceOfCriticalDamage)
+                {
+                    damage = skills[index].damage;
+                    cout << "You did a Normal Attack" << endl;
+                }
+                else 
+                {
+                    damage = skills[index].damage * (1 + tempCriticalDamagePercentage);
+                    cout << "You did a Critical Attack" << endl;
+                }
+
+                if (monster.DamageCalculation(damage))
+                {
+                    rand = GetRandomNumber(100);
+                    if (rand <= skills[index].chanceOfFiringAgain[0])
                     {
                         amountOfExtraTurns++;
+                        rand = GetRandomNumber(100);
+                        if (rand <= skills[index].chanceOfFiringAgain[1])
+                        {
+                            amountOfExtraTurns++;
+                        }
+                        cout << "Enemy is pushed back. You get " << amountOfExtraTurns << " extra turn(s)." << endl;
                     }
-                    cout << "Enemy is pushed back. You get " << amountOfExtraTurns << " extra turn(s)." << endl;
                 }
-            }
-            break;
+                break;
+        }
     }
-    currentMana -= skills[index].manaCost;
+    
 }
 
 float Character::NormalAttack()
@@ -565,6 +577,7 @@ bool Character::LevelUp()
     if (expToNextLevel - currentExp <= 0.01 || currentExp >= expToNextLevel) 
     {
         level++;
+        Fullheal();
         currentExp -= expToNextLevel;
         for (int i = 1; i < 25; i++)
         {
