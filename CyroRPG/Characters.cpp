@@ -100,207 +100,211 @@ void Character::SetSkillForClass(int role)
     }
 }
 
-void Character::SetSkill(int index)
+void Character::SetSkill(int skillID, int index)
 {
-    switch(index)
+    if (index == -1) 
+    {
+        index = amountOfSkills;
+        skills[index].id = skillID;
+        amountOfSkills++;
+    }
+    switch(skillID)
     {
         case 1:
-            skills[amountOfSkills].name = "Guard";
-            skills[amountOfSkills].isActive = false;
-            switch(skills[amountOfSkills].level)
+            skills[index].name = "Guard";
+            skills[index].isActive = false;
+            switch(skills[index].level)
             {
                 case 1:
-                    skills[amountOfSkills].defenseIncreasePercentage = 0.1;
+                    skills[index].defenseIncreasePercentage = 0.1;
                     break;
                 case 2:
-                    skills[amountOfSkills].defenseIncreasePercentage = 0.15;
+                    skills[index].defenseIncreasePercentage = 0.15;
                     break;
                 case 3:
-                    skills[amountOfSkills].defenseIncreasePercentage = 0.25;
+                    skills[index].defenseIncreasePercentage = 0.25;
                     break;
             }
             break;
         case 2:
-            skills[amountOfSkills].name = "Sword Barrage";
-            skills[amountOfSkills].isActive = true;
-            switch(skills[amountOfSkills].level)
+            skills[index].name = "Sword Barrage";
+            skills[index].isActive = true;
+            switch(skills[index].level)
             {
                 case 1:
-                    skills[amountOfSkills].damageMultiplier = 2;
-                    skills[amountOfSkills].manaCost = 5;
+                    skills[index].damageMultiplier = 2;
+                    skills[index].manaCost = 5;
                     break;
                 case 2:
-                    skills[amountOfSkills].damageMultiplier = 3;
-                    skills[amountOfSkills].manaCost = 8;
+                    skills[index].damageMultiplier = 3;
+                    skills[index].manaCost = 8;
                     break;
                 case 3:
-                    skills[amountOfSkills].damageMultiplier = 4;
-                    skills[amountOfSkills].manaCost = 12;
+                    skills[index].damageMultiplier = 4;
+                    skills[index].manaCost = 12;
                     break;
             }
             break;
         case 3:
-            skills[amountOfSkills].name = "Shock";
-            skills[amountOfSkills].isActive = true;
+            skills[index].name = "Shock";
+            skills[index].isActive = true;
             switch(level)
             {
                 case 1:
-                    skills[amountOfSkills].stunnedTurns = 1;
-                    skills[amountOfSkills].damage = 100;
-                    skills[amountOfSkills].manaCost = 10;
+                    skills[index].stunnedTurns = 1;
+                    skills[index].damage = 100;
+                    skills[index].manaCost = 10;
                     break;
                 case 2:
-                    skills[amountOfSkills].stunnedTurns = 1;
-                    skills[amountOfSkills].damage = 300;
-                    skills[amountOfSkills].manaCost = 18;
+                    skills[index].stunnedTurns = 1;
+                    skills[index].damage = 300;
+                    skills[index].manaCost = 18;
                     break;
                 case 3:
-                    skills[amountOfSkills].stunnedTurns = 2;
-                    skills[amountOfSkills].damage = 500;
-                    skills[amountOfSkills].manaCost = 25;
+                    skills[index].stunnedTurns = 2;
+                    skills[index].damage = 500;
+                    skills[index].manaCost = 25;
                     break;
             }
             break;
         case 4:
-            skills[amountOfSkills].name = "Hell Fire";
-            skills[amountOfSkills].isActive = true;
+            skills[index].name = "Hell Fire";
+            skills[index].isActive = true;
             switch(level)
             {
                 case 1:
-                    skills[amountOfSkills].damage = 150;
-                    skills[amountOfSkills].damageOverTime = 25;
-                    skills[amountOfSkills].amountOfTurnsDOT = 1;
-                    skills[amountOfSkills].manaCost = 10;
+                    skills[index].damage = 150;
+                    skills[index].damageOverTime = 25;
+                    skills[index].amountOfTurnsDOT = 1;
+                    skills[index].manaCost = 10;
                     break;
                 case 2:
-                    skills[amountOfSkills].damage = 250;
-                    skills[amountOfSkills].damageOverTime = 25;
-                    skills[amountOfSkills].amountOfTurnsDOT = 2;
-                    skills[amountOfSkills].manaCost = 20;
+                    skills[index].damage = 250;
+                    skills[index].damageOverTime = 25;
+                    skills[index].amountOfTurnsDOT = 2;
+                    skills[index].manaCost = 20;
                     break;
                 case 3:
-                    skills[amountOfSkills].damage = 350;
-                    skills[amountOfSkills].damageOverTime = 35;
-                    skills[amountOfSkills].amountOfTurnsDOT = 3;
-                    skills[amountOfSkills].manaCost = 30;
+                    skills[index].damage = 350;
+                    skills[index].damageOverTime = 35;
+                    skills[index].amountOfTurnsDOT = 3;
+                    skills[index].manaCost = 30;
                     break;
             }
             break;
         case 5:
-            skills[amountOfSkills].name = "Frostbite";
-            skills[amountOfSkills].isActive = true;
+            skills[index].name = "Frostbite";
+            skills[index].isActive = true;
             switch(level)
             {
                 case 1:
-                    skills[amountOfSkills].damage = 100;
-                    skills[amountOfSkills].damageReductionPercentage = 0.2;
-                    skills[amountOfSkills].manaCost = 7;
+                    skills[index].damage = 100;
+                    skills[index].damageReductionPercentage = 0.2;
+                    skills[index].manaCost = 7;
                     break;
                 case 2:
-                    skills[amountOfSkills].damage = 150;
-                    skills[amountOfSkills].damageReductionPercentage = 0.3;
-                    skills[amountOfSkills].manaCost = 9;
+                    skills[index].damage = 150;
+                    skills[index].damageReductionPercentage = 0.3;
+                    skills[index].manaCost = 9;
                     break;
                 case 3:
-                    skills[amountOfSkills].damage = 200;
-                    skills[amountOfSkills].damageReductionPercentage = 0.65;
-                    skills[amountOfSkills].manaCost = 12;
+                    skills[index].damage = 200;
+                    skills[index].damageReductionPercentage = 0.65;
+                    skills[index].manaCost = 12;
                     break;
             }
             break;
         case 6:
-            skills[amountOfSkills].name = "Thunder Strike";
-            skills[amountOfSkills].isActive = true;
-            skills[amountOfSkills].stunnedTurns = 1;
+            skills[index].name = "Thunder Strike";
+            skills[index].isActive = true;
+            skills[index].stunnedTurns = 1;
             switch(level)
             {
                 case 1:
-                    skills[amountOfSkills].damage = 50;
-                    skills[amountOfSkills].chanceOfStun = 0.2;
-                    skills[amountOfSkills].manaCost = 5;
+                    skills[index].damage = 50;
+                    skills[index].chanceOfStun = 0.2;
+                    skills[index].manaCost = 5;
                     break;
                 case 2:
-                    skills[amountOfSkills].damage = 100;
-                    skills[amountOfSkills].chanceOfStun = 0.35;
-                    skills[amountOfSkills].chanceOfDrainHP = 0.2;
-                    skills[amountOfSkills].hpDrainOfMaxPercentage = 0.2;
-                    skills[amountOfSkills].manaCost = 8;
+                    skills[index].damage = 100;
+                    skills[index].chanceOfStun = 0.35;
+                    skills[index].chanceOfDrainHP = 0.2;
+                    skills[index].hpDrainOfMaxPercentage = 0.2;
+                    skills[index].manaCost = 8;
                     break;
                 case 3:
-                    skills[amountOfSkills].damage = 150;
-                    skills[amountOfSkills].chanceOfStun = 0.5;
-                    skills[amountOfSkills].chanceOfDrainHP = 0.5;
-                    skills[amountOfSkills].hpDrainOfMaxPercentage = 0.35;
-                    skills[amountOfSkills].manaCost = 15;
+                    skills[index].damage = 150;
+                    skills[index].chanceOfStun = 0.5;
+                    skills[index].chanceOfDrainHP = 0.5;
+                    skills[index].hpDrainOfMaxPercentage = 0.35;
+                    skills[index].manaCost = 15;
                     break;
             }
             break;
         case 7:
-            skills[amountOfSkills].name = "Swift";
-            skills[amountOfSkills].isActive = false;
+            skills[index].name = "Swift";
+            skills[index].isActive = false;
             switch(level)
             {
                 case 1:
-                    skills[amountOfSkills].chanceOfEvasion = 0.1;
-                    skills[amountOfSkills].chanceOfDamageReduction = 0.3;
-                    skills[amountOfSkills].damageReduction = 20;
+                    skills[index].chanceOfEvasion = 0.1;
+                    skills[index].chanceOfDamageReduction = 0.3;
+                    skills[index].damageReduction = 20;
                     break;
                 case 2:
-                    skills[amountOfSkills].chanceOfEvasion = 0.2;
-                    skills[amountOfSkills].chanceOfDamageReduction = 0.3;
-                    skills[amountOfSkills].damageReduction = 30;
+                    skills[index].chanceOfEvasion = 0.2;
+                    skills[index].chanceOfDamageReduction = 0.3;
+                    skills[index].damageReduction = 30;
                     break;
                 case 3:
-                    skills[amountOfSkills].chanceOfEvasion = 0.3;
-                    skills[amountOfSkills].chanceOfDamageReduction = 0.3;
-                    skills[amountOfSkills].damageReduction = 40;
+                    skills[index].chanceOfEvasion = 0.3;
+                    skills[index].chanceOfDamageReduction = 0.3;
+                    skills[index].damageReduction = 40;
                     break;
             }
             break;
         case 8:
-            skills[amountOfSkills].name = "Sharp Eye";
-            skills[amountOfSkills].isActive = false;
+            skills[index].name = "Sharp Eye";
+            skills[index].isActive = false;
             switch(level)
             {
                 case 1:
-                    skills[amountOfSkills].chanceOfCriticalDamage = 0.2;
-                    skills[amountOfSkills].criticalDamagePercentage = 0.25;
+                    skills[index].chanceOfCriticalDamage = 0.2;
+                    skills[index].criticalDamagePercentage = 0.25;
                     break;
                 case 2:
-                    skills[amountOfSkills].chanceOfCriticalDamage = 0.3;
-                    skills[amountOfSkills].criticalDamagePercentage = 0.5;
+                    skills[index].chanceOfCriticalDamage = 0.3;
+                    skills[index].criticalDamagePercentage = 0.5;
                     break;
                 case 3:
-                    skills[amountOfSkills].chanceOfCriticalDamage = 0.5;
-                    skills[amountOfSkills].criticalDamagePercentage = 0.75;
+                    skills[index].chanceOfCriticalDamage = 0.5;
+                    skills[index].criticalDamagePercentage = 0.75;
                     break;
             }
             break;
         case 9:
-            skills[amountOfSkills].name = "Arrow Burst";
-            skills[amountOfSkills].isActive = true;
-            skills[amountOfSkills].chanceOfFiringAgain[0] = 0;
-            skills[amountOfSkills].chanceOfFiringAgain[1] = 0;
+            skills[index].name = "Arrow Burst";
+            skills[index].isActive = true;
+            skills[index].chanceOfFiringAgain[0] = 0;
+            skills[index].chanceOfFiringAgain[1] = 0;
             switch(level)
             {
                 case 1:
-                    skills[amountOfSkills].damage = 150;
-                    skills[amountOfSkills].chanceOfFiringAgain[0] = 0.3;
+                    skills[index].damage = 150;
+                    skills[index].chanceOfFiringAgain[0] = 0.3;
                     break;
                 case 2:
-                    skills[amountOfSkills].damage = 225;
-                    skills[amountOfSkills].chanceOfFiringAgain[0] = 0.5;
+                    skills[index].damage = 225;
+                    skills[index].chanceOfFiringAgain[0] = 0.5;
                     break;
                 case 3:
-                    skills[amountOfSkills].damage = 150;
-                    skills[amountOfSkills].chanceOfFiringAgain[0] = 0.75;
-                    skills[amountOfSkills].chanceOfFiringAgain[1] = 0.25;
+                    skills[index].damage = 150;
+                    skills[index].chanceOfFiringAgain[0] = 0.75;
+                    skills[index].chanceOfFiringAgain[1] = 0.25;
                     break;
             }
             break;
     }
-    skills[amountOfSkills].id = index;
-    amountOfSkills++;
 }
 
 void Character::UseSkill(int index, Monster &monster)
@@ -449,7 +453,7 @@ void Character::UseSkill(int index, Monster &monster)
                         << " against " 
                         << skills[index].damageReduction
                         << " damage"
-                        << endl; 
+                        << endl;
                 }
                 break;
             //Sharp Eye

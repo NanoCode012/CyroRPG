@@ -72,7 +72,7 @@ struct Character
     void SetTempStatsEqualToNonTemp();
     
     void SetSkillForClass(int index);
-    void SetSkill(int index);
+    void SetSkill(int skillID, int index = -1);
     void UseSkill(int index, Monster &monster);
 
     float NormalAttack();
