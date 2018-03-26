@@ -53,3 +53,32 @@ string ConvertFromPercentageToString(float a, int decimalPlaces)
     }
     return result;
 }
+
+int ConvertFromStringToInt(string input)
+{
+    int num = 0;
+    int length = input.length();
+    for (int i = 0; i < length; i++)
+    {
+        num += (input[i] - '0') * (int)pow(10, length - i - 1);
+    }
+    return num;
+}
+
+float ConvertFromStringToFloat(string input)
+{
+    float num = 0;
+    int i = 0;
+    while(input[i] && input[i++] != '.');
+    for (int k = 0; k < i; k++)
+    {
+        num += (input[k] - '0') * (int)pow(10, i - k - 1);
+    }
+    int positionOfDot = i - 1;
+    while(input[i])
+    {
+        num += input[i] * (int)pow(10, positionOfDot - i);
+        i++;
+    }
+    return num;
+}
