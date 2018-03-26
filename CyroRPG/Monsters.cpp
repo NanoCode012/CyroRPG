@@ -4,6 +4,7 @@ using namespace std;
 
 void Monster::SetType(int index, int playerPosition)
 {
+    //Get value of 0-4, to be used later for increasing stats in each zone
     int tempPlayerPosition = playerPosition;
     tempPlayerPosition--;
     for (int i = 0; i < index - 1; i++)
