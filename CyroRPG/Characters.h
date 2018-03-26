@@ -31,7 +31,7 @@ struct Character
     float chanceOfDamageReduction;
     float damageReduction;
     float chanceOfCriticalDamage;
-    float criticalDamagePercentage = 0.25;
+    float criticalDamagePercentage = 0.1;
 
     float tempChanceOfEvasion;
     float tempChanceOfDamageReduction;
@@ -60,7 +60,7 @@ struct Character
     int amountOfSkills = 0;
     Skill *skills = new Skill[maxAmountOfSkills];
 
-    int position;
+    int position = 0;
 
     bool killedBoss[3];
 
@@ -70,6 +70,8 @@ struct Character
     string GetClassName();
 
     void SetTempStatsEqualToNonTemp();
+    
+    void SetSkillForClass(int index);
     void SetSkill(int index);
     void UseSkill(int index, Monster &monster);
 

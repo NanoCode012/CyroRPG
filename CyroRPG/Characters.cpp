@@ -62,12 +62,7 @@ void Character::SetClass(int index)
             amountOfExtraActionAtStartTurn = 2;
             break;
     }
-    
-    for(int i = 1; i <= maxAmountOfSkills; i++)
-    {
-        Character:SetSkill((role - 1) * 3 + i);
-    }
-    
+    SetSkillForClass(role);
 }
 
 string Character::GetClassName()
@@ -95,6 +90,14 @@ void Character::SetTempStatsEqualToNonTemp()
     tempDamageReduction = damageReduction;
     tempChanceOfCriticalDamage = chanceOfCriticalDamage;
     tempCriticalDamagePercentage = criticalDamagePercentage;
+}
+
+void Character::SetSkillForClass(int role)
+{
+    for(int i = 1; i <= maxAmountOfSkills; i++)
+    {
+        Character:SetSkill((role - 1) * 3 + i);
+    }
 }
 
 void Character::SetSkill(int index)
