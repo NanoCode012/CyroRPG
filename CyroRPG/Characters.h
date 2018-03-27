@@ -49,12 +49,12 @@ struct Character
 
     int gold = 0;
 
-    bool hasSword;
-    bool hasArmor;
-    bool hasShield;
-    bool hasStaff;
-    bool hasNecklace;
-    bool hasBow;
+    bool hasSword = false;
+    bool hasArmor = false;
+    bool hasShield = false;
+    bool hasStaff = false;
+    bool hasNecklace = false;
+    bool hasBow = false;
 
     int maxAmountOfSkills = 3;
     int amountOfSkills = 0;
