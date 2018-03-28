@@ -40,8 +40,8 @@ struct Character
     float tempCriticalDamagePercentage;
 
     int level = 1;
-    float currentExp = 0;
-    float expToNextLevel = 5;
+    int currentExp = 0;
+    int expToNextLevel = 5;
 
     bool turn = true;
     int amountOfExtraActionAtStartTurn = 0;

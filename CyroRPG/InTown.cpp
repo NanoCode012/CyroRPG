@@ -207,7 +207,7 @@ void SeparateAndSetData(string input, float &first, float &second, char separato
         i++;
     }
     i++;//To skip the separator
-    first = (float)ConvertFromStringToInt(temp);
+    first = ConvertFromStringToFloat(temp);
 
     temp = "";
     while(input[i] && input[i] != endSign) 
@@ -215,7 +215,7 @@ void SeparateAndSetData(string input, float &first, float &second, char separato
         temp += input[i];
         i++;
     }
-    second = (float)ConvertFromStringToInt(temp);
+    second = ConvertFromStringToFloat(temp);
 }
 
 void SeparateAndSetData(string input, int &first, int &second, char separator, char endSign)

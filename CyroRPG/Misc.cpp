@@ -78,3 +78,45 @@ float ConvertFromStringToPercentage(string input)
     }
     return num;
 }
+
+float ConvertFromStringToFloat(string input)
+{
+    int longest = 10;
+    int index = -1;
+    float result = 0;
+    string temp = "";
+
+    //Check if decimal places exists and changes number after to float
+    for (int i = 0; i < longest; i++)
+    {
+        if (input[i] == '.')
+        {
+            index = i;
+            break;
+        }
+    }
+
+    //Check if has decimal place. -1 means does not have
+    if (index != -1)
+    {
+        for (int i = 0; i < index; i++)
+        {
+            temp += input[i];
+        }
+        result += (float)ConvertFromStringToInt(temp);
+
+
+        temp = "";
+        for (int i = index; i < input.length(); i++)
+        {
+            temp += input[i];
+        }
+        result += ConvertFromStringToPercentage(temp);
+    }
+    else
+    {
+        result = (float)ConvertFromStringToInt(input);
+    }
+
+    return result;
+}
