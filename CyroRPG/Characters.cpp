@@ -110,6 +110,7 @@ void Character::SetSkill(int skillID, int index)
     }
     switch(skillID)
     {
+        //Guard
         case 1:
             skills[index].name = "Guard";
             skills[index].isActive = false;
@@ -126,6 +127,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Sword Barrage
         case 2:
             skills[index].name = "Sword Barrage";
             skills[index].isActive = true;
@@ -145,6 +147,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Shock
         case 3:
             skills[index].name = "Shock";
             skills[index].isActive = true;
@@ -167,6 +170,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Hell Fire
         case 4:
             skills[index].name = "Hell Fire";
             skills[index].isActive = true;
@@ -192,6 +196,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Frostbite
         case 5:
             skills[index].name = "Frostbite";
             skills[index].isActive = true;
@@ -214,6 +219,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Thunder Strike
         case 6:
             skills[index].name = "Thunder Strike";
             skills[index].isActive = true;
@@ -241,6 +247,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Swift
         case 7:
             skills[index].name = "Swift";
             skills[index].isActive = false;
@@ -263,6 +270,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Sharp Eye
         case 8:
             skills[index].name = "Sharp Eye";
             skills[index].isActive = false;
@@ -282,6 +290,7 @@ void Character::SetSkill(int skillID, int index)
                     break;
             }
             break;
+        //Arrow Burst
         case 9:
             skills[index].name = "Arrow Burst";
             skills[index].isActive = true;
