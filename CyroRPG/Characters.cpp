@@ -92,6 +92,127 @@ void Character::SetTempStatsEqualToNonTemp()
     tempCriticalDamagePercentage = criticalDamagePercentage;
 }
 
+void Character::Insert(Item &item)
+{
+    if (amountOfItems < maxAmountOfItems)
+    {
+        inventory[amountOfItems++] = item;
+    }
+    else
+    {
+        cout << "Inventory is full!" << endl;
+    }
+}
+
+void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
+{
+    int multiplier = (addEffect) ? 1 : -1;
+    if (!inInventory)
+    {
+        switch(index)
+        {
+            case 0:
+                damageReduction += (equipped[index].damageReduction) * multiplier;
+                break;
+            case 1:
+                defense += (equipped[index].defense) * multiplier;
+                break;
+            case 2:
+                criticalDamagePercentage += (equipped[index].criticalDamagePercentage) * multiplier;
+                break;
+            case 3:
+                chanceOfEvasion += (equipped[index].chanceOfEvasion) * multiplier;
+                break;
+        }
+    }
+    else
+    {
+        switch(inventory[index].type)
+        {
+            case 0:
+                break;
+        }
+    }
+}
+
+void Character::Swap(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory)
+{
+    if (!swapOnlyInInventory)
+    {
+        if (swapFromInventoryToEquipped)
+        {
+            equipped[inventory[index].type] = inventory[index];
+            //if item position is at the end, do nothing
+            if (index != amountOfItems - 1)
+            {
+                inventory[index] = inventory[amountOfItems - 1];
+            }
+            inventory[amountOfItems - 1].isNull = true;
+            amountOfItems--;
+        }
+        else
+        {
+            inventory[amountOfItems] = equipped[index];
+            equipped[index].isNull = true;
+            amountOfItems++;
+        }   
+    }
+    else
+    {
+        inventory[index] = inventory[amountOfItems - 1];
+        inventory[amountOfItems - 1].isNull = true;
+        amountOfItems--;
+    }
+}
+
+void Character::Equip(int indexInInventory)
+{
+    if (inventory[indexInInventory].isEquippable)
+    {
+        if (equipped[inventory[indexInInventory].type].isNull)
+        {
+            int temp = inventory[indexInInventory].type;
+            Swap(indexInInventory, true);
+            ApplyItemEffect(temp, false);
+        }
+        else
+        {
+            cout << "Previous Gear must be uneqipped first" << endl;
+        }
+    }
+    else
+    {
+        cout << "Item is not eqiupable" << endl;
+    }
+}
+
+void Character::Unequip(int indexInEquipped)
+{
+    if (amountOfItems < maxAmountOfItems)
+    {
+        if (!equipped[indexInEquipped].isNull)
+        {
+            ApplyItemEffect(indexInEquipped, false, false);
+            equipped[indexInEquipped].isNull = true;
+            Swap(indexInEquipped, false);
+        }
+        else
+        {   
+            cout << "You did not equip anything at that position" << endl;
+        } 
+    }
+    else
+    {
+        cout << "Cannot unequip because inventory is full" << endl;
+    }
+}
+
+void Character::Use(int indexInInventory)
+{
+    ApplyItemEffect(indexInInventory, true);
+    Swap(indexInInventory, false, true);
+}
+
 void Character::SetSkillForClass(int role)
 {
     for(int i = 1; i <= maxAmountOfSkills; i++)

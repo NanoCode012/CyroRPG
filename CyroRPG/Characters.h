@@ -3,6 +3,7 @@
 #include <iostream>
 #include "./Skills.h"
 #include "./Monsters.h"
+#include "./Items.h"
 #include "./Misc.h"
 
 using namespace std;
@@ -56,6 +57,11 @@ struct Character
     bool hasNecklace = false;
     bool hasBow = false;
 
+    int maxAmountOfItems = 10;
+    int amountOfItems = 0;
+    Item *inventory = new Item[maxAmountOfItems];
+    Item *equipped = new Item[5];
+
     int maxAmountOfSkills = 3;
     int amountOfSkills = 0;
     Skill *skills = new Skill[maxAmountOfSkills];
@@ -70,6 +76,13 @@ struct Character
     string GetClassName();
 
     void SetTempStatsEqualToNonTemp();
+
+    void Insert(Item &item);
+    void ApplyItemEffect(int index, bool isEquipped, bool addEffect = true);
+    void Swap(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory = false);
+    void Equip(int indexInInventory);
+    void Unequip(int indexInEquipped);
+    void Use(int indexInInventory);
     
     void SetSkillForClass(int index);
     void SetSkill(int skillID, int index = -1);
