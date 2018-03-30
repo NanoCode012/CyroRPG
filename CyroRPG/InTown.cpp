@@ -187,7 +187,8 @@ void ItemShop(Character &player)
                 cout << "You do not have enough space" << endl;
             }
         }
-
+        
+        PrintLine();
     }
 }
 
