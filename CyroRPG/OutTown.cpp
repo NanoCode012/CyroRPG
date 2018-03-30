@@ -126,7 +126,7 @@ void ShowEnemyStats(Monster &monster)
          << "\nEvasion : " << monster.tempChanceOfEvasion * 100 << " % "
          << "\nDamage Reduction Chance : " << monster.tempChanceOfDamageReduction * 100 << " % "
          << "\nDamage Reduction : " << monster.tempDamageReduction
-         << "\nCritical Chance : " << monster.tempChanceOfCritical * 100 << " % "
+         << "\nCritical Chance : " << monster.tempChanceOfCriticalDamage * 100 << " % "
          << endl;
 }
 
@@ -212,7 +212,7 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
                 cout << "Enemy used a Special Attack" << endl;
                 damage = monster.SpecialAttack();
             }
-            else if (rand >= 100 - (monster.tempChanceOfSpecialAttack*100) - (monster.tempChanceOfCritical*100)) 
+            else if (rand >= 100 - (monster.tempChanceOfSpecialAttack*100) - (monster.tempChanceOfCriticalDamage*100)) 
             {
                 cout << "Enemy did a Critical Attack" << endl;
                 damage = monster.CriticalAttack();

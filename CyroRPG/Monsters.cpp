@@ -16,7 +16,7 @@ void Monster::SetType(int index, int playerPosition)
     int atk = tempPlayerPosition * index;
     int def = atk;
 
-    chanceOfCritical = 0.05 + playerPosition * 0.04;
+    chanceOfCriticalDamage = 0.05 + playerPosition * 0.04;
     chanceOfSpecialAttack = 0.05 + playerPosition * 0.01;
     level = playerPosition;
 
@@ -119,7 +119,7 @@ void Monster::SetTempStatsEqualToNonTemp()
     tempChanceOfEvasion = chanceOfEvasion;
     tempChanceOfDamageReduction = chanceOfDamageReduction;
     tempDamageReduction = damageReduction;
-    tempChanceOfCritical = chanceOfCritical;
+    tempChanceOfCriticalDamage = chanceOfCriticalDamage;
     tempChanceOfSpecialAttack = chanceOfSpecialAttack;
 }
 

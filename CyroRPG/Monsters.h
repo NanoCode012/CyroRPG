@@ -26,13 +26,13 @@ struct Monster
     float chanceOfEvasion;
     float chanceOfDamageReduction;
     float damageReduction;
-    float chanceOfCritical;
+    float chanceOfCriticalDamage;
     float chanceOfSpecialAttack;
 
     float tempChanceOfEvasion;
     float tempChanceOfDamageReduction;
     float tempDamageReduction;
-    float tempChanceOfCritical;
+    float tempChanceOfCriticalDamage;
     float tempChanceOfSpecialAttack;
 
     float damagedOverTime = 0;
