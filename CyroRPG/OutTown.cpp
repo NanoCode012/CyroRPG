@@ -143,6 +143,7 @@ void ShowBattleOptions()
 void ShowActiveSkills(Character &player)
 {
     cout << "Options : " << endl;
+
     for (int i = 0; i < player.amountOfSkills; i++)
     {
         if (player.skills[i].isActive)
@@ -150,7 +151,24 @@ void ShowActiveSkills(Character &player)
             cout << i + 1 << ". " << player.skills[i].name << endl;
         }
     }
+
     cout << "Opt : " ;
+}
+
+void ShowAvailableItemsInInventory(Character &player)
+{
+    cout << "Options : " << endl;
+
+    int index = 1;
+    for(int i = 0; i < player.amountOfItems; i++)
+    {
+        if (!player.inventory[i].isEquippable)
+        {
+            cout << index++ << ". " << player.inventory[i].name << endl;
+        }
+    }
+
+    cout << "Opt : ";
 }
 
 void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
@@ -181,6 +199,23 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
                 player.UseSkill(opt - 1, monster);
             }
             else cout << "Invalid Option. You lost a round" << endl;
+            break;
+        case 3:
+            ShowAvailableItemsInInventory(player);
+            cin >> opt;
+            if (1 <= opt && opt <= player.amountOfItems)
+            {
+                int temp = opt;
+                for (int i = 0; i < player.amountOfItems; i++)
+                {
+                    if (!player.inventory[i].isEquippable) temp--;
+                    if (temp <= 0) player.Use(i);
+                }
+            }
+            else
+            {
+                cout << "Invalid Option. You lost a round" << endl;
+            }
             break;
         default:
             cout << "Invalid Option. You lost a round" << endl;
@@ -260,6 +295,8 @@ void OutTown(Character &player)
             
             SetPlayerStats(player, monster);
 
+            PrintLine();
+            
             //Early Attack for Archers
             for (int i = 0; i < player.amountOfExtraActionAtStartTurn; i++)
             {

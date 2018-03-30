@@ -3,6 +3,7 @@
 #include "./Characters.h"
 #include "./Monsters.h"
 #include "./Random.h"
+#include "./Items.h"
 #include "./Misc.h"
 
 void Options();
@@ -21,6 +22,7 @@ void ShowEnemyStats(Monster &monster);
 void ShowBattleOptions();
 
 void ShowActiveSkills(Character &player);
+void ShowAvailableItemsInInventory(Character &player);
 
 void CalculatePlayerAttack(Character &player, Monster &monster, int opt);
 
