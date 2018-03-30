@@ -130,7 +130,16 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
         switch(inventory[index].type)
         {
             case 0:
+                currentHp += (inventory[index].hp);
                 break;
+            case 1:
+                currentMana += (inventory[index].mana);
+                break;
+            case 2:
+                tempChanceOfEvasion += (inventory[index].chanceOfEvasion);
+                break;
+            case 3:
+                tempChanceOfCriticalDamage += (inventory[index].chanceOfCriticalDamage);
         }
     }
 }
