@@ -122,6 +122,7 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
                 break;
             case 3:
                 chanceOfEvasion += (equipped[index].chanceOfEvasion) * multiplier;
+                if (chanceOfEvasion > 1) chanceOfEvasion = 1;
                 break;
         }
     }
@@ -130,16 +131,40 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
         switch(inventory[index].type)
         {
             case 0:
+                cout << "Your hp increased by " << inventory[index].hp << endl;
                 currentHp += (inventory[index].hp);
+                if (currentHp > maxHp) 
+                {
+                    cout << "Your hp capped at " << maxHp << endl;
+                    currentHp = maxHp;
+                }
                 break;
             case 1:
+                cout << "Your mp increased by " << inventory[index].mana << endl;
                 currentMana += (inventory[index].mana);
+                if (currentMana > maxMana) 
+                {
+                    cout << "Your mp capped at " << maxMana << endl;
+                    currentMana = maxMana;
+                }
                 break;
             case 2:
+                cout << "Your evasion increased by " << inventory[index].chanceOfEvasion << "%" << endl;
                 tempChanceOfEvasion += (inventory[index].chanceOfEvasion);
+                if (tempChanceOfEvasion > 1) 
+                {
+                    cout << "Your evasion capped at " << 1 << endl;
+                    tempChanceOfEvasion = 1;
+                }
                 break;
             case 3:
+                cout << "Your critical chance increased by " << inventory[index].chanceOfCriticalDamage << "%" << endl;
                 tempChanceOfCriticalDamage += (inventory[index].chanceOfCriticalDamage);
+                if (tempChanceOfCriticalDamage > 1) 
+                {
+                    cout << "Your critical chance capped at " << 1 << endl;
+                    tempChanceOfCriticalDamage = 1;
+                }
         }
     }
 }
@@ -218,6 +243,7 @@ void Character::Unequip(int indexInEquipped)
 
 void Character::Use(int indexInInventory)
 {
+    cout << "You used " << inventory[indexInInventory].name << endl;
     ApplyItemEffect(indexInInventory, true);
     Swap(indexInInventory, false, true);
 }
