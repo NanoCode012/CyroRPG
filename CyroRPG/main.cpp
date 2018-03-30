@@ -40,7 +40,7 @@ int main(){
     {
         LoadData(player);
     }
-    else
+    else if (opt == 2)
     {
         PrintLine();
         PrintLegend();
@@ -84,6 +84,10 @@ int main(){
         cout << "\"Calm down. Isn't this what I'm fighting for? I will resurrect my clan and find out why. "
             << "Why and How we fell from Kings to Outcasts!\", " << name << " declared."                                               
             << endl;
+    }
+    else
+    {
+        CleanExit("Invalid Option");
     }
 
     while(true)
