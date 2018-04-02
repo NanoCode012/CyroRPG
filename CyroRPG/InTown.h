@@ -5,6 +5,7 @@
 #include "./Characters.h"
 #include "./Items.h"
 #include "./Random.h"
+#include "./DataController.h"
 #include "./Misc.h"
 
 void OptionsInTown();
@@ -15,13 +16,6 @@ void ShowItemStats(Item item, bool showName = true);
 void ItemShop(Character &player);
 
 void ShowPlayerStatsFull(Character &player);
-
-void SaveData(Character &player);
-void LoadData(Character &player);
-
-void SeparateAndSetData(string input, float &first, float &second, char separator = '/', char endSign = ' ');
-void SeparateAndSetData(string input, int &first, int &second, char separator = '/', char endSign = ' ');
-void SeparateAndSetData(string input, bool *arr, int size, char separator = '/', char endSign = ' ');
 
 void InTown(Character &player);
 
