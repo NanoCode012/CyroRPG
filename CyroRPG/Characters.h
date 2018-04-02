@@ -4,6 +4,7 @@
 #include "./Skills.h"
 #include "./Monsters.h"
 #include "./Items.h"
+#include "./Random.h"
 #include "./Misc.h"
 
 using namespace std;
