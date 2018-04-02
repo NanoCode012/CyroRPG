@@ -2,9 +2,9 @@
 #include <iostream>
 #include "./Characters.h"
 #include "./Monsters.h"
-#include "./Random.h"
+#include "./Miscellaneous/Random.h"
 #include "./Items.h"
-#include "./Misc.h"
+#include "./Miscellaneous/Misc.h"
 
 void Options();
 

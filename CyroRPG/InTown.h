@@ -4,9 +4,9 @@
 #include <fstream>
 #include "./Characters.h"
 #include "./Items.h"
-#include "./Random.h"
-#include "./DataController.h"
-#include "./Misc.h"
+#include "./Miscellaneous/Random.h"
+#include "./Miscellaneous/DataController.h"
+#include "./Miscellaneous/Misc.h"
 
 void OptionsInTown();
 void Inn(Character &player, bool isDead = false);

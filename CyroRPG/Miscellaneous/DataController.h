@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
-#include "./Characters.h"
+#include "../Characters.h"
 
 void SaveData(Character &player);
 void LoadData(Character &player);

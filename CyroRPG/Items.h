@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "./Random.h"
+#include "./Miscellaneous/Random.h"
 
 using namespace std;
 

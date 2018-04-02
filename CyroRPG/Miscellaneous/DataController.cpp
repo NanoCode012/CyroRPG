@@ -2,9 +2,10 @@
 
 using namespace std;
 
+string path = "./Data/Data.txt";
+
 void SaveData(Character &player)
 {
-    string path = "./Data.txt";
     ofstream writeStream;
     writeStream.open(path);
     writeStream << player.name << endl
@@ -51,7 +52,6 @@ void SaveData(Character &player)
 
 void LoadData(Character &player)
 {
-    string path = "./Data.txt";
     string input;
     ifstream readStream(path);
     if (!readStream.is_open())

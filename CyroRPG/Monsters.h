@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include "./Random.h"
+#include "./Miscellaneous/Random.h"
 
 struct Monster
 {
