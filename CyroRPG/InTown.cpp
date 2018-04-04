@@ -5,13 +5,14 @@ using namespace std;
 void OptionsInTown()
 {
     PrintLine();
+    
     cout << "You looked around, and you find some things you can do .." << endl;
     cout << "What would you like to do?"     << endl
          << "Option : "                      << endl
          << "1. Visit Inn"                   << endl
          << "2. Check Misionboard"           << endl
          << "3. Go to Item shop"             << endl
-         << "4. Look at stats and inventory" << endl
+         << "4. Enter home"                  << endl
          << "5. Leave village"               << endl
          << "6. Quit"                        << endl
          << "Opt : ";
@@ -78,53 +79,6 @@ void GenerateItem(Item *items, int index, int playerLevel)
     items[index] = item;
 }
 
-void ShowItemStats(Item item, bool showName)
-{
-    if (showName)
-    {
-        cout << "\tName : " << item.name << endl;
-    }
-    cout  << "\tCost : "      << item.cost << "G"                             << endl
-          << "\tCan Equip : " << ((item.isEquippable) ? "Yes" : "No")         << endl
-          << "\tRarity : "    << item.level                                   << endl;
-    if (item.isEquippable)
-    {
-        switch(item.type)
-        {
-            case 0:
-                cout << "\tDamage Reduction : " << item.damageReduction << endl;
-                break;
-            case 1:
-                cout << "\tDefense : " << item.defense << endl;
-                break;
-            case 2:
-                cout << "\tCritical Multiplier : " << item.criticalDamagePercentage << endl;
-                break;
-            case 3:
-                cout << "\tEvasion : " << item.chanceOfEvasion << endl;
-                break;
-        }
-    }
-    else
-    {
-        switch(item.type)
-        {
-            case 0:
-                cout << "\tHP : " << item.hp << endl;
-                break;
-            case 1:
-                cout << "\tMana : " << item.mana << endl;
-                break;
-            case 2:
-                cout << "\tEvasion : " << item.chanceOfEvasion << endl;
-                break;
-            case 3:
-                cout << "\tCritical Chance : " << item.chanceOfCriticalDamage << endl;
-                break;
-        }
-    }
-}
-
 void ItemShop(Character &player)
 {
     PrintLine();
@@ -142,6 +96,8 @@ void ItemShop(Character &player)
     while(true)
     {
         cout << "What would you like to purchase?" << endl;
+
+        //Show items that can be bought
         for (int i = 0; i < amountOfItemsInShop; i++)
         {
             if (!itemsBought[i])
@@ -156,7 +112,7 @@ void ItemShop(Character &player)
         cout << "Opt : ";
         cin >> opt;
 
-        if (opt == amountOfItemsInShop + 1) break;
+        if (opt == amountOfItemsInShop + 1) break;//Exit
         else if (opt > amountOfItemsInShop) 
         {
             cout << "Invalid Option" << endl;
@@ -192,52 +148,6 @@ void ItemShop(Character &player)
     }
 }
 
-void ShowPlayerStatsFull(Character &player)
-{
-    PrintLine();
-    
-    cout << "\nStats\n"
-         << "\n\tName : " << player.name
-         << "\n\tHP : " << player.currentHp << " / " << player.maxHp
-         << "\n\tMP : " << player.currentMana << " / " << player.maxMana
-         << "\n\tLevel : " << player.level
-         << "\n\tExp : " << player.currentExp << " / " << player.expToNextLevel
-         << "\n\tG : " << player.gold
-         << "\n\tClass : " << player.GetClassName()
-         << "\n\tAttack Power : " << player.attackDamageMin << " - " << player.attackDamageMax
-         << "\n\tDefense : " << player.defense
-         << "\n\tEvasion : " << player.chanceOfEvasion * 100 << " % "
-         << "\n\tDamage Reduction Chance : " << player.chanceOfDamageReduction * 100 << " % "
-         << "\n\tDamage Reduction : " << player.damageReduction
-         << "\n\tCritical Chance : " << player.chanceOfCriticalDamage * 100 << " % "
-         << endl;
-
-    cout << "\nSkills\n" << endl;
-    for (int i = 0; i < player.amountOfSkills; i++)
-    {
-        cout << "\t" << player.skills[i].name << "(Lvl: " << player.skills[i].level << ")" << endl;
-    }
-
-    cout << "\nEquipped Gear\n" << endl;
-    for (int i = 0; i < 5; i++)
-    {
-        if (!player.equipped[i].isNull)
-        {
-            ShowItemStats(player.equipped[i]);
-            cout << endl;
-        }
-    }
-
-    cout << "\nInventory\n" << endl;
-    for (int i = 0; i < player.amountOfItems; i++)
-    {
-        ShowItemStats(player.inventory[i]);
-        cout << endl;
-    }
-
-    PrintLine();
-}
-
 void InTown(Character &player)
 {
     int opt;
@@ -260,7 +170,7 @@ void InTown(Character &player)
                 ItemShop(player);
                 break;
             case 4:
-                ShowPlayerStatsFull(player);
+                Home(player);
                 break;
             case 6:
                 cout << "Do you want to save?" << endl
