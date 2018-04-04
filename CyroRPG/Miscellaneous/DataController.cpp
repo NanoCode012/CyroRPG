@@ -77,13 +77,13 @@ void LoadData(Character &player)
         if (getline(readStream, input)) SeparateAndSetData(input, player.attackDamageMin, player.attackDamageMax);
         if (getline(readStream, input)) player.defense = ConvertFromStringToInt(input);
 
-        if (getline(readStream, input)) player.chanceOfEvasion = ConvertFromStringToPercentage(input);
+        if (getline(readStream, input)) player.chanceOfEvasion = ConvertFromStringToFloat(input);
         
-        if (getline(readStream, input)) player.chanceOfDamageReduction = ConvertFromStringToPercentage(input);
+        if (getline(readStream, input)) player.chanceOfDamageReduction = ConvertFromStringToFloat(input);
         if (getline(readStream, input)) player.damageReduction = (float)ConvertFromStringToInt(input);
         
-        if (getline(readStream, input)) player.chanceOfCriticalDamage = ConvertFromStringToPercentage(input);
-        if (getline(readStream, input)) player.criticalDamagePercentage = ConvertFromStringToPercentage(input);
+        if (getline(readStream, input)) player.chanceOfCriticalDamage = ConvertFromStringToFloat(input);
+        if (getline(readStream, input)) player.criticalDamagePercentage = ConvertFromStringToFloat(input);
         
         if (getline(readStream, input)) player.amountOfExtraActionAtStartTurn = ConvertFromStringToInt(input);
 
@@ -146,25 +146,12 @@ void SeparateAndSetData(string input, int &first, int &second, char separator, c
 
 void SeparateAndSetData(string input, bool *arr, int size, char separator, char endSign)
 {
-    string temp = "";
     int i = 0;
     for (int k = 0; k < size - 1; k++)
     {
-        temp = "";
-        while(input[i] && input[i] != separator) 
-        {
-            temp += input[i];
-            i++;
-        }
+        arr[k] = (input[i] == '1');
         i++;//To skip the separator
-        arr[k] = (temp == "1");
     }
 
-    temp = "";
-    while(input[i] && input[i] != endSign) 
-    {
-        temp += input[i];
-        i++;
-    }
-    arr[size - 1] = (temp == "1");
+    arr[size - 1] = (input[i] == '1');
 }
