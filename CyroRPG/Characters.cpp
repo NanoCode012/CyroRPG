@@ -122,7 +122,6 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
                 break;
             case 3:
                 chanceOfEvasion += (equipped[index].chanceOfEvasion) * multiplier;
-                if (chanceOfEvasion > 1) chanceOfEvasion = 1;
                 break;
         }
     }
@@ -149,22 +148,13 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
                 }
                 break;
             case 2:
-                cout << "Your evasion increased by " << inventory[index].chanceOfEvasion << "%" << endl;
+                cout << "Your evasion increased by " << inventory[index].chanceOfEvasion * 100<< "%" << endl;
                 tempChanceOfEvasion += (inventory[index].chanceOfEvasion);
-                if (tempChanceOfEvasion > 1) 
-                {
-                    cout << "Your evasion capped at " << 1 << endl;
-                    tempChanceOfEvasion = 1;
-                }
                 break;
             case 3:
-                cout << "Your critical chance increased by " << inventory[index].chanceOfCriticalDamage << "%" << endl;
+                cout << "Your critical chance increased by " << inventory[index].chanceOfCriticalDamage * 100<< "%" << endl;
                 tempChanceOfCriticalDamage += (inventory[index].chanceOfCriticalDamage);
-                if (tempChanceOfCriticalDamage > 1) 
-                {
-                    cout << "Your critical chance capped at " << 1 << endl;
-                    tempChanceOfCriticalDamage = 1;
-                }
+                break;
         }
     }
 }
@@ -208,15 +198,16 @@ void Character::Equip(int indexInInventory)
             int temp = inventory[indexInInventory].type;
             Swap(indexInInventory, true);
             ApplyItemEffect(temp, false);
+            cout << "Item equipped" << endl;
         }
         else
         {
-            cout << "Previous Gear must be uneqipped first" << endl;
+            cout << "Previous Gear must be unequipped first" << endl;
         }
     }
     else
     {
-        cout << "Item is not eqiupable" << endl;
+        cout << "Item cannot be equipped" << endl;
     }
 }
 
@@ -229,6 +220,7 @@ void Character::Unequip(int indexInEquipped)
             ApplyItemEffect(indexInEquipped, false, false);
             equipped[indexInEquipped].isNull = true;
             Swap(indexInEquipped, false);
+            cout << "Item unequipped" << endl;
         }
         else
         {   
@@ -241,7 +233,7 @@ void Character::Unequip(int indexInEquipped)
     }
 }
 
-void Character::Use(int indexInInventory)
+void Character::UseItem(int indexInInventory)
 {
     cout << "You used " << inventory[indexInInventory].name << endl;
     ApplyItemEffect(indexInInventory, true);
@@ -307,7 +299,7 @@ void Character::SetSkill(int skillID, int index)
         case 3:
             skills[index].name = "Shock";
             skills[index].isActive = true;
-            switch(level)
+            switch(skills[index].level)
             {
                 case 1:
                     skills[index].stunnedTurns = 1;
@@ -330,7 +322,7 @@ void Character::SetSkill(int skillID, int index)
         case 4:
             skills[index].name = "Hell Fire";
             skills[index].isActive = true;
-            switch(level)
+            switch(skills[index].level)
             {
                 case 1:
                     skills[index].damage = 150;
@@ -356,7 +348,7 @@ void Character::SetSkill(int skillID, int index)
         case 5:
             skills[index].name = "Frostbite";
             skills[index].isActive = true;
-            switch(level)
+            switch(skills[index].level)
             {
                 case 1:
                     skills[index].damage = 100;
@@ -380,7 +372,7 @@ void Character::SetSkill(int skillID, int index)
             skills[index].name = "Thunder Strike";
             skills[index].isActive = true;
             skills[index].stunnedTurns = 1;
-            switch(level)
+            switch(skills[index].level)
             {
                 case 1:
                     skills[index].damage = 50;
@@ -407,7 +399,7 @@ void Character::SetSkill(int skillID, int index)
         case 7:
             skills[index].name = "Swift";
             skills[index].isActive = false;
-            switch(level)
+            switch(skills[index].level)
             {
                 case 1:
                     skills[index].chanceOfEvasion = 0.1;
@@ -430,7 +422,7 @@ void Character::SetSkill(int skillID, int index)
         case 8:
             skills[index].name = "Sharp Eye";
             skills[index].isActive = false;
-            switch(level)
+            switch(skills[index].level)
             {
                 case 1:
                     skills[index].chanceOfCriticalDamage = 0.2;
@@ -452,7 +444,7 @@ void Character::SetSkill(int skillID, int index)
             skills[index].isActive = true;
             skills[index].chanceOfFiringAgain[0] = 0;
             skills[index].chanceOfFiringAgain[1] = 0;
-            switch(level)
+            switch(skills[index].level)
             {
                 case 1:
                     skills[index].damage = 150;
@@ -489,7 +481,7 @@ void Character::UseSkill(int index, Monster &monster)
             case 1:
                 tempDefense = defense * (1 + skills[index].defenseIncreasePercentage);
                 cout << "Your defense increased by "
-                    << ConvertFromPercentageToString(skills[index].defenseIncreasePercentage, 2)
+                    << skills[index].defenseIncreasePercentage * 100
                     << " % "
                     << endl;
                 break;
@@ -610,12 +602,12 @@ void Character::UseSkill(int index, Monster &monster)
                 tempChanceOfEvasion += skills[index].chanceOfEvasion;
                 tempChanceOfDamageReduction += skills[index].chanceOfDamageReduction;
                 tempDamageReduction += skills[index].damageReduction;
-                cout << "Your evasion chance increased by " << skills[index].chanceOfEvasion << endl;
+                cout << "Your evasion chance increased by " << skills[index].chanceOfEvasion * 100 << "%" << endl;
                 if (skills[index].chanceOfDamageReduction > 0)
                 {
                     cout << "Your damage reduction chance increased by " 
-                        << skills[index].chanceOfDamageReduction 
-                        << " against " 
+                        << skills[index].chanceOfDamageReduction * 100
+                        << "% against " 
                         << skills[index].damageReduction
                         << " damage"
                         << endl;
@@ -626,7 +618,7 @@ void Character::UseSkill(int index, Monster &monster)
                 cout << "Sharp Eye" << endl;
                 tempChanceOfCriticalDamage += skills[index].chanceOfCriticalDamage;
                 tempCriticalDamagePercentage += skills[index].criticalDamagePercentage;
-                cout << "Your critical chance increased by " << skills[index].chanceOfCriticalDamage << endl;
+                cout << "Your critical chance increased by " << skills[index].chanceOfCriticalDamage * 100 << "%" << endl;
                 cout << "Your critical damage is " << 1 + tempChanceOfCriticalDamage << "x of your normal attack" << endl;
                 break;
             //Arrow Burst

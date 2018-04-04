@@ -83,7 +83,7 @@ struct Character
     void Swap(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory = false);
     void Equip(int indexInInventory);
     void Unequip(int indexInEquipped);
-    void Use(int indexInInventory);
+    void UseItem(int indexInInventory);
     
     void SetSkillForClass(int index);
     void SetSkill(int skillID, int index = -1);
