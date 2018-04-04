@@ -20,7 +20,31 @@ void Options(int playerPosition)
         else cout << "3. Return back to village" << endl;
     }
     else cout << "2. Walk backward" << endl;
-    
+    cout << "Opt : ";
+}
+
+void UseItemInBattle(Character &player)
+{
+    int opt;
+    ShowAvailableItemsInInventory(player);
+    cin >> opt;
+    if (1 <= opt && opt <= player.amountOfItems)
+    {
+        int temp = opt;
+        for (int i = 0; i < player.amountOfItems; i++)
+        {
+            if (!player.inventory[i].isEquippable) temp--;
+            if (temp <= 0) 
+            {
+                player.UseItem(i);
+                break;
+            }
+        }
+    }
+    else
+    {
+        cout << "Invalid Option. You lost a round" << endl;
+    }
 }
 
 void MoveCharacter(Character &player, int opt, bool &exitStatus)
@@ -28,7 +52,7 @@ void MoveCharacter(Character &player, int opt, bool &exitStatus)
     switch(opt)
         {
             case 1:
-                // player.ShowItem();
+                UseItemInBattle(player);
                 break;   
             case 2:
                 if (player.position < 15) player.position += 1;
@@ -47,7 +71,7 @@ bool CheckIfMeetEnemy(Character &player)
     int num = GetRandomNumber(100);
     if (player.position != 0 && player.position % 5 == 0)
     {
-        if (!player.killedBoss[(player.position/5)])
+        if (!player.killedBoss[(player.position/5) - 1])
         {
             return true;
         }
@@ -83,7 +107,7 @@ void SetEnemyStats(Monster &monster, Character &player)
     monster.SetTempStatsEqualToNonTemp();
 }
 
-void ShowPlayerStats(Character &player)
+void ShowPlayerTempStats(Character &player)
 {
     PrintLine();
     
@@ -112,7 +136,7 @@ void ShowPlayerStats(Character &player)
     PrintLine();
 }
 
-void ShowEnemyStats(Monster &monster)
+void ShowEnemyTempStats(Monster &monster)
 {
     PrintLine();
     
@@ -159,14 +183,18 @@ void ShowAvailableItemsInInventory(Character &player)
 {
     cout << "Options : " << endl;
 
+    bool hasItem = false;
     int index = 1;
     for(int i = 0; i < player.amountOfItems; i++)
     {
         if (!player.inventory[i].isEquippable)
         {
+            hasItem = true;
             cout << index++ << ". " << player.inventory[i].name << endl;
+            ShowItemStats(player.inventory[i], false);
         }
     }
+    if (!hasItem) cout << "\tNone" << endl;
 
     cout << "Opt : ";
 }
@@ -201,21 +229,7 @@ void CalculatePlayerAttack(Character &player, Monster &monster, int opt)
             else cout << "Invalid Option. You lost a round" << endl;
             break;
         case 3:
-            ShowAvailableItemsInInventory(player);
-            cin >> opt;
-            if (1 <= opt && opt <= player.amountOfItems)
-            {
-                int temp = opt;
-                for (int i = 0; i < player.amountOfItems; i++)
-                {
-                    if (!player.inventory[i].isEquippable) temp--;
-                    if (temp <= 0) player.Use(i);
-                }
-            }
-            else
-            {
-                cout << "Invalid Option. You lost a round" << endl;
-            }
+            UseItemInBattle(player);
             break;
         default:
             cout << "Invalid Option. You lost a round" << endl;
@@ -274,6 +288,25 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
     player.turn = true;
 }
 
+void CheckIfMonsterDead(Monster &monster, Character &player)
+{
+    if (!monster.IsAlive()) 
+    {
+        if (player.position != 0 && player.position % 5 == 0) player.killedBoss[(player.position/5) - 1] = true;
+        cout << "You killed the monster!"           << endl
+                << "You get " << monster.gold << " G." << endl
+                << "You get " << monster.exp  << " exp." << endl;
+        player.gold += monster.gold;
+        player.currentExp += monster.exp;
+        while (player.LevelUp()) 
+        {
+            cout << "You leveled up!"       << endl;
+            cout << "You are now level "    << player.level << "." << endl;
+        }
+    }
+    else if (!player.IsAlive()) cout << "You have been defeated!"         << endl;
+}
+
 void OutTown(Character &player)
 {
     player.position = 0;
@@ -291,8 +324,10 @@ void OutTown(Character &player)
             
             Monster monster;
             SetEnemyStats(monster, player);
-            ShowEnemyStats(monster);
-            
+            ShowEnemyTempStats(monster);
+
+            PrintLine();
+
             SetPlayerStats(player, monster);
 
             PrintLine();
@@ -300,53 +335,42 @@ void OutTown(Character &player)
             //Early Attack for Archers
             for (int i = 0; i < player.amountOfExtraActionAtStartTurn; i++)
             {
-                cout << "You can attack " << player.amountOfExtraActionAtStartTurn - i << " turns more." << endl;
-                ShowBattleOptions();
-                cin >> opt;
-                CalculatePlayerAttack(player, monster, opt);
-                ShowEnemyStats(monster);
-                player.turn = true;
+                if (monster.IsAlive())
+                {
+                    cout << "You can attack " << player.amountOfExtraActionAtStartTurn - i << " turns more in advance." << endl;
+                    ShowBattleOptions();
+                    cin >> opt;
+                    CalculatePlayerAttack(player, monster, opt);
+                    ShowEnemyTempStats(monster);
+                    CheckIfMonsterDead(monster, player);
+                    player.turn = true;
+                }
             }
 
             //Fighting
-            do
+            while(monster.IsAlive() && player.IsAlive())
             {
                 if (player.turn)
                 {
                     ShowBattleOptions();
                     cin >> opt;
                     CalculatePlayerAttack(player, monster, opt);
-                    ShowEnemyStats(monster);
+                    ShowEnemyTempStats(monster);
                     if (player.amountOfExtraTurns > 0)
                     {
                         player.amountOfExtraTurns--;
                         player.turn = true;
                         cout << "You have " << player.amountOfExtraTurns << " extra turn(s) left" << endl;
                     }
-                    if (!monster.IsAlive()) break;
                 }
                 else
                 {
                     cout << "Monster is attacking  .." << endl;
                     CalculateMonsterAttack(monster, player, opt);
-                    ShowPlayerStats(player);
+                    ShowPlayerTempStats(player);
                 }
-
-            }while(monster.IsAlive() && player.IsAlive());
-            if (!monster.IsAlive()) 
-            {
-                if (player.position != 0 && player.position % 5 == 0) player.killedBoss[player.position/5] = true;
-                cout << "You killed the monster!"           << endl
-                     << "You get " << monster.gold << " G." << endl
-                     << "You get " << monster.exp  << " exp." << endl;
-                player.gold += monster.gold;
-                player.currentExp += monster.exp;
-                while (player.LevelUp()) 
-                {
-                    cout << "You leveled up!"       << endl;
-                    cout << "You are now level "    << player.level << "." << endl;
-                }
-            }else cout << "You have been defeated!"         << endl;
+                CheckIfMonsterDead(monster, player);
+            }
         }
     }while(player.IsAlive());
 }
