@@ -1,4 +1,4 @@
-#include "../inc/Items.h"
+#include "../inc/Item.h"
 
 void Item::SetType(int index, int rarity, bool wearable)
 {

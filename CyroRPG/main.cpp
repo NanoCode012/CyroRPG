@@ -1,5 +1,5 @@
 #include <iostream>
-#include "./inc/Characters.h"
+#include "./inc/Character.h"
 #include "./inc/InTown.h"
 #include "./inc/OutTown.h"
 #include "./inc/Misc.h"

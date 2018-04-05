@@ -2,8 +2,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
-#include "./Characters.h"
-#include "./Items.h"
+#include "./Character.h"
+#include "./Item.h"
 #include "./Home.h"
 #include "./Random.h"
 #include "./DataController.h"

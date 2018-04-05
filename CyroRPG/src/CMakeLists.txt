@@ -1,14 +1,15 @@
 set(SOURCE_FILE 
     ${SOURCE_FILE} 
-    ${PROJECT_SOURCE_DIR}/src/Characters.cpp 
+    ${PROJECT_SOURCE_DIR}/src/Character.cpp 
     ${PROJECT_SOURCE_DIR}/src/DataController.cpp 
     ${PROJECT_SOURCE_DIR}/src/Home.cpp 
     ${PROJECT_SOURCE_DIR}/src/InTown.cpp 
-    ${PROJECT_SOURCE_DIR}/src/Items.cpp 
+    ${PROJECT_SOURCE_DIR}/src/Item.cpp 
     ${PROJECT_SOURCE_DIR}/src/Misc.cpp 
-    ${PROJECT_SOURCE_DIR}/src/Monsters.cpp 
+    ${PROJECT_SOURCE_DIR}/src/Mission.cpp 
+    ${PROJECT_SOURCE_DIR}/src/Monster.cpp 
     ${PROJECT_SOURCE_DIR}/src/OutTown.cpp 
     ${PROJECT_SOURCE_DIR}/src/Random.cpp 
-    ${PROJECT_SOURCE_DIR}/src/Skills.cpp 
+    ${PROJECT_SOURCE_DIR}/src/Skill.cpp 
     PARENT_SCOPE 
     )

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "./Characters.h"
-#include "./Items.h"
+#include "./Character.h"
+#include "./Item.h"
 #include "./DataController.h"
 #include "./Misc.h"
 

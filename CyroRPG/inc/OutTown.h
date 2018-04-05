@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include "./Characters.h"
-#include "./Monsters.h"
+#include "./Character.h"
+#include "./Monster.h"
 #include "./Random.h"
-#include "./Items.h"
+#include "./Item.h"
 #include "./Home.h"
 #include "./Misc.h"
 
