@@ -94,7 +94,7 @@ void LoadData(Character &player)
         for (int i = 0; i < player.amountOfSkills; i++)
         {
             if (getline(readStream, input)) SeparateAndSetData(input, player.skills[i].id, player.skills[i].level);
-            player.SetSkill(player.skills[i].id, i);
+            player.SetSkill(player.skills[i].id, player.skills[i].level, i);
         }
 
         //Save boss killed data

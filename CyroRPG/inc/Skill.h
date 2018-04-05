@@ -41,4 +41,6 @@ struct Skill
 
     float chanceOfCriticalDamage = 0;
     float criticalDamagePercentage = 0;
+
+    void SetType(int skillID, int lvl = 1);
 };

@@ -86,7 +86,7 @@ struct Character
     void UseItem(int indexInInventory);
     
     void SetSkillForClass(int index);
-    void SetSkill(int skillID, int index = -1);
+    void SetSkill(int skillID, int level = 1, int index = -1);
     void UseSkill(int index, Monster &monster);
 
     float NormalAttack();
