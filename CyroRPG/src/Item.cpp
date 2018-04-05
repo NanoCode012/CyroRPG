@@ -1,17 +1,17 @@
 #include "../inc/Item.h"
 
-void Item::SetType(int index, int rarity, bool wearable)
+void Item::SetType(int type, int rarity, bool wearable)
 {
     isNull = false;
 
-    type = index;
+    id = type;
     level = rarity;
     cost = level * 100 + GetRandomNumber(((int)wearable + 1) * 100);
     
     isEquippable = wearable;
     if (isEquippable)
     {
-        switch(type)
+        switch(id)
         {
             case 0:
                 name = "Head Gear";
@@ -33,7 +33,7 @@ void Item::SetType(int index, int rarity, bool wearable)
     }
     else
     {
-        switch(type)
+        switch(id)
         {
             case 0:
                 name = "Hp Potion";

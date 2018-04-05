@@ -5,7 +5,7 @@ void Skill::SetType(int skillID, int lvl)
     id = skillID;
     level = lvl;
 
-    switch(skillID)
+    switch(id)
     {
         //Guard
         case 1:

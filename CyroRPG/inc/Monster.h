@@ -5,9 +5,9 @@
 
 struct Monster
 {
-    std::string name;
+    std::string name = "";
 
-    int type;
+    int type = -1;
 
     float maxHp;
     float maxMana;

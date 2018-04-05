@@ -5,8 +5,8 @@ using namespace std;
 
 struct Skill
 {
-    int id;
-    string name;
+    int id = -1;
+    string name = "";
 
     bool isActive = false;
     int level = 1;

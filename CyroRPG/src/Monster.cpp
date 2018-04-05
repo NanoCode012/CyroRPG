@@ -12,6 +12,8 @@ void Monster::SetType(int index, int playerPosition)
         tempPlayerPosition -= 5;
     }
 
+    int type = index;
+
     int randHp = GetRandomNumber(10 * index);
     int atk = tempPlayerPosition * index;
     int def = atk;
