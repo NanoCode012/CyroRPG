@@ -4,8 +4,8 @@
 #include "./Skills.h"
 #include "./Monsters.h"
 #include "./Items.h"
-#include "./Miscellaneous/Random.h"
-#include "./Miscellaneous/Misc.h"
+#include "./Random.h"
+#include "./Misc.h"
 
 using namespace std;
 

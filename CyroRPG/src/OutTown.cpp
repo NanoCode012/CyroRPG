@@ -1,4 +1,4 @@
-#include "./OutTown.h"
+#include "../inc/OutTown.h"
 
 using namespace std;
 

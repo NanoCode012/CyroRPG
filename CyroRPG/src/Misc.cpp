@@ -1,4 +1,4 @@
-#include "./Misc.h"
+#include "../inc/Misc.h"
 using namespace std;
 
 void PrintLine(char character)

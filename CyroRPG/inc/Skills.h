@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "./Miscellaneous/Random.h"
+#include "./Random.h"
 using namespace std;
 
 struct Skill

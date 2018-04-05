@@ -1,4 +1,4 @@
-#include "./Random.h"
+#include "../inc/Random.h"
 
 bool hasSetSeed = false;
 

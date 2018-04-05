@@ -1,8 +1,8 @@
 #include <iostream>
-#include "./Characters.h"
-#include "./InTown.h"
-#include "./OutTown.h"
-#include "./Misc.h"
+#include "./inc/Characters.h"
+#include "./inc/InTown.h"
+#include "./inc/OutTown.h"
+#include "./inc/Misc.h"
 
 using namespace std;
 

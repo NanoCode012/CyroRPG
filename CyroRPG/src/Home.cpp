@@ -1,4 +1,4 @@
-#include "./Home.h"
+#include "../inc/Home.h"
 
 using namespace std;
 
@@ -141,7 +141,7 @@ void ShowPlayerEquippedGear(Character &player, bool showWithNumbering)
 void ShowPlayerInventory(Character &player)
 {
     int amountOfItems = player.amountOfItems;
-    cout << "Inventory ( " << amountOfItems << " / " << player.maxAmountOfItems << "  )\n" << endl;
+    cout << "Inventory ( " << amountOfItems << " / " << player.maxAmountOfItems << " )\n" << endl;
     bool hasItems = (amountOfItems > 0);
     if (hasItems)
     {

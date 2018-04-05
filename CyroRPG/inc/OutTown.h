@@ -2,10 +2,10 @@
 #include <iostream>
 #include "./Characters.h"
 #include "./Monsters.h"
-#include "./Miscellaneous/Random.h"
+#include "./Random.h"
 #include "./Items.h"
 #include "./Home.h"
-#include "./Miscellaneous/Misc.h"
+#include "./Misc.h"
 
 void Options();
 

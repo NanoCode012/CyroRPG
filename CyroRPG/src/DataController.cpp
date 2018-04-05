@@ -1,4 +1,4 @@
-#include "./DataController.h"
+#include "../inc/DataController.h"
 
 using namespace std;
 

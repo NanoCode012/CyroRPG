@@ -1,4 +1,4 @@
-#include "./InTown.h"
+#include "../inc/InTown.h"
 
 using namespace std;
 

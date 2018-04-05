@@ -5,9 +5,9 @@
 #include "./Characters.h"
 #include "./Items.h"
 #include "./Home.h"
-#include "./Miscellaneous/Random.h"
-#include "./Miscellaneous/DataController.h"
-#include "./Miscellaneous/Misc.h"
+#include "./Random.h"
+#include "./DataController.h"
+#include "./Misc.h"
 
 void OptionsInTown();
 

@@ -1,0 +1,14 @@
+set(HEADER_FILE 
+    ${HEADER_FILE} 
+    ${PROJECT_SOURCE_DIR}/inc/Characters.h 
+    ${PROJECT_SOURCE_DIR}/inc/DataController.h 
+    ${PROJECT_SOURCE_DIR}/inc/Home.h 
+    ${PROJECT_SOURCE_DIR}/inc/InTown.h 
+    ${PROJECT_SOURCE_DIR}/inc/Items.h 
+    ${PROJECT_SOURCE_DIR}/inc/Misc.h 
+    ${PROJECT_SOURCE_DIR}/inc/Monsters.h 
+    ${PROJECT_SOURCE_DIR}/inc/OutTown.h 
+    ${PROJECT_SOURCE_DIR}/inc/Random.h 
+    ${PROJECT_SOURCE_DIR}/inc/Skills.h 
+    PARENT_SCOPE 
+    )

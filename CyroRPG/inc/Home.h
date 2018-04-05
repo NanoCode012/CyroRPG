@@ -2,8 +2,8 @@
 #include <iostream>
 #include "./Characters.h"
 #include "./Items.h"
-#include "./Miscellaneous/DataController.h"
-#include "./Miscellaneous/Misc.h"
+#include "./DataController.h"
+#include "./Misc.h"
 
 void OptionsHome();
 
