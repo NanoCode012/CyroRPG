@@ -99,6 +99,7 @@ struct Character
     void CheckMissionSuccessAndCalculate(int index);
     void SwapMissionToLast(int index);
     void ForfeitMission(int index);
+    void CheckIfGotRelatedMonsterMissionAndCalculate(int monsterType);
 
     float NormalAttack();
     float CriticalAttack();

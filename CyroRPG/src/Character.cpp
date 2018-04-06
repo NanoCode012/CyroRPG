@@ -250,6 +250,7 @@ void Character::CheckMissionSuccessAndCalculate(int index)
         cout << "Mission completed" << endl;
         cout << "You earned " << missions[index].reward << "G" << endl;
         gold += missions[index].reward;
+        SwapMissionToLast(index);
     }
     else
     {
@@ -279,6 +280,22 @@ void Character::ForfeitMission(int index)
     gold -= penalty;
 
     SwapMissionToLast(index);
+}
+
+void Character::CheckIfGotRelatedMonsterMissionAndCalculate(int monsterType)
+{
+    for (int i = 0; i < amountOfMissions; i++)
+    {
+        if (missions[i].id == 1 && missions[i].status == 0)
+        {
+            if (missions[i].typeOfMonsterToKill == monsterType)
+            {
+                missions[i].amountOfMonsterAlreadyKilled++;
+                missions[i].CheckSuccess();
+                break;
+            }
+        }
+    }
 }
 
 void Character::SetSkillForClass(int role)

@@ -75,7 +75,7 @@ void ShowMissionStatus(Character &player)
     PrintLine();
 
     int amountOfMissions = player.amountOfMissions;
-    cout << "Mission Status (" << amountOfMissions << "/" << player.maxAmountOfMissions << ")\n" << endl;
+    cout << "Status (" << amountOfMissions << "/" << player.maxAmountOfMissions << ")\n" << endl;
     for (int i = 0; i < amountOfMissions; i++)
     {
         cout << i + 1 << ".";
@@ -126,8 +126,7 @@ void MissionBoard(Character &player)
                 cout << "Which do you want to expand upon?" << endl
                      << "Opt : ";
                 cin >> opt;
-
-                if (player.missions[opt - 1].status != 0)
+                if (opt <= 0 || opt > player.amountOfMissions)
                 {
                     cout << "Invalid Option" << endl;
                     break;
@@ -163,6 +162,11 @@ void MissionBoard(Character &player)
                 }
                 cout << "Opt : ";
                 cin >> opt;
+                if (opt <= 0)
+                {
+                    cout << "Invalid Option" << endl;
+                    break;
+                }
                 if (player.amountOfMissions >= player.maxAmountOfMissions)
                 {
                     cout << "You cannot accept any more missions" << endl;

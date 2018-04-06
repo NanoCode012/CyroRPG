@@ -73,8 +73,6 @@ void Mission::ShowInfo()
 {
     cout << "\t" << name << " ";
 
-    Monster monster;
-    monster.SetType(typeOfMonsterToKill, 1);
     switch(id)
     {
         case 1:
@@ -101,26 +99,26 @@ void Mission::ShowInfo()
             break;
     }
 
+    cout << "[";
     switch(status)
     {
         case -1:
-            cout << "[Unreceived]" << endl;
+            cout << "Unreceived";
             break;
         case 0:
-            cout << "[Ongoing]" << endl;
+            cout << "Ongoing";
             break;
         case 1:
-            cout << "[Success]" << endl;
+            cout << "Success";
             break;
         case 2:
-            cout << "[Delayed]" << endl;
+            cout << "Delayed";
             break;
         case 3:
-            cout << "[Failed]" << endl;
+            cout << "Failed";
             break;
     }
-
-    
+    cout << "]" << endl;
 }
 
 bool Mission::CheckSuccess()

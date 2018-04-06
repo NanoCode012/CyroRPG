@@ -10,16 +10,17 @@ void Options(int playerPosition)
     else cout << playerPosition << endl;
 
     cout << "As you carefully looked at your surroundings, you are presented with choices .." << endl;
-    cout << "Opt : "            << endl
-         << "1. Use item"       << endl;
+    cout << "Opt : "                 << endl
+         << "1. Use item"            << endl
+         << "2. Check mission stats" << endl;
 
     if (playerPosition < 15) 
     {
-        cout << "2. Walk forward" << endl;
-        if (playerPosition > 0) cout << "3. Walk backward" << endl;
-        else cout << "3. Return back to village" << endl;
+        cout << "3. Walk forward" << endl;
+        if (playerPosition > 0) cout << "4. Walk backward" << endl;
+        else cout << "4. Return back to village" << endl;
     }
-    else cout << "2. Walk backward" << endl;
+    else cout << "3. Walk backward" << endl;
     cout << "Opt : ";
 }
 
@@ -55,10 +56,18 @@ void MoveCharacter(Character &player, int opt, bool &exitStatus)
                 UseItemInBattle(player);
                 break;   
             case 2:
+                PrintLine();
+                cout << "Status\n" << endl;
+                for (int i = 0; i < player.amountOfMissions; i++)
+                {
+                    player.missions[i].ShowInfo();
+                }
+                break;
+            case 3:
                 if (player.position < 15) player.position += 1;
                 else player.position -= 1;
                 break;
-            case 3:
+            case 4:
                 if (player.position >= 15) break;
                 if (player.position > 0) player.position -= 1;
                 else exitStatus = true;
@@ -158,10 +167,11 @@ void ShowBattleOptions()
 {
     PrintLine();
     cout << "Your turn .."      << endl;
-    cout << "Opt : "            << endl
+    cout << "Options : "        << endl
          << "1. Normal Attack"  << endl
          << "2. Use Skill"      << endl
-         << "3. Use Item"       << endl;
+         << "3. Use Item"       << endl
+         << "Opt : ";
 }
 
 void ShowActiveSkills(Character &player)
@@ -303,6 +313,8 @@ void CheckIfMonsterDead(Monster &monster, Character &player)
             cout << "You leveled up!"       << endl;
             cout << "You are now level "    << player.level << "." << endl;
         }
+
+        player.CheckIfGotRelatedMonsterMissionAndCalculate(monster.id);
     }
     else if (!player.IsAlive()) cout << "You have been defeated!"         << endl;
 }
@@ -320,7 +332,9 @@ void OutTown(Character &player)
         if (exit) break;
         if (CheckIfMeetEnemy(player))
         {
-            cout << "LOG: ENEMY DETECTED!" << endl;
+            PrintLine();
+
+            cout << "AN ENEMY APPEARED!" << endl;
             
             Monster monster;
             SetEnemyStats(monster, player);

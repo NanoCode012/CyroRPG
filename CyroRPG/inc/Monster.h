@@ -7,7 +7,7 @@ struct Monster
 {
     std::string name = "";
 
-    int type = -1;
+    int id = -1;
 
     float maxHp;
     float maxMana;
