@@ -4,6 +4,7 @@
 #include "./Skill.h"
 #include "./Monster.h"
 #include "./Item.h"
+#include "./Mission.h"
 #include "./Random.h"
 #include "./Misc.h"
 
@@ -51,12 +52,14 @@ struct Character
 
     int gold = 0;
 
+    /* Redundant
     bool hasSword = false;
     bool hasArmor = false;
     bool hasShield = false;
     bool hasStaff = false;
     bool hasNecklace = false;
     bool hasBow = false;
+    */
 
     int maxAmountOfItems = 10;
     int amountOfItems = 0;
@@ -68,6 +71,10 @@ struct Character
     Skill *skills = new Skill[maxAmountOfSkills];
 
     int position = 0;
+
+    int amountOfMissions = 0;
+    int maxAmountOfMissions = 3;
+    Mission *missions = new Mission[3];
 
     bool killedBoss[3];
 
