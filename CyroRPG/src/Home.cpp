@@ -29,7 +29,7 @@ void ShowItemStats(Item item, bool showName)
           << "\tRarity : "    << item.level                                   << endl;
     if (item.isEquippable)
     {
-        switch(item.type)
+        switch(item.id)
         {
             case 0:
                 cout << "\tDamage Reduction : " << item.damageReduction << endl;
@@ -47,7 +47,7 @@ void ShowItemStats(Item item, bool showName)
     }
     else
     {
-        switch(item.type)
+        switch(item.id)
         {
             case 0:
                 cout << "\tHP : " << item.hp << endl;
