@@ -87,7 +87,7 @@ struct Character
 
     void Insert(Item &item);
     void ApplyItemEffect(int index, bool isEquipped, bool addEffect = true);
-    void SwapItem(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory = false);
+    void SwapItemToLast(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory = false);
     void Equip(int indexInInventory);
     void Unequip(int indexInEquipped);
     void UseItem(int indexInInventory);
@@ -95,6 +95,10 @@ struct Character
     void SetSkillForClass(int index);
     void SetSkill(int skillID, int level = 1, int index = -1);
     void UseSkill(int index, Monster &monster);
+    
+    void CheckMissionSuccessAndCalculate(int index);
+    void SwapMissionToLast(int index);
+    void ForfeitMission(int index);
 
     float NormalAttack();
     float CriticalAttack();

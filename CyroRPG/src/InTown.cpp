@@ -70,7 +70,124 @@ void Inn(Character &player, bool isDead)
     }
 }
 
-void GenerateItem(Item *items, int index, int playerLevel)
+void ShowMissionStatus(Character &player)
+{
+    PrintLine();
+
+    int amountOfMissions = player.amountOfMissions;
+    cout << "Mission Status (" << amountOfMissions << "/" << player.maxAmountOfMissions << ")\n" << endl;
+    for (int i = 0; i < amountOfMissions; i++)
+    {
+        cout << i + 1 << ".";
+        player.missions[i].ShowInfo();
+    }
+}
+
+Mission GenerateMission(int playerLevel)
+{
+    Mission mission;
+    int rank = GetRandomNumber(playerLevel / 10);
+    if (rank < 0) rank = 0;
+    else if (rank > 5) rank = 5;
+    mission.SetType(1, rank);
+    return mission;
+}
+
+void MissionBoard(Character &player)
+{
+    PrintLine();
+
+    int opt, temp;
+    int amountOfMissionsInBoard = 3;
+    Mission *missions = new Mission[amountOfMissionsInBoard];
+    bool *missionsTaken = new bool[amountOfMissionsInBoard];
+
+    //GenerateMissions
+    for (int i = 0; i < amountOfMissionsInBoard; i++)
+    {
+        missions[i] = GenerateMission(player.level);
+    }
+
+    cout << "Welcome to the Mission board" << endl;
+    
+    while(true)
+    {
+        cout << "How can I help you today?"     << endl
+            << "1. Check my current mission(s)" << endl
+            << "2. Check available mission(s)"  << endl
+            << "3. Exit"                        << endl
+            << "Opt : ";
+        cin >> opt;
+        if (opt == 3) break;
+        switch(opt)
+        {
+            case 1:
+                ShowMissionStatus(player);
+                cout << "Which do you want to expand upon?" << endl
+                     << "Opt : ";
+                cin >> opt;
+
+                if (player.missions[opt - 1].status != 0)
+                {
+                    cout << "Invalid Option" << endl;
+                    break;
+                }
+
+                player.missions[opt - 1].ShowInfo();
+                cout << "Options : "    << endl
+                     << "1. Turn in"    << endl
+                     << "2. Forfeit"    << endl
+                     << "Opt : ";
+                cin >> temp;
+                switch(temp)
+                {
+                    case 1:
+                        player.CheckMissionSuccessAndCalculate(opt - 1);
+                        break;
+                    case 2:
+                        player.ForfeitMission(opt - 1);
+                        break;
+                    default:
+                        cout << "Invalid Option" << endl;
+                        break;
+                }
+                break;
+            case 2:
+                cout << "Which mission do you want to accept?" << endl;
+                for (int i = 0; i < amountOfMissionsInBoard; i++)
+                {
+                    if (!missionsTaken[i])
+                    {
+                        cout << i + 1 << ". " << missions[i].name << endl;
+                    }
+                }
+                cout << "Opt : ";
+                cin >> opt;
+                if (player.amountOfMissions >= player.maxAmountOfMissions)
+                {
+                    cout << "You cannot accept any more missions" << endl;
+                } 
+                else if (missionsTaken[opt - 1])
+                {
+                    cout << "Mission already taken" << endl;
+                }
+                else
+                {
+                    player.missions[player.amountOfMissions] = missions[opt - 1];
+                    player.amountOfMissions++;
+                    missionsTaken[opt - 1] = true;
+                }
+                break;
+            default:
+                cout << "Invalid Option" << endl;
+                break;
+        }
+        PrintLine();
+    }
+    delete []missions;
+    delete []missionsTaken;
+}
+
 Item GenerateItem(int playerLevel)
 {
     Item item;
@@ -148,10 +265,13 @@ void ItemShop(Character &player)
         
         PrintLine();
     }
+    delete []items;
+    delete []itemsBought;
 }
 
-void Quit()
+void Quit(Character &player)
 {
+    int opt;
     PrintLine();
     cout << "Do you really want to quit?" << endl
             << "Option : "                   << endl
@@ -197,7 +317,7 @@ void InTown(Character &player)
                 Inn(player);
                 break;
             case 2:
-                //MissionBoard(player);
+                MissionBoard(player);
                 break;
             case 3:
                 ItemShop(player);
@@ -206,7 +326,7 @@ void InTown(Character &player)
                 Home(player);
                 break;
             case 6:
-                Quit();
+                Quit(player);
                 break;
             default:
                 cout << "Invalid Option" << endl;

@@ -2,6 +2,11 @@
 
 using namespace std;
 
+void Mission::Unreceived()
+{
+    status = -1;
+}
+
 void Mission::Start()
 {
     status = 0;
@@ -27,13 +32,16 @@ void Mission::SetType(int type, int rank)
     id = type;
     difficulty = rank;
     reward = GetRandomNumber(rank * 20);
-    
+    Start();
+
     Monster monster;
     switch(id)
     {
         case 1:
             typeOfMonsterToKill = (rank / 2) + 1;
-            amountOfMonsterToKill = GetRandomNumber(rank * 10);
+            do {
+                amountOfMonsterToKill = GetRandomNumber((rank * 10) + 10);
+                } while(amountOfMonsterToKill <= 0);
 
             name = "Kill " + ConvertFromIntToString(amountOfMonsterToKill) + " ";
             monster.SetType(typeOfMonsterToKill, 1);
@@ -63,56 +71,56 @@ void Mission::SetType(int type, int rank)
 
 void Mission::ShowInfo()
 {
-    cout << "\tTitle : "    << name << endl;
-
-    cout << "\tStatus : ";
-    switch(status)
-    {
-        case -1:
-            cout << "Unreceived" << endl;
-            break;
-        case 0:
-            cout << "Success" << endl;
-            break;
-        case 1:
-            cout << "Ongoing" << endl;
-            break;
-        case 2:
-            cout << "Delayed" << endl;
-            break;
-        case 3:
-            cout << "Failed" << endl;
-            break;
-    }
+    cout << "\t" << name << " ";
 
     Monster monster;
     monster.SetType(typeOfMonsterToKill, 1);
     switch(id)
     {
         case 1:
-            cout << "Monster to kill : " << monster.name << endl
-                 << "Amount Monster Killed : " << amountOfMonsterAlreadyKilled << endl
-                 << "Amount Monster To Kill : " << amountOfMonsterToKill << endl;
+            cout << "(" << amountOfMonsterAlreadyKilled << "/" << amountOfMonsterToKill << ") ";
             break;
         case 2:
-            cout << "NPC to meet : ";
+            cout << "(";
             switch(talkToNPCID)
             {
                 case 0:
-                    cout << "Inn owner" << endl;
+                    cout << "Inn owner";
                     break;
                 case 1:
-                    cout << "Item shop owner" << endl;
+                    cout << "Item shop owner";
                     break;
                 case 2:
-                    cout << "Mission board owner" << endl;
+                    cout << "Mission board owner";
                     break;
                 case 3:
-                    cout << "Helio the Sage" << endl;
+                    cout << "Helio the Sage";
                     break;
             }
+            cout << ")";
             break;
     }
+
+    switch(status)
+    {
+        case -1:
+            cout << "[Unreceived]" << endl;
+            break;
+        case 0:
+            cout << "[Ongoing]" << endl;
+            break;
+        case 1:
+            cout << "[Success]" << endl;
+            break;
+        case 2:
+            cout << "[Delayed]" << endl;
+            break;
+        case 3:
+            cout << "[Failed]" << endl;
+            break;
+    }
+
+    
 }
 
 bool Mission::CheckSuccess()
@@ -123,7 +131,7 @@ bool Mission::CheckSuccess()
     switch(id)
     {
         case 1:
-            if (amountOfMonsterAlreadyKilled <= amountOfMonsterToKill)
+            if (amountOfMonsterAlreadyKilled >= amountOfMonsterToKill)
             {
                 Success();
             }

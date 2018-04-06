@@ -159,7 +159,7 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
     }
 }
 
-void Character::SwapItem(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory)
+void Character::SwapItemToLast(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory)
 {
     if (!swapOnlyInInventory)
     {
@@ -183,7 +183,10 @@ void Character::SwapItem(int index, bool swapFromInventoryToEquipped, bool swapO
     }
     else
     {
-        inventory[index] = inventory[amountOfItems - 1];
+        if (index != amountOfItems - 1)
+        {
+            inventory[index] = inventory[amountOfItems - 1];
+        }
         inventory[amountOfItems - 1].isNull = true;
         amountOfItems--;
     }
@@ -196,7 +199,7 @@ void Character::Equip(int indexInInventory)
         if (equipped[inventory[indexInInventory].id].isNull)
         {
             int temp = inventory[indexInInventory].id;
-            SwapItem(indexInInventory, true);
+            SwapItemToLast(indexInInventory, true);
             ApplyItemEffect(temp, false);
             cout << "Item equipped" << endl;
         }
@@ -219,7 +222,7 @@ void Character::Unequip(int indexInEquipped)
         {
             ApplyItemEffect(indexInEquipped, false, false);
             equipped[indexInEquipped].isNull = true;
-            SwapItem(indexInEquipped, false);
+            SwapItemToLast(indexInEquipped, false);
             cout << "Item unequipped" << endl;
         }
         else
@@ -237,7 +240,45 @@ void Character::UseItem(int indexInInventory)
 {
     cout << "You used " << inventory[indexInInventory].name << endl;
     ApplyItemEffect(indexInInventory, true);
-    SwapItem(indexInInventory, false, true);
+    SwapItemToLast(indexInInventory, false, true);
+}
+
+void Character::CheckMissionSuccessAndCalculate(int index)
+{
+    if (missions[index].CheckSuccess())
+    {
+        cout << "Mission completed" << endl;
+        cout << "You earned " << missions[index].reward << "G" << endl;
+        gold += missions[index].reward;
+    }
+    else
+    {
+        cout << "Mission not completed" << endl;
+    }
+}
+
+void Character::SwapMissionToLast(int index)
+{
+    if (index != amountOfMissions - 1)
+    {
+        missions[index] = missions[amountOfMissions - 1];
+    }
+    missions[amountOfMissions - 1].Unreceived();
+    amountOfMissions--;
+}
+
+void Character::ForfeitMission(int index)
+{
+    cout << "Mission forfeited" << endl;
+    int penalty = missions[index].reward / 2;
+    cout << "You lost " << penalty << "G for giving up" << endl;
+    if (penalty > gold)
+    {
+        cout << "You owe the mission committee " << penalty - gold << "G" << endl;
+    }
+    gold -= penalty;
+
+    SwapMissionToLast(index);
 }
 
 void Character::SetSkillForClass(int role)

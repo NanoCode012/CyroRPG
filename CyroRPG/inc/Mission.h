@@ -20,6 +20,7 @@ struct Mission
     bool hasTalkedToNPC = false;
     int talkToNPCID = -1;
 
+    void Unreceived();
     void Start();
     void Success();
     void Delayed();
