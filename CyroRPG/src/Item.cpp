@@ -29,6 +29,9 @@ void Item::SetType(int type, int rarity, bool wearable)
                 name = "Shoe Gear";
                 chanceOfEvasion = 0.05 + (float)GetRandomNumber(level * 5)/100;
                 break;
+            case 4:
+                //Weapon
+                break;
         }
     }
     else
