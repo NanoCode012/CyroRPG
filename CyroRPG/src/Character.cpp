@@ -127,7 +127,7 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
     }
     else
     {
-        switch(inventory[index].type)
+        switch(inventory[index].id)
         {
             case 0:
                 cout << "Your hp increased by " << inventory[index].hp << endl;
@@ -165,7 +165,7 @@ void Character::Swap(int index, bool swapFromInventoryToEquipped, bool swapOnlyI
     {
         if (swapFromInventoryToEquipped)
         {
-            equipped[inventory[index].type] = inventory[index];
+            equipped[inventory[index].id] = inventory[index];
             //if item position is at the end, do nothing
             if (index != amountOfItems - 1)
             {
@@ -193,9 +193,9 @@ void Character::Equip(int indexInInventory)
 {
     if (inventory[indexInInventory].isEquippable)
     {
-        if (equipped[inventory[indexInInventory].type].isNull)
+        if (equipped[inventory[indexInInventory].id].isNull)
         {
-            int temp = inventory[indexInInventory].type;
+            int temp = inventory[indexInInventory].id;
             Swap(indexInInventory, true);
             ApplyItemEffect(temp, false);
             cout << "Item equipped" << endl;
