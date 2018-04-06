@@ -169,8 +169,6 @@ void ShowAllPlayerInfo(Character &player)
 
     cout << endl;
     ShowPlayerInventory(player);    
-
-    PrintLine();
 }
 
 void ShowPlayerEquippableGear(Character &player)
