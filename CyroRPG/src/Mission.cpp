@@ -31,7 +31,7 @@ void Mission::SetType(int type, int rank)
 {
     id = type;
     difficulty = rank;
-    reward = GetRandomNumber(rank * 20);
+    reward = GetRandomNumber(rank * 20 + 10);
     Start();
 
     Monster monster;
