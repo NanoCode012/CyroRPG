@@ -221,7 +221,6 @@ void Character::Unequip(int indexInEquipped)
         if (!equipped[indexInEquipped].isNull)
         {
             ApplyItemEffect(indexInEquipped, false, false);
-            equipped[indexInEquipped].isNull = true;
             SwapItemToLast(indexInEquipped, false);
             cout << "Item unequipped" << endl;
         }
