@@ -21,6 +21,7 @@ void OptionsInTown()
 void Inn(Character &player, bool isDead)
 {
     PrintLine();
+
     if (!isDead)
     {
         char opt;
@@ -70,13 +71,14 @@ void Inn(Character &player, bool isDead)
 }
 
 void GenerateItem(Item *items, int index, int playerLevel)
+Item GenerateItem(int playerLevel)
 {
     Item item;
     int rarity = GetRandomNumber(playerLevel / 10);
     if (rarity < 0) rarity = 0;
     else if (rarity > 5) rarity = 5;
     item.SetType(GetRandomNumber(3), rarity, (bool)GetRandomNumber(1));
-    items[index] = item;
+    return item;
 }
 
 void ItemShop(Character &player)
@@ -89,7 +91,7 @@ void ItemShop(Character &player)
 
     for (int i = 0; i < amountOfItemsInShop; i++)
     {
-        GenerateItem(items, i, player.level);
+        items[i] = GenerateItem(player.level);
     }
 
     cout << "Welcome to my lovely shop" << endl;
@@ -148,6 +150,37 @@ void ItemShop(Character &player)
     }
 }
 
+void Quit()
+{
+    PrintLine();
+    cout << "Do you really want to quit?" << endl
+            << "Option : "                   << endl
+            << "1. Yes"                      << endl
+            << "2. No"                       << endl;
+    cout << "Opt : ";
+    cin >> opt;
+    if (opt == 1)
+    {
+        PrintLine();
+        cout << "Do you want to save?" << endl
+            << "Option : "            << endl
+            << "1. Yes"               << endl
+            << "2. No"                << endl
+            << "Opt : ";
+        cin >> opt;
+        if (opt == 1)
+        {
+            SaveData(player);
+            cout << "Data Saved" << endl;
+        }
+        else
+        {
+            cout << "Data Not Saved" << endl;
+        }
+        CleanExit();
+    }
+}
+
 void InTown(Character &player)
 {
     int opt;
@@ -173,22 +206,7 @@ void InTown(Character &player)
                 Home(player);
                 break;
             case 6:
-                cout << "Do you want to save?" << endl
-                     << "Option : "            << endl
-                     << "1. Yes"               << endl
-                     << "2. No"                << endl
-                     << "Opt : ";
-                cin >> opt;
-                if (opt == 1)
-                {
-                    SaveData(player);
-                    cout << "Data Saved" << endl;
-                }
-                else
-                {
-                    cout << "Data Not Saved" << endl;
-                }
-                CleanExit();
+                Quit();
                 break;
             default:
                 cout << "Invalid Option" << endl;

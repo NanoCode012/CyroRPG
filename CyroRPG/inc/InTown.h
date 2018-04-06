@@ -14,7 +14,11 @@ void OptionsInTown();
 void Inn(Character &player, bool isDead = false);
 
 void GenerateItem(Item *items, int index, int playerLevel);
+
+Item GenerateItem(int playerLevel);
 void ItemShop(Character &player);
+
+void Quit();
 
 void InTown(Character &player);
 
