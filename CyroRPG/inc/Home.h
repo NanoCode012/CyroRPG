@@ -17,5 +17,6 @@ void ShowAllPlayerInfo(Character &player);
 
 void ShowPlayerEquippableGear(Character &player);
 void EquipItem(Character &player, int indexInInventory);
+void UnequipItem(Character &player, int indexInEquipped);
 
 void Home(Character &player);
