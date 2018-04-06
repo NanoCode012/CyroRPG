@@ -87,7 +87,7 @@ struct Character
 
     void Insert(Item &item);
     void ApplyItemEffect(int index, bool isEquipped, bool addEffect = true);
-    void Swap(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory = false);
+    void SwapItem(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory = false);
     void Equip(int indexInInventory);
     void Unequip(int indexInEquipped);
     void UseItem(int indexInInventory);

@@ -159,7 +159,7 @@ void Character::ApplyItemEffect(int index, bool inInventory, bool addEffect)
     }
 }
 
-void Character::Swap(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory)
+void Character::SwapItem(int index, bool swapFromInventoryToEquipped, bool swapOnlyInInventory)
 {
     if (!swapOnlyInInventory)
     {
@@ -196,7 +196,7 @@ void Character::Equip(int indexInInventory)
         if (equipped[inventory[indexInInventory].id].isNull)
         {
             int temp = inventory[indexInInventory].id;
-            Swap(indexInInventory, true);
+            SwapItem(indexInInventory, true);
             ApplyItemEffect(temp, false);
             cout << "Item equipped" << endl;
         }
@@ -219,7 +219,7 @@ void Character::Unequip(int indexInEquipped)
         {
             ApplyItemEffect(indexInEquipped, false, false);
             equipped[indexInEquipped].isNull = true;
-            Swap(indexInEquipped, false);
+            SwapItem(indexInEquipped, false);
             cout << "Item unequipped" << endl;
         }
         else
@@ -237,7 +237,7 @@ void Character::UseItem(int indexInInventory)
 {
     cout << "You used " << inventory[indexInInventory].name << endl;
     ApplyItemEffect(indexInInventory, true);
-    Swap(indexInInventory, false, true);
+    SwapItem(indexInInventory, false, true);
 }
 
 void Character::SetSkillForClass(int role)
