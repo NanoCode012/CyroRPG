@@ -98,7 +98,7 @@ void LoadData(Character &player)
         }
 
         //Save boss killed data
-        if (getline(readStream, input)) SeparateAndSetData(input, player.killedBoss, 3);
+        if (getline(readStream, input)) SeparateAndSetBossData(input, player.killedBoss, 3);
     }
 }
 
@@ -144,7 +144,7 @@ void SeparateAndSetData(string input, int &first, int &second, char separator, c
     second = ConvertFromStringToInt(temp);
 }
 
-void SeparateAndSetData(string input, bool *arr, int size, char separator, char endSign)
+void SeparateAndSetBossData(string input, bool *arr, int size, char separator, char endSign)
 {
     int i = 0;
     for (int k = 0; k < size - 1; k++)
