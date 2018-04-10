@@ -20,6 +20,11 @@ void MissionBoard(Character &player);
 Item GenerateItem(int playerLevel);
 void ItemShop(Character &player);
 
+void ShowAvailableSkills(Character &player, bool showIndex = true);
+void FindUnlearntSkill(Character &player, bool *(&learnt));
+void ShowUnlearntSkill(Character &player, bool *(&learnt));
+void Academy(Character &player);
+
 void Quit(Character &player);
 
 void InTown(Character &player);

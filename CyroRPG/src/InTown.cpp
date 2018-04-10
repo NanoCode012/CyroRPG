@@ -12,9 +12,10 @@ void OptionsInTown()
          << "1. Visit Inn"                   << endl
          << "2. Check Misionboard"           << endl
          << "3. Go to Item shop"             << endl
-         << "4. Enter home"                  << endl
-         << "5. Leave village"               << endl
-         << "6. Quit"                        << endl
+         << "4. Stop by the academy"         << endl
+         << "5. Enter home"                  << endl
+         << "6. Leave village"               << endl
+         << "7. Quit"                        << endl
          << "Opt : ";
 }
 
@@ -273,6 +274,147 @@ void ItemShop(Character &player)
     delete []itemsBought;
 }
 
+void ShowAvailableSkills(Character &player, bool showIndex)
+{
+    if (showIndex)
+    {
+        for (int i = 0; i < player.amountOfSkills; i++)
+        {
+            cout << i + 1 << ". \t" << player.skills[i].name << endl;
+            player.skills[i].ShowInfo(false);
+            cout << endl;
+        }
+    }
+    else 
+    {
+        for (int i = 0; i < player.amountOfSkills; i++)
+        {
+            player.skills[i].ShowInfo();
+            cout << endl;
+        }
+    }
+}
+
+void FindUnlearntSkill(Character &player, bool *(&learnt))
+{
+    int classID = player.role;
+    int maxSkill = player.maxAmountOfSkills;
+    int skillAmount = player.amountOfSkills;
+
+    for (int i = 0; i < skillAmount; i++)
+    {
+        for (int j = 1; j <= maxSkill; j++)
+        {
+            if (learnt[j]) continue;
+            if ((classID - 1) * 3 + j == player.skills[i].id)
+            {
+                learnt[j] = true;
+                break;
+            }
+        }
+    }
+}
+
+void ShowUnlearntSkill(Character &player, bool *(&learnt))
+{
+    int classID = player.role;
+    int maxSkill = player.maxAmountOfSkills;
+
+    FindUnlearntSkill(player, learnt);
+    
+    Skill temp;
+    for (int i = 1; i <= maxSkill; i++)
+    {
+        if (!learnt[i])
+        {
+            temp.SetType((classID - 1) * 3 + i);
+            cout << i << ". \t" << temp.name << endl;
+            temp.ShowInfo(false);
+            cout << endl;
+        }
+    }
+}
+
+void Academy(Character &player)
+{
+    PrintLine();
+
+    cout << "Hello " << player.name << "!" << endl
+         << "Welcome back to the Academy!" << endl;
+
+    int opt;
+    int maxSkill = player.maxAmountOfSkills;
+    bool *learnt = new bool[maxSkill + 1];
+    for (int i = 1; i <= maxSkill; i++) learnt[i] = false;
+    while(true)
+    {
+        cout << "What would you like to do?"    << endl
+             << "1. Check current skill(s)"     << endl
+             << "2. Learn a new skill"          << endl
+             << "3. Level up my current skill"  << endl
+             << "4. Quit"                       << endl
+             << "Opt : ";
+        cin >> opt;
+        if (opt == 4) break;
+        PrintLine();
+        switch(opt)
+        {
+            case 1:
+                ShowAvailableSkills(player, false);
+                break;
+            case 2:
+                if (player.amountOfSkills < player.maxAmountOfSkills)
+                {
+                    cout << "Which skill would you like to learn?" << endl;
+                    ShowUnlearntSkill(player, learnt);
+                    cout << "Opt : ";
+                    cin >> opt;
+                    if (opt < 1 || opt > maxSkill) 
+                    {
+                        cout << "Invalid Option" << endl;
+                        break;
+                    }
+                    if (!learnt[opt])
+                    {
+                        cout << "LOG: SKILL LEARNT" << endl;
+                        player.SetSkill(opt);
+                    }
+                    else
+                    {
+                        cout << "Skill already learnt" << endl;
+                    }
+                }
+                else
+                {
+                    cout << "You already have learned all the skills for that class" << endl;
+                }
+                break;
+            case 3:
+                cout << "Which skill would you like to upgrade?" << endl;
+                ShowAvailableSkills(player);
+                cout << "Opt : ";
+                cin >> opt;
+                if (opt < 1 || opt > player.amountOfSkills)
+                {
+                    cout << "Invalid Option" << endl;
+                    break;
+                }
+                if (player.skills[opt - 1].level >= player.maxSkillLevel)
+                {
+                    cout << "This skill's level is already maxed out" << endl;
+                }
+                else
+                {
+                    cout << "LOG: LEVEL SKILL UP" << endl;
+                    player.SetSkill(player.skills[opt - 1].id, player.skills[opt - 1].level + 1, opt - 1);
+                }
+                break;
+        }
+
+        PrintLine();
+    }
+}
+
 void Quit(Character &player)
 {
     int opt;
@@ -313,8 +455,8 @@ void InTown(Character &player)
     {
         OptionsInTown();
         cin >> opt;
-        if (opt > 10) continue;
-        if (opt == 5) break;
+        if (opt > 10) continue;//Defense, albeit better than nothing
+        if (opt == 6) break;//Leave intown for outtown
         switch(opt)
         {
             case 1:
@@ -327,9 +469,12 @@ void InTown(Character &player)
                 ItemShop(player);
                 break;
             case 4:
+                Academy(player);
+                break;
+            case 5:
                 Home(player);
                 break;
-            case 6:
+            case 7:
                 Quit(player);
                 break;
             default:
