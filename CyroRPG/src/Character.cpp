@@ -411,9 +411,9 @@ void Character::UseSkill(int index, Monster &monster)
                 if (monster.DamageCalculation(damage))
                 {
                     monster.damageReductionPercentage += tempSkill.damageReductionPercentage;
-                    monster.amountOfTurnsDamageReductionPercentage = 1;
-                    cout << "Enemy's next damage will be reduced by " 
-                        << ConvertFromPercentageToString(monster.damageReductionPercentage, 2) << "%" 
+                    monster.amountOfTurnsDamageReductionPercentage = tempSkill.amountOfTurnsDamageReductionPercentage;
+                    cout << "Enemy's next " << " turn(s) damage will be reduced by " 
+                        << monster.damageReductionPercentage * 100 << "%" 
                         << endl;
                 }
                 break;
@@ -443,8 +443,10 @@ void Character::UseSkill(int index, Monster &monster)
                     if (rand <= tempSkill.chanceOfDrainHP)
                     {
                         //Player take half of hp drained
-                        currentHp += (monster.maxHp * (1 + tempSkill.hpDrainOfMaxPercentage))/2;
-                        monster.currentHp -= monster.maxHp * (1 + tempSkill.hpDrainOfMaxPercentage);
+                        damage = monster.maxHp * (1 + tempSkill.hpDrainOfMaxPercentage);
+                        cout << "You drained the enemy's hp by " << damage << " and recovered " << damage / 2 << " hp" << endl;
+                        currentHp += damage / 2;
+                        monster.currentHp -= damage;
                     }
                 }
                 break;
@@ -489,16 +491,14 @@ void Character::UseSkill(int index, Monster &monster)
 
                 if (monster.DamageCalculation(damage))
                 {
-                    rand = GetRandomNumber(100);
-                    if (rand <= tempSkill.chanceOfFiringAgain[0])
+                    for (int i = 0; i < tempSkill.maxTimesOfFiringAgain; i++)
                     {
-                        amountOfExtraTurns++;
                         rand = GetRandomNumber(100);
-                        if (rand <= tempSkill.chanceOfFiringAgain[1])
+                        if (rand <= tempSkill.chanceOfFiringAgain[i])
                         {
                             amountOfExtraTurns++;
+                            cout << "Enemy got pushed back one turn" << endl;
                         }
-                        cout << "Enemy is pushed back. You get " << amountOfExtraTurns << " extra turn(s)." << endl;
                     }
                 }
                 break;
