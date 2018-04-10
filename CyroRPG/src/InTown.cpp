@@ -26,7 +26,7 @@ void Inn(Character &player, bool isDead)
     if (!isDead)
     {
         char opt;
-        cout << "\"Welcome to the Inn."                                         << endl
+        cout << "Welcome to the Inn."                                         << endl
              << "Would you like to stay here to relax and rejuvenate for 5G?" << endl;
         cout << "Opt (Y/N) : ";
         cin >> opt;
@@ -321,7 +321,7 @@ void ShowUnlearntSkill(Character &player, bool *(&learnt))
     int maxSkill = player.maxAmountOfSkills;
 
     FindUnlearntSkill(player, learnt);
-    
+
     Skill temp;
     for (int i = 1; i <= maxSkill; i++)
     {

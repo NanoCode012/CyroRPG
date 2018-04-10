@@ -54,7 +54,7 @@ int main(){
         cout << "\"Hear me Young " << name << "! "
             << "For you are not young anymore! You are now qualified to be one of us, a Cyrion!\", the man announced.\n" << endl
             << "Drums started to roar .. louder and LouDer!\n"                                                           << endl
-            << "\"Now tell me, do you wish to protect your kind with almighty strength? Perphaps, you wish to learn the "
+            << "\"Now tell me, do you wish to protect your kind with almighty strength? Perhaps, you wish to learn the "
             << "forbidden arts of magic? Or do you plan to wreck havoc in our foes with your unmatchable movements? The choice "
             << "is yours child. \", commanded the robed man. "                                                           << endl;
         
