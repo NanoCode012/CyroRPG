@@ -139,7 +139,7 @@ void ShowPlayerTempStats(Character &player)
     cout << "\nPlayer Skills\n" << endl;
     for (int i = 0; i < player.amountOfSkills; i++)
     {
-        cout << player.skills[i].name << "(Lvl: " << player.skills[i].level << ")" << endl;
+        cout << player.skills[i].name << " (Lvl: " << player.skills[i].level << ")" << endl;
     }
 
     PrintLine();
@@ -343,12 +343,11 @@ void OutTown(Character &player)
             PrintLine();
 
             SetPlayerStats(player, monster);
-
-            PrintLine();
             
             //Early Attack for Archers
             for (int i = 0; i < player.amountOfExtraActionAtStartTurn; i++)
             {
+                PrintLine();
                 if (monster.IsAlive())
                 {
                     cout << "You can attack " << player.amountOfExtraActionAtStartTurn - i << " turns more in advance." << endl;
