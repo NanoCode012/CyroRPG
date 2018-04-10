@@ -14,6 +14,9 @@ struct Skill
     
     int manaCost = 0;
 
+    int learnCost = 0;
+    int upgradeCost = 0;
+
     //Active
     int damage = 0;
     int damageOverTime = 0;

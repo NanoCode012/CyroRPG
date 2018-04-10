@@ -225,7 +225,9 @@ void Skill::ShowInfo(bool showName)
 
     cout << "\tLevel : "        << level << endl
          << "\tActive : "       << ((isActive) ? "Yes" : "No") << endl
-         << "\tMana Cost : "    << manaCost << endl;
+         << "\tMana Cost : "    << manaCost << endl
+         << "\tLearn Cost : "   << learnCost << endl
+         << "\tUpgrade Cost : " << upgradeCost << endl;
     
     cout << "\tInfo : ";
     switch(id)

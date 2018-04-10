@@ -389,6 +389,9 @@ void Academy(Character &player)
     int maxSkill = player.maxAmountOfSkills;
     bool *learnt = new bool[maxSkill + 1];
     for (int i = 1; i <= maxSkill; i++) learnt[i] = false;
+
+    Skill temp;
+
     while(true)
     {
         cout << "What would you like to do?"    << endl
@@ -419,8 +422,16 @@ void Academy(Character &player)
                     }
                     if (!learnt[opt])
                     {
-                        cout << "LOG: SKILL LEARNT" << endl;
-                        player.SetSkill(opt);
+                        temp.SetType(opt);
+                        if (player.gold >= temp.learnCost)
+                        {
+                            cout << "Skill learnt!" << endl;
+                            player.SetSkill(opt);
+                        }
+                        else
+                        {
+                            cout << "You do not have enough G" << endl;
+                        }
                     }
                     else
                     {
@@ -448,8 +459,15 @@ void Academy(Character &player)
                 }
                 else
                 {
-                    cout << "LOG: LEVEL SKILL UP" << endl;
-                    player.SetSkill(player.skills[opt - 1].id, player.skills[opt - 1].level + 1, opt - 1);
+                    if (player.gold >= player.skills[opt - 1].upgradeCost)
+                    {
+                        cout << "Skill leveled up!" << endl;
+                        player.SetSkill(player.skills[opt - 1].id, player.skills[opt - 1].level + 1, opt - 1);
+                    }
+                    else
+                    {
+                        cout << "You do not have enough G" << endl;
+                    }
                 }
                 break;
         }
