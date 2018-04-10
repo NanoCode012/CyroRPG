@@ -67,6 +67,7 @@ struct Character
     Item *equipped = new Item[5];
 
     int maxAmountOfSkills = 3;
+    int maxSkillLevel = 3;
     int amountOfSkills = 0;
     Skill *skills = new Skill[maxAmountOfSkills];
 
