@@ -216,59 +216,102 @@ void ItemShop(Character &player)
         items[i] = GenerateItem(player.level);
     }
 
+    int opt;
+
     cout << "Welcome to my lovely shop" << endl;
     while(true)
     {
-        cout << "What would you like to purchase?" << endl;
+        PrintLine();
 
-        //Show items that can be bought
-        for (int i = 0; i < amountOfItemsInShop; i++)
-        {
-            if (!itemsBought[i])
-            {
-                cout << i + 1 << ". " << items[i].name        << endl;
-                ShowItemStats(items[i], false);
-            }
-        }
-        cout << amountOfItemsInShop + 1 << ". Exit" << endl;
-        
-        int opt;
-        cout << "Opt : ";
+        cout << "What would you like to do?" << endl
+             << "1. Buy Items"               << endl
+             << "2. Sell Items"              << endl
+             << "3. Quit"                    << endl
+             << "Opt : ";
         cin >> opt;
 
-        if (opt == amountOfItemsInShop + 1) break;//Exit
-        else if (opt > amountOfItemsInShop) 
-        {
-            cout << "Invalid Option" << endl;
-        }
-        else if (itemsBought[opt - 1])
-        {
-            cout << "Item already bought" << endl;
-        }
-        else
-        {
-            if (player.amountOfItems < player.maxAmountOfItems)
-            {
-                if (player.gold >= items[opt - 1].cost)
-                {
-                    cout << "Thank you for your patronage" << endl;
-                    player.gold -= items[opt - 1].cost;
-                    player.Insert(items[opt - 1]);
+        if (opt == 3) break;
 
-                    itemsBought[opt - 1] = true;
+        PrintLine();
+
+        switch(opt)
+        {
+            case 1:
+                cout << "What would you like to purchase?" << endl;
+
+                //Show items that can be bought
+                for (int i = 0; i < amountOfItemsInShop; i++)
+                {
+                    if (!itemsBought[i])
+                    {
+                        cout << i + 1 << ". " << items[i].name        << endl;
+                        items[i].ShowInfo(false);
+                    }
+                }
+                cout << amountOfItemsInShop + 1 << ". Exit" << endl;
+                
+                cout << "Opt : ";
+                cin >> opt;
+
+                if (opt == amountOfItemsInShop + 1) break;//Exit
+                else if (opt > amountOfItemsInShop) 
+                {
+                    cout << "Invalid Option" << endl;
+                }
+                else if (itemsBought[opt - 1])
+                {
+                    cout << "Item already bought" << endl;
                 }
                 else
                 {
-                    cout << "You do not have enough G" << endl;
+                    if (player.amountOfItems < player.maxAmountOfItems)
+                    {
+                        if (player.gold >= items[opt - 1].cost)
+                        {
+                            cout << "Thank you for your patronage" << endl;
+                            player.gold -= items[opt - 1].cost;
+                            player.Insert(items[opt - 1]);
+
+                            itemsBought[opt - 1] = true;
+                        }
+                        else
+                        {
+                            cout << "You do not have enough G" << endl;
+                        }
+                    }
+                    else
+                    {
+                        cout << "You do not have enough space" << endl;
+                    }
                 }
+                break;
+            case 2:
+                cout << "What would you like to sell?" << endl;
+                if (player.amountOfItems > 0)
+                {
+                    for (int i = 0; i < player.amountOfItems; i++)
+                    {
+                        cout << i + 1 << ". \t" << player.inventory[i].name << endl;
+                        player.inventory[i].ShowInfo(false);
+                    }
+                    cout << "Opt : ";
+                    cin >> opt;
+                    if (opt < 1 || opt > player.amountOfItems)
+                    {
+                        cout << "Invalid Option" << endl;
+                        break;
+                    }
+
+                    player.gold += player.inventory[opt - 1].cost / 2;
+                    cout << "Item sold for " << player.inventory[opt - 1].cost / 2;
+                    player.SwapItemToLast(opt - 1, false, true);
+                }
+                else
+                {
+                    cout << "You do not have any items that can be sold" << endl;
+                }
+                break;
             }
-            else
-            {
-                cout << "You do not have enough space" << endl;
-            }
-        }
-        
-        PrintLine();
     }
     delete []items;
     delete []itemsBought;
