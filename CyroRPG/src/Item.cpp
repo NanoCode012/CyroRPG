@@ -1,5 +1,7 @@
 #include "../inc/Item.h"
 
+using namespace std;
+
 void Item::SetType(int type, int rarity, bool wearable)
 {
     isNull = false;
@@ -57,4 +59,51 @@ void Item::SetType(int type, int rarity, bool wearable)
         }
     }
     
+}
+
+void Item::ShowInfo(bool showName)
+{
+    if (showName)
+    {
+        cout << "\tName : " << name << endl;
+    }
+    cout  << "\tCost : "      << cost << "G"                             << endl
+          << "\tCan Equip : " << ((isEquippable) ? "Yes" : "No")         << endl
+          << "\tRarity : "    << level                                   << endl;
+    if (isEquippable)
+    {
+        switch(id)
+        {
+            case 0:
+                cout << "\tDamage Reduction : " << damageReduction << endl;
+                break;
+            case 1:
+                cout << "\tDefense : " << defense << endl;
+                break;
+            case 2:
+                cout << "\tCritical Multiplier : " << criticalDamagePercentage << endl;
+                break;
+            case 3:
+                cout << "\tEvasion : " << chanceOfEvasion << endl;
+                break;
+        }
+    }
+    else
+    {
+        switch(id)
+        {
+            case 0:
+                cout << "\tHP : " << hp << endl;
+                break;
+            case 1:
+                cout << "\tMana : " << mana << endl;
+                break;
+            case 2:
+                cout << "\tEvasion : " << chanceOfEvasion << endl;
+                break;
+            case 3:
+                cout << "\tCritical Chance : " << chanceOfCriticalDamage << endl;
+                break;
+        }
+    }
 }

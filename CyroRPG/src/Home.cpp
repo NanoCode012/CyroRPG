@@ -18,53 +18,6 @@ void OptionsHome()
          << "Opt : ";
 }
 
-void ShowItemStats(Item item, bool showName)
-{
-    if (showName)
-    {
-        cout << "\tName : " << item.name << endl;
-    }
-    cout  << "\tCost : "      << item.cost << "G"                             << endl
-          << "\tCan Equip : " << ((item.isEquippable) ? "Yes" : "No")         << endl
-          << "\tRarity : "    << item.level                                   << endl;
-    if (item.isEquippable)
-    {
-        switch(item.id)
-        {
-            case 0:
-                cout << "\tDamage Reduction : " << item.damageReduction << endl;
-                break;
-            case 1:
-                cout << "\tDefense : " << item.defense << endl;
-                break;
-            case 2:
-                cout << "\tCritical Multiplier : " << item.criticalDamagePercentage << endl;
-                break;
-            case 3:
-                cout << "\tEvasion : " << item.chanceOfEvasion << endl;
-                break;
-        }
-    }
-    else
-    {
-        switch(item.id)
-        {
-            case 0:
-                cout << "\tHP : " << item.hp << endl;
-                break;
-            case 1:
-                cout << "\tMana : " << item.mana << endl;
-                break;
-            case 2:
-                cout << "\tEvasion : " << item.chanceOfEvasion << endl;
-                break;
-            case 3:
-                cout << "\tCritical Chance : " << item.chanceOfCriticalDamage << endl;
-                break;
-        }
-    }
-}
-
 void ShowPlayerStats(Character &player)
 {
     cout << "Stats\n"
@@ -114,7 +67,7 @@ void ShowPlayerEquippedGear(Character &player, bool showWithNumbering)
             if (!player.equipped[i].isNull)
             {
                 hasGear = true;
-                ShowItemStats(player.equipped[i]);
+                player.equipped[i].ShowInfo();
                 cout << endl;
             }
         }
@@ -127,7 +80,7 @@ void ShowPlayerEquippedGear(Character &player, bool showWithNumbering)
             {
                 hasGear = true;
                 cout << i + 1 << ". " << player.equipped[i].name << endl;
-                ShowItemStats(player.equipped[i], false);
+                player.equipped[i].ShowInfo(false);
                 cout << endl;
             }
         }
@@ -147,7 +100,7 @@ void ShowPlayerInventory(Character &player)
     {
         for (int i = 0; i < amountOfItems; i++)
         {
-            ShowItemStats(player.inventory[i]);
+            player.inventory[i].ShowInfo();
             cout << endl;
         }
     }
@@ -182,7 +135,7 @@ void ShowPlayerEquippableGear(Character &player)
         {
             hasEquippableItems = true;
             cout << i + 1 << ". " << player.inventory[i].name << endl;
-            ShowItemStats(player.inventory[i], false);
+            player.inventory[i].ShowInfo(false);
             cout << endl;
         }
     }

@@ -7,8 +7,6 @@
 
 void OptionsHome();
 
-void ShowItemStats(Item item, bool showName = true);
-
 void ShowPlayerStats(Character &player);
 void ShowPlayerSkills(Character &player);
 void ShowPlayerEquippedGear(Character &player, bool showWithNumbering = false);

@@ -201,7 +201,7 @@ void ShowAvailableItemsInInventory(Character &player)
         {
             hasItem = true;
             cout << index++ << ". " << player.inventory[i].name << endl;
-            ShowItemStats(player.inventory[i], false);
+            player.inventory[i].ShowInfo(false);
         }
     }
     if (!hasItem) cout << "\tNone" << endl;

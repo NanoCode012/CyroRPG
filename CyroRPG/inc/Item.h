@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include "./Random.h"
 
 using namespace std;
@@ -31,4 +32,6 @@ struct Item
     float mana = 0;
 
     void SetType(int type, int rarity, bool wearable);
+
+    void ShowInfo(bool showName = true);
 };
