@@ -7,9 +7,9 @@ A text-based RPG made in mostly C. Challenge from https://www.daniweb.com/progra
 2. Run Command Prompt (Windows) or Terminal (macOS/Unix)
 3. Drag the binary file into Command Prompt or Terminal, and press enter
 4. Have fun Playing!
-
+D
 ### Note:
-Player data will be saved in the current directory of the Command Prompt (Windows) or Terminal(macOS/Unix) as `Data.txt`
+Player data will be saved in the current directory of the Command Prompt (Windows) or Terminal(macOS/Unix) as `/Data/Data.txt`
 
 ## Issues/Bug Report:
 1. Go to [Issues](https://github.com/NanoCode012/CyroRPG/issues)
