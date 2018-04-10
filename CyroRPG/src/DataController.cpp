@@ -4,6 +4,15 @@ using namespace std;
 
 string path = "./Data/Data.txt";
 
+bool CanReadData()
+{
+
+    ifstream readStream(path);
+    bool canRead = readStream.is_open();
+    readStream.close();
+    return canRead;
+}
+
 void SaveData(Character &player)
 {
     ofstream writeStream;

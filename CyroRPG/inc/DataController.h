@@ -2,6 +2,8 @@
 #include <fstream>
 #include "./Character.h"
 
+bool CanReadData();
+
 void SaveData(Character &player);
 void LoadData(Character &player);
 

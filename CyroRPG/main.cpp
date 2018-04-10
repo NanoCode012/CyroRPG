@@ -24,23 +24,33 @@ void PrintLegend()
 
 int main(){
     Character player;
-    int opt;
+    int opt = 0;
     string name;
     
     PrintTitle();
-    PrintLine();
 
-    cout << "Do you want to load previous save data? " << endl
-         << "Option : "                                 << endl
-         << "1. Yes"                                    << endl
-         << "2. No"                                     << endl
-         << "Opt : ";
-    cin >> opt;
-    if (opt == 1)
+    if (CanReadData())
     {
-        LoadData(player);
+        PrintLine();
+        cout << "Do you want to load previous save data? " << endl
+            << "Option : "                                 << endl
+            << "1. Yes"                                    << endl
+            << "2. No"                                     << endl
+            << "Opt : ";
+        cin >> opt;
+        if (opt == 1)
+        {
+            LoadData(player);
+        }
+        else
+        {
+            cout << "Data not loaded" << endl;
+        }
+
     }
-    else if (opt == 2)
+
+    //Check if they loaded data(opt == 1), if they do not, then show the below
+    if (opt != 1)
     {
         PrintLine();
         PrintLegend();
@@ -84,10 +94,6 @@ int main(){
         cout << "\"Calm down. Isn't this what I'm fighting for? I will resurrect my clan and find out why. "
             << "Why and How we fell from Kings to Outcasts!\", " << name << " declared."                                               
             << endl;
-    }
-    else
-    {
-        CleanExit("Invalid Option");
     }
 
     while(true)
