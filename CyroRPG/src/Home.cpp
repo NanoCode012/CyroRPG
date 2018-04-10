@@ -93,7 +93,7 @@ void ShowPlayerSkills(Character &player)
     {
         for (int i = 0; i < amountOfSkills; i++)
         {
-            cout << "\t" << player.skills[i].name << "(Lvl: " << player.skills[i].level << ")" << endl;
+            cout << "\t" << player.skills[i].name << " (Lvl: " << player.skills[i].level << ")" << endl;
         }
     }
     else
