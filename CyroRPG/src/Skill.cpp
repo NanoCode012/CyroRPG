@@ -1,5 +1,7 @@
 #include "../inc/Skill.h"
 
+using namespace std;
+
 void Skill::SetType(int skillID, int lvl)
 {
     id = skillID;
@@ -97,6 +99,7 @@ void Skill::SetType(int skillID, int lvl)
         case 5:
             name = "Frostbite";
             isActive = true;
+            amountOfTurnsDamageReductionPercentage = 1;
             switch(level)
             {
                 case 1:
@@ -152,18 +155,18 @@ void Skill::SetType(int skillID, int lvl)
             {
                 case 1:
                     chanceOfEvasion = 0.1;
-                    chanceOfDamageReduction = 0.3;
-                    damageReduction = 20;
+                    chanceOfDamageReduction = 0.2;
+                    damageReduction = 10;
                     break;
                 case 2:
                     chanceOfEvasion = 0.2;
-                    chanceOfDamageReduction = 0.3;
-                    damageReduction = 30;
+                    chanceOfDamageReduction = 0.4;
+                    damageReduction = 25;
                     break;
                 case 3:
                     chanceOfEvasion = 0.3;
-                    chanceOfDamageReduction = 0.3;
-                    damageReduction = 40;
+                    chanceOfDamageReduction = 0.6;
+                    damageReduction = 50;
                     break;
             }
             break;
@@ -191,23 +194,110 @@ void Skill::SetType(int skillID, int lvl)
         case 9:
             name = "Arrow Burst";
             isActive = true;
-            chanceOfFiringAgain[0] = 0;
-            chanceOfFiringAgain[1] = 0;
+            for (int i = 0; i < maxTimesOfFiringAgain; i++) chanceOfFiringAgain[i] = -1;
             switch(level)
             {
                 case 1:
                     damage = 150;
                     chanceOfFiringAgain[0] = 0.3;
+                    manaCost = 5;
                     break;
                 case 2:
                     damage = 225;
                     chanceOfFiringAgain[0] = 0.5;
+                    manaCost = 8;
                     break;
                 case 3:
                     damage = 325;
                     chanceOfFiringAgain[0] = 0.75;
                     chanceOfFiringAgain[1] = 0.25;
+                    manaCost = 15;
                     break;
+            }
+            break;
+    }
+}
+
+void Skill::ShowInfo(bool showName)
+{
+
+    if (showName) cout << "\tName : "     << name  << endl;
+
+    cout << "\tLevel : "        << level << endl
+         << "\tActive : "       << ((isActive) ? "Yes" : "No") << endl
+         << "\tMana Cost : "    << manaCost << endl;
+    
+    cout << "\tInfo : ";
+    switch(id)
+    {
+        //Guard
+        case 1:
+            cout << "Increases defense by " << defenseIncreasePercentage * 100 << "%" << endl;
+            break;
+        //Sword Barrage
+        case 2:
+            cout << "Attacks " << damageMultiplier << " times quickly in succession" << endl;
+            break;
+        //Shock
+        case 3:
+            cout << "Stuns enemy for " << stunnedTurns 
+                 << " turns and deal " << damage << " damage" << endl;
+            break;
+        //Hell Fire
+        case 4:
+            cout << "Deals " << damage 
+                 << " damage and burns enemy by " << damageOverTime 
+                 << " damage over time for " << amountOfTurnsDOT << " turn(s)" << endl;
+            break;
+        //Frostbite
+        case 5:
+            cout << "Damages enemy by " << damage 
+                 << " and reduces enemy damage by " << damageReductionPercentage * 100
+                 << "% for " << amountOfTurnsDamageReductionPercentage << " turn(s)" << endl;
+        break;
+        //Thunder Strike
+        case 6:
+            cout << "Does " << damage 
+                 << " damage and has a " << chanceOfStun
+                 << "% of stunning enemy for " << stunnedTurns
+                 << " turn(s) ";
+            if (chanceOfDrainHP > 0)
+            {
+                cout << " with a " << chanceOfDrainHP * 100 
+                     << "% chance of draining " << hpDrainOfMaxPercentage * 100
+                     << "% of the enemy's hp";
+            }
+            cout << endl;
+            break;
+        //Swift
+        case 7:
+            cout << "Heightens evasion by " << chanceOfEvasion * 100
+                 << "% and has a " << chanceOfDamageReduction * 100
+                 << "% chance of reducing " << damageReduction
+                 << " damage of the enemy's attack" << endl;
+            break;
+        //Sharp Eye
+        case 8:
+            cout << "Increases critical chance by " << chanceOfCriticalDamage * 100
+                 << "% and boosts critical multiplier by " << criticalDamagePercentage * 100 
+                 << "%" << endl;
+            break;
+        //Arrow Burst
+        case 9:
+            cout << "Inflicts " << damage 
+                 << " damage and has ";
+            for (int i = 0; i < maxTimesOfFiringAgain; i++)
+            {
+                cout << chanceOfFiringAgain[i] * 100 << "% chance of allowing " 
+                    << i + 1 << " more turn(s) to attack" << endl;
+                if (chanceOfFiringAgain[i + 1] > 0)
+                {
+                    cout << " with another ";
+                }
+                else
+                {
+                    break;
+                }
             }
             break;
     }
