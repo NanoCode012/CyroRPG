@@ -4,9 +4,12 @@ A text-based RPG made in mostly C. Challenge from https://www.daniweb.com/progra
 ## How to Play:
 1. Download the compressed binary file in [Releases](https://github.com/NanoCode012/CyroRPG/releases) or clone/download the source code and compile it yourself
 2. Un-compress downloaded file, if needed
-2. Run Command Prompt (Windows) or Terminal (macOS)
+2. Run Command Prompt (Windows) or Terminal (macOS/Unix)
 3. Drag the binary file into Command Prompt or Terminal, and press enter
 4. Have fun Playing!
+
+### Note:
+Player data will be saved in the current directory of the Command Prompt (Windows) or Terminal(macOS/Unix) as `Data.txt`
 
 ## Issues/Bug Report:
 1. Go to [Issues](https://github.com/NanoCode012/CyroRPG/issues)
@@ -16,3 +19,4 @@ A text-based RPG made in mostly C. Challenge from https://www.daniweb.com/progra
 
 ## License
 See LICENSE file for more info
+
