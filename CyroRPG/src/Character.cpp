@@ -62,7 +62,7 @@ void Character::SetClass(int index)
             amountOfExtraActionAtStartTurn = 2;
             break;
     }
-    SetSkillForClass(role);
+    // SetSkillForClass(role);
 }
 
 string Character::GetClassName()

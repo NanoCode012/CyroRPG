@@ -58,9 +58,16 @@ void MoveCharacter(Character &player, int opt, bool &exitStatus)
             case 2:
                 PrintLine();
                 cout << "Status\n" << endl;
-                for (int i = 0; i < player.amountOfMissions; i++)
+                if (player.amountOfMissions <= 0)
                 {
-                    player.missions[i].ShowInfo();
+                    cout << "\tNone" << endl;
+                }
+                else
+                {
+                    for (int i = 0; i < player.amountOfMissions; i++)
+                    {
+                        player.missions[i].ShowInfo();
+                    }
                 }
                 break;
             case 3:
@@ -254,7 +261,15 @@ void CalculateMonsterAttack(Monster &monster, Character &player, int opt)
     if (monster.amountOfTurnsDOT > 0)
     {
         monster.amountOfTurnsDOT--;
-        monster.DamageCalculation(monster.damagedOverTime);
+        if (monster.DamageCalculation(monster.damagedOverTime))
+        {
+            cout << "Enemy got damaged by " << monster.damagedOverTime 
+                 << " due to status effect" << endl;
+        }
+        else
+        {
+            cout << "Status effect had no effect on enemy this round" << endl;
+        }
     }
     if (monster.IsAlive())
     {

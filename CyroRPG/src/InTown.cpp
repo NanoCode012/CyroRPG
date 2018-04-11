@@ -120,10 +120,17 @@ void MissionBoard(Character &player)
             << "Opt : ";
         cin >> opt;
         if (opt == 3) break;
+        PrintLine();
         switch(opt)
         {
             case 1:
                 ShowMissionStatus(player);
+                if (player.amountOfMissions <= 0)
+                {
+                    cout << "You do not have any missions that can be shown" << endl;
+                    break;
+                }
+
                 cout << "Which do you want to expand upon?" << endl
                      << "Opt : ";
                 cin >> opt;
@@ -133,6 +140,7 @@ void MissionBoard(Character &player)
                     break;
                 }
 
+                PrintLine();
                 player.missions[opt - 1].ShowInfo();
                 cout << "Options : "    << endl
                      << "1. Turn in"    << endl
@@ -181,6 +189,7 @@ void MissionBoard(Character &player)
                     player.missions[player.amountOfMissions] = missions[opt - 1];
                     player.amountOfMissions++;
                     missionsTaken[opt - 1] = true;
+                    cout << "Mission accepted" << endl;
                 }
                 break;
             default:
@@ -286,7 +295,7 @@ void ItemShop(Character &player)
                 }
                 break;
             case 2:
-                cout << "What would you like to sell?" << endl;
+                cout << "What would you like to sell?\n" << endl;
                 if (player.amountOfItems > 0)
                 {
                     for (int i = 0; i < player.amountOfItems; i++)
@@ -303,7 +312,7 @@ void ItemShop(Character &player)
                     }
 
                     player.gold += player.inventory[opt - 1].cost / 2;
-                    cout << "Item sold for " << player.inventory[opt - 1].cost / 2;
+                    cout << "Item sold for " << player.inventory[opt - 1].cost / 2 << "G" << endl;
                     player.SwapItemToLast(opt - 1, false, true);
                 }
                 else
@@ -383,7 +392,7 @@ void Academy(Character &player)
     PrintLine();
 
     cout << "Hello " << player.name << "!" << endl
-         << "Welcome back to the Academy!" << endl;
+         << "Welcome back to the Academy!\n" << endl;
 
     int opt;
     int maxSkill = player.maxAmountOfSkills;
@@ -406,12 +415,20 @@ void Academy(Character &player)
         switch(opt)
         {
             case 1:
-                ShowAvailableSkills(player, false);
+                cout << "Skills (" << player.amountOfSkills << "/" << player.maxAmountOfSkills << ")\n" << endl;
+                if (player.amountOfSkills <= 0)
+                {
+                    cout << "\tNone" << endl;
+                }
+                else
+                {
+                    ShowAvailableSkills(player, false);
+                }
                 break;
             case 2:
                 if (player.amountOfSkills < player.maxAmountOfSkills)
                 {
-                    cout << "Which skill would you like to learn?" << endl;
+                    cout << "Which skill would you like to learn?\n" << endl;
                     ShowUnlearntSkill(player, learnt);
                     cout << "Opt : ";
                     cin >> opt;
@@ -422,11 +439,11 @@ void Academy(Character &player)
                     }
                     if (!learnt[opt])
                     {
-                        temp.SetType(opt);
+                        temp.SetType((player.role - 1) * 3 + opt);
                         if (player.gold >= temp.learnCost)
                         {
                             cout << "Skill learnt!" << endl;
-                            player.SetSkill(opt);
+                            player.SetSkill((player.role - 1) * 3 + opt);
                         }
                         else
                         {
@@ -444,7 +461,7 @@ void Academy(Character &player)
                 }
                 break;
             case 3:
-                cout << "Which skill would you like to upgrade?" << endl;
+                cout << "Which skill would you like to upgrade?\n" << endl;
                 ShowAvailableSkills(player);
                 cout << "Opt : ";
                 cin >> opt;

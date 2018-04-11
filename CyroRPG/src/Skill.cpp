@@ -256,7 +256,7 @@ void Skill::ShowInfo(bool showName)
             cout << "Damages enemy by " << damage 
                  << " and reduces enemy damage by " << damageReductionPercentage * 100
                  << "% for " << amountOfTurnsDamageReductionPercentage << " turn(s)" << endl;
-        break;
+            break;
         //Thunder Strike
         case 6:
             cout << "Does " << damage 
@@ -265,7 +265,7 @@ void Skill::ShowInfo(bool showName)
                  << " turn(s) ";
             if (chanceOfDrainHP > 0)
             {
-                cout << " with a " << chanceOfDrainHP * 100 
+                cout << "with a " << chanceOfDrainHP * 100 
                      << "% chance of draining " << hpDrainOfMaxPercentage * 100
                      << "% of the enemy's hp";
             }
