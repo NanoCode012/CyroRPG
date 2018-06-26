@@ -2,7 +2,7 @@
 
 using namespace std;
 
-string path = "./Data/Data.txt";
+string path = "Data.txt";
 
 bool CanReadData()
 {

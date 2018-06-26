@@ -223,6 +223,7 @@ void ItemShop(Character &player)
     for (int i = 0; i < amountOfItemsInShop; i++)
     {
         items[i] = GenerateItem(player.level);
+		itemsBought[i] = false;
     }
 
     int opt;
